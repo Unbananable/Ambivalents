@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/06 17:01:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/06 17:26:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_lem
 	int		**links; //adjacency matrix
 }				t_lem;
 
-void			error(void);
+void			error(t_lem *lem);
 
 int				get_nb_rooms(t_lem *lem);
 void			parser(t_lem *lem);
