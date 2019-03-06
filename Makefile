@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/06 12:13:47 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/06 15:47:31 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,16 @@ NAME = lem-in
 
 CFLAGS = -Wall -Wextra -Werror 
 
-SRC =
+SRC = main.c \
+	  get_nb_rooms.c \
+	  parser.c \
+	  end.c \
+	  dev_tools.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-HDR = 
+HDR = lem_in.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
