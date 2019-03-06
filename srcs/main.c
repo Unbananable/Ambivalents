@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/06 16:03:35 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:56:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			main(int ac, char **av)
 		usage();
 
 	/* PARSING */
-	if ((lem.nb_rooms = get_nb_rooms()) <= 1)
+	if ((lem.nb_rooms = get_nb_rooms(&lem)) <= 1)
 		error();
 	initialize(&lem);
 	parser(&lem);
