@@ -6,16 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/06 16:03:35 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:47:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 static void	usage(void)
 {
-	ft_putstr("usage: ./lem-in\n");
-	ft_putstr("(NB: lem-in reads the stadard input, use ./lem-in < file to ");
+	ft_putstr("usage: ./lem_in\n");
+	ft_putstr("(NB: lem_in reads the stadard input, use ./lem_in < file to ");
 	ft_putstr("read from a file\n");
 }
 
