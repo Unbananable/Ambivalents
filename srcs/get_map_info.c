@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:51:30 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/07 17:48:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:09:35 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,32 @@ void	set_ant_number(t_lem *lem)
 	lem->nb_ants = ft_atoi(lem->input);
 }
 
-void	set_rooms(t_lem *lem) // on considere que l'input est valide
+void	set_rooms(t_lem *lem)
 {
 	int		i;
+	int		j;
+	int		count;
 
 	i = -1;
+	count = -1;
 	while (lem->input[++i] != '\n')
 		;
-	if (
+	while (lem->input[++i])
+	{
+		if (lem->input[i] == '#')
+			while (lem->input[++i] != '\n')
+				;
+		else
+		{
+			count++;
+			if (count < lem->nb_rooms)
+			{
+				j = -1;
+				while (lem->input[i] != ' ')
+					lem->rooms[count]->id[++j] = lem->input[i++];
+				while (lem->input[i++] != '\n')
+					;
+				i--;
+		}
+	}
 }

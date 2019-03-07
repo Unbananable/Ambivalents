@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/07 17:44:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:05:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int				count_room_and_fill_input(t_lem *lem);
 void			set_ant_number(t_lem *lem);
 void			set_rooms(t_lem *lem);
 void			fill_adjacency_matric(t_lem *lem);
-void			parser(t_lem *lem); //empty
+void			parser(t_lem *lem);
 
 /* DEV */
-void			display_rooms(t_lem lem); //empty
-void			display_links(t_lem lem); //empty
+void			display_rooms(t_lem lem);
+void			display_links(t_lem lem);
 
 #endif
