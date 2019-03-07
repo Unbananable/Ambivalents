@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/07 18:05:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 20:12:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ typedef struct	s_lem
 void			error(t_lem *lem);
 
 int				count_room_and_fill_input(t_lem *lem);
-void			set_ant_number(t_lem *lem);
-void			set_rooms(t_lem *lem);
-void			fill_adjacency_matric(t_lem *lem);
+void			set_nb_ants(t_lem *lem, char *str);
+void			set_rooms(t_lem *lem, char *str);
 void			parser(t_lem *lem);
 
 /* DEV */

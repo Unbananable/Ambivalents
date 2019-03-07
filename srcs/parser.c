@@ -6,9 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/06 17:44:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/07 20:10:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "lem_in.h"
 
 static void	next_line(char *input, int *i)
 {
@@ -40,16 +42,13 @@ void	parser(t_lem *lem)
 					error(lem); //erreur si start est a un autre endroit que dans les rooms
 				// MARQUER LA ROOM COMME END
 		}
-		else if (parse_step = 0 && lem->input[i] > '0' && lem->input[i] <= '9')
-		{
-			lem->nb_ants = ft_atoi(lem->input + i); // manque securite s'il y a des trucs apres le nombre de fourmis sur la ligne
-			parse_step = 1;
-		}
-		else if (parse_step = 1 && input[i] != 'L')
-			// CHOPPER LES INFOS DE LA ROOM
+		else if (parse_step == 0)
+			parse_step = set_nb_ants(lem, lem->input + (i - 1));
+		else if (parse_step == 1 && lem->input[i] != 'L')
+			parse_step = set_rooms(lem, lem->input + (i - 1));
 		else if (parse != 2)
 			error (lem); // erreur si il n'y a pas de ligne avec le nb de fourmis, si le nombre de fourmis est 0, si une room commence par un 'L'
-		else if (parse_step = 2 && input[i] != 'L')
+		else if (parse_step == 2 && lem->input[i] != 'L')
 			// AJOUTER LE LINK A LA MATRICE
 		else 
 			input[i] = 0; // on coupe ici l'input (on ignore la suite)
