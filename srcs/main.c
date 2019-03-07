@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/07 16:14:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:38:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	usage(void)
 {
-	ft_putstr("usage: ./lem_in\n");
-	ft_putstr("(NB: lem_in reads the stadard input, use ./lem_in < file to ");
-	ft_putstr("read from a file\n");
+	ft_putstr_fd("usage: ./lem_in\n", 2);
+	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
+	ft_putstr_fd("./lem_in < file to read from a file\n", 2);
 }
 
 static void	initialize(t_lem *lem)
