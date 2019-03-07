@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:51:30 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/06 18:00:54 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 13:04:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		count_room_and_fill_input(t_lem *lem)
 			else
 			{
 				count += (buff[i] == '\n' || !stop) ? 1 : 0;
-				stop = (buff[i] == '-') ? 1 : 0; //Ajouter gestion des salles avec un '-'
+				stop = (buff[i] == '-') ? 1 : 0;
+				stop = (buff[i] == ' ' && stop) ? 0 : 1;
 			}
 		}
 		lem->input = ft_realloc(lem->input, sizeof(char) * (ft_strlen(lem->input) + size)); // Pas besoin de +1 je penses mais je laisse ça là en cas de segfault hein (y)
