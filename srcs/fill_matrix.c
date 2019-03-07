@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/07 16:15:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:23:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	fill_adjacency_matrix(t_lem *lem) //Ne sera appelé que si l'input a deja �
 				// Deux difficultés:
 				// 1: Identifier nom1 et nom2 si un des deux, ou les deux, ont des '-'
 				// 2: Sur le resultat(genre les lignes qui disent que la fourmis va dans telle ou telle room), comment identifier le fait que la room définie par link[indice_1][indice_2] est la room qui porte le nom SOME_NAME (Proposition: rajouter les coord de link dans t_room ?)
+/* Le truc pourrait ressembler à...
+				en haut: int x = -1, int y = -1;
+				while (?, dependance sur ++x)
+					while (?, dependance sur ++y)
+						links[x][++y] = (is_link(name1, name2, lem->input)) ? 1 : 0*/
 			}
 		}
 	}
