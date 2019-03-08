@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+         #
+#    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/02/18 15:27:32 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/08 11:57:57 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,8 @@ SRC_NAMES = ft_memset.c \
 	  ft_tabdel.c \
 	  ft_fopen.c \
 	  ft_fclose.c \
-	  ft_fgetc.c
+	  ft_fgetc.c \
+	  ft_char_realloc.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_NAMES))
 OBJ_DIR = obj
 OBJ_NAMES = $(SRC_NAMES:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/07 17:38:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:58:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	initialize(t_lem *lem)
 	if (lem->links && lem->links[0])
 		ft_bzero(lem->links, lem->nb_rooms * lem->nb_rooms);
 	if (!lem->rooms || !lem->links || !lem->links[0])
-		error();
+		error(lem);
 }
 
 int			main(int ac, char **av)
@@ -48,14 +48,15 @@ int			main(int ac, char **av)
 
 	if (ac != 1)
 		usage();
+	av += 0;
 	/* PARSING */
 
-	if ((lem.nb_rooms = count_room_and_fill_input(&lem)) <= 1)
-		error();
+	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
+		error(&lem);
 	initialize(&lem);
 	parser(&lem);
-//	display_rooms(lem);
-//	display_adj_matix(lem);
+	display_rooms(lem);
+	display_adj_matrix(lem);
 
 	/* CALCUL DU CHEMIN */
 

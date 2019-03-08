@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/08 11:16:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:58:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int     		fill_adjacency_matrix(t_lem *lem, char *str);
 
 /* DEV */
 void			display_rooms(t_lem lem);
-void			display_links(t_lem lem);
+void			display_adj_matrix(t_lem lem);
 
 #endif

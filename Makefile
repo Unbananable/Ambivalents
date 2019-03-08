@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/07 16:17:38 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/08 11:47:33 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME = lem-in
 CFLAGS = -Wall -Wextra -Werror 
 
 SRC = main.c \
-	  fill_matric.c \
-	  get_map_info.c \
+	  count_rooms_and_fill_input.c \
 	  parser.c \
+	  parser_steps.c \
 	  end.c \
 	  dev_tools.c
 SRCSFD = srcs/

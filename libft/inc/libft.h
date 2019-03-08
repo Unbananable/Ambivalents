@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 15:38:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:57:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void				ft_tabdel(char **tab);
 t_file				*ft_fopen(const char *path);
 int					ft_fclose(t_file *stream);
 int					ft_fgetc(t_file *stream);
+char				*ft_char_realloc(char *ptr, size_t size);
 
 #endif
