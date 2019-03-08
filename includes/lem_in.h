@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/08 11:58:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:13:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define LEM_IN_H
 
 # include "libft.h"
-#include <unistd.h>
+# include <unistd.h>
+
+# define BUFF_SIZE 4096
 
 typedef struct	s_room
 {

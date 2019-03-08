@@ -6,11 +6,13 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 11:58:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:15:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 static void	usage(void)
 {
@@ -51,12 +53,19 @@ int			main(int ac, char **av)
 	av += 0;
 	/* PARSING */
 
+printf("/// IN MAIN ///");
+printf("1/6");
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
 		error(&lem);
+printf("2/6");
 	initialize(&lem);
+printf("3/6");
 	parser(&lem);
+printf("4/6");
 	display_rooms(lem);
+printf("5/6");
 	display_adj_matrix(lem);
+printf("6/6");
 
 	/* CALCUL DU CHEMIN */
 

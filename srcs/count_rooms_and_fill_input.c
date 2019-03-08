@@ -6,13 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 10:46:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:14:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/* Ajouter realloc dans libft */
 
 int		count_rooms_and_fill_input(t_lem *lem)
 {
