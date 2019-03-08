@@ -6,11 +6,13 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:11:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 17:24:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+#include <stdio.h>
 
 int		set_nb_ants(t_lem *lem, char *str)
 {
@@ -59,14 +61,11 @@ int		set_rooms(t_lem *lem, char *str, int *current_room)
 	if ((i_end_id = is_room(str, i - 1)) == -1 && *current_room != lem->nb_rooms - 1)
 		return (-1);
 	if(!(lem->rooms[*current_room].id = ft_strsub(str, 0, i_end_id + 1)))
-	{
-		i = -1;
-		while (++i < *current_room)
-			ft_strdel(&(lem->rooms[i].id));
-		free(lem->rooms);
-		lem->rooms = NULL;
 		error(lem);
-	}
+	i = -1;
+	while (++i < *current_room)
+		if (ft_strequ(lem->rooms[i].id, lem->rooms[*current_room].id))
+			error(lem);
 	lem->rooms[*current_room].is_full = 0;
 	(*current_room)++;
 	return(1);
@@ -88,10 +87,12 @@ int         fill_adjacency_matrix(t_lem *lem, char *str)
     t_link  link;
     t_link  search;
 
+printf("\t\t/// IN FILL_ADJACENCY_MATRIX ///\n");
     init_links(&link, &search);
     i = 0;
     search.st = -1;
     search.nd = -1;
+printf("\t\tLOOP1\n");
     while (str[i] && str[i] != '\n')
     {
         if (str[i] == '-')
@@ -99,14 +100,19 @@ int         fill_adjacency_matrix(t_lem *lem, char *str)
             j = i;
             while (str[j] && str[j] != '\n')
                 j++;
+			str[i] = 0;
+			str[j] = 0;
             k = -1;
+printf("\t\tst: %s / nd: %s\n", str, str + i + 1);
             while (++k < lem->nb_rooms)
             {
-                if (ft_strnequ(str, lem->rooms[k].id, i - 1))
+                if (ft_strequ(str, lem->rooms[k].id))
                     search.st = k;
-                if (ft_strnequ(str + i + 1, lem->rooms[k].id, j - i - 1))
+                if (ft_strequ(str + i + 1, lem->rooms[k].id))
                     search.nd = k;
             }
+			str[i] = '-';
+			str[j] = '\n';
             if (search.st != -1 && search.nd != -1)
             {
                 if (link.st != -1)
@@ -117,6 +123,10 @@ int         fill_adjacency_matrix(t_lem *lem, char *str)
         }
         i++;
     }
+printf("\t\t/LOOP1\n");
+printf("\t\tlink : %.*s (st: %d, nd: %d)\n", i, str, link.st, link.nd);
+	if (link.st == -1 || link.nd == -1)
+		return (-1);
     lem->links[link.st][link.nd] = 1;
     lem->links[link.nd][link.st] = 1;
     return(2);

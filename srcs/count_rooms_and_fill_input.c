@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 15:20:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:41:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	add_buffer(t_lem *lem, char *buff, int rd_size)
 	lem->input = ft_strncat(lem->input, buff, rd_size); //strncat est plus lourd que strcat.. a-t-on vraiment besoin de la "sécurité" de strncat ? a retirer en cas de manque de perfs, et voir.
 }
 
-int			is_room(char *str, int i)
+static int	is_room(char *str, int i)
 {
 	if (str[i] < '0' || str[i] > '9')
 		return (0);

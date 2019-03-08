@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:35:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:47:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	usage(void)
 	ft_putstr_fd("usage: ./lem_in\n", 2);
 	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
 	ft_putstr_fd("./lem_in < file to read from a file)\n", 2);
+	exit(0);
 }
 
 static void	initialize(t_lem *lem)
@@ -26,6 +27,9 @@ static void	initialize(t_lem *lem)
 	int		i;
 
 	lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms);
+	i = -1;
+	while (++i < lem->nb_rooms)
+		lem->rooms[i].id = NULL;
 	lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms);
 	if (lem->links)
 	{
@@ -53,7 +57,7 @@ int			main(int ac, char **av)
 	av += 0;
 	/* PARSING */
 
-printf("/// IN MAIddN ///\n");
+printf("/// IN MAIN ///\n");
 printf("1/6\n");
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
 {printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
