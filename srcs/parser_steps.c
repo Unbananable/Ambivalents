@@ -1,57 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_nb_rooms.c                                     :+:      :+:    :+:   */
+/*   parser_steps.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 16:51:30 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/07 20:48:27 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
+/*   Updated: 2019/03/08 11:42:01 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "libft.h"
-#include <unistd.h>
-
-/* Ajouter realloc dans libft */
-
-int		count_room_and_fill_input(t_lem *lem)
-{
-	int		i;
-	int		count;
-	int		stop;
-	int		size;
-	char	buff[BUFF_SIZE];
-
-	i = -1;
-	stop = 0;
-	size = 0;
-	count = -1;
-	lem->input = NULL;
-	while ((size = read(0, buff, BUFF_SIZE)) > 0)
-	{
-		buff[size - 1] = '\0';
-		while (buff[++i])
-		{
-			if (buff[i] == '#')
-				while (buff[++i] != '\n')
-					;
-			else
-			{
-				count += (buff[i] == '\n' || !stop) ? 1 : 0;
-				stop = (buff[i] == '-') ? 1 : 0;
-				stop = (buff[i] == ' ' && stop) ? 0 : 1;
-			}
-		}
-		if (!(lem->input = ft_char_realloc(lem->input, sizeof(char) * (ft_strlen(lem->input) + size)))) // Pas besoin de +1 je penses mais je laisse ça là en cas de segfault hein (y)
-			return (0);
-		lem->input = ft_strncat(lem->input, buff, size); //strncat est plus lourd que strcat.. a-t-on vraiment besoin de la "sécurité" de strncat ? a retirer en cas de manque de perfs, et voir.
-	}
-	if (size < 0)
-		return (0);
-	return (count); // returns -1 si y a des fourmis mais 0 salles (ou parametres fourmis non valide), renvoie 0 si le nombre de salle est zero ou si read a rencontré une erreur, renvoie le nombre de salles sinon
-}
 
 int		set_nb_ants(t_lem *lem, char *str)
 {
@@ -79,7 +38,7 @@ int		set_nb_ants(t_lem *lem, char *str)
 			break ;
 	if ((lem->nb_ants = ft_atoi(str)) == 0 || (i == 1
 				&& str[0] == 0) || i == 0 || str[i] == '\n'
-				|| str[i + 1] != '\n')
+				|| str[i + 1] != '\n')
 		return (-1);
 	return (1);
 }
@@ -112,16 +71,66 @@ int		set_rooms(t_lem *lem, char *str)
 			return (-1);
 	}
 /* Dans le while précédent, j'ai voulu tester le format de la ligne de room, (j'ai au passage trouvé la len du nom), si le format est incorrect, on return -1, sinon on continue dans la partie ci-dessous, qui set le nom dans l'id adequat. */
-	if (!(lem->rooms[count]->id = ft_strnew(j)))
+	if (!(lem->rooms[count].id = ft_strnew(j)))
 		return (-1);
 	i = -1;
 	j = -1;
 	while (str[++i] && str[++i] != ' ')
-		lem->rooms[count]->id[++j] = str[i++];
-	lem->rooms[count]->id[++j] = '\n';
-	lem->rooms[count]->is_full = 0;
+		lem->rooms[count].id[++j] = str[i++];
+	lem->rooms[count].id[++j] = '\n';
+	lem->rooms[count].is_full = 0;
 	if (++count == lem->nb_rooms)
 		return (2);
 	return (1);
 /* A la fin, on check si on a atteint la derniere room ou pas, pour savoir si on peut passer à l'étape des links(2) ou continuer avec les rooms(1). */
+}
+
+static void init_links(t_link *link1, t_link *link2)
+{
+    link1->st = -1;
+    link1->nd = -1;
+    link2->st = -1;
+    link2->nd = -1;
+}
+
+int         fill_adjacency_matrix(t_lem *lem, char *str)
+{
+    int     i;
+    int     j;
+    int     k;
+    t_link  link;
+    t_link  search;
+
+    init_links(&link, &search);
+    i = 0;
+    search.st = -1;
+    search.nd = -1;
+    while (str[i] && str[i] != '\n')
+    {
+        if (str[i] == '-')
+        {
+            j = i;
+            while (str[j] && str[j] != '\n')
+                j++;
+            k = -1;
+            while (++k < lem->nb_rooms)
+            {
+                if (ft_strnequ(str, lem->rooms[k].id, i - 1))
+                    search.st = k;
+                if (ft_strnequ(str + i + 1, lem->rooms[k].id, j - i - 1))
+                    search.nd = k;
+            }
+            if (search.st != -1 && search.nd != -1)
+            {
+                if (link.st != -1)
+                    return (-1);
+                link.st = search.st;
+                link.nd = search.nd;
+            }
+        }
+        i++;
+    }
+    lem->links[link.st][link.nd] = 1;
+    lem->links[link.nd][link.st] = 1;
+    return(2);
 }

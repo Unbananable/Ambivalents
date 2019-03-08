@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/07 20:10:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:42:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,24 @@ void	parser(t_lem *lem)
 				// MARQUER LA ROOM COMME END
 		}
 		else if (parse_step == 0)
-			parse_step = set_nb_ants(lem, lem->input + (i - 1));
+			parse_step = set_nb_ants(lem, lem->input + i);
 		else if (parse_step == 1 && lem->input[i] != 'L')
-			parse_step = set_rooms(lem, lem->input + (i - 1));
-		else if (parse != 2)
+			if ((parse_step = set_rooms(lem, lem->input + i)) = -1)
+				error(lem);
+		else if (parse_step != 2)
 			error (lem); // erreur si il n'y a pas de ligne avec le nb de fourmis, si le nombre de fourmis est 0, si une room commence par un 'L'
 		else if (parse_step == 2 && lem->input[i] != 'L')
-			// AJOUTER LE LINK A LA MATRICE
+			parse_step = fill_adjacency_matrix(lem, lem->input + i)) = -1)
 		else 
-			input[i] = 0; // on coupe ici l'input (on ignore la suite)
+			parse_step = -1;
+		if (parse_step = -1)
+		{
+			i--;
+			lem->input[i] = 0;// on coupe ici l'input (on ignore la suite)
 			//if (input[i + 1])
 			//	free(input + i + 1); // a verifier si on peut free le reste des instructions ignorees suite a une erreur
+		}
+			
 		next_line(lem->input, &i);
 	}
 }
