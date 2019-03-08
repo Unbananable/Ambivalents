@@ -3,8 +3,6 @@
 ##start
 Dig5 3 3
 ##end
-Dpv5 8 8
-Tgd3 12 12
 Bxm8 14 14
 Rn_9 15 15
 Zoa8 19 19
@@ -17,12 +15,9 @@ Vep8 38 38
 Unn6 42 42
 Mkt9 46 46
 Bgl3 51 51
-Kbr0 53 53
 Q_s2 54 54
 Gp_3 57 57
-X_a7 62 62
 Kzi4 65 65
-Ma_3 66 66
 Jir9 68 68
 Mgu9 73 73
 Yaz6 75 75
@@ -42,7 +37,6 @@ Swp8 120 120
 Ga_4 121 121
 Cmb1 124 124
 Shr5 128 128
-Qo_9 132 132
 Wpt9 137 137
 Nxj8 138 138
 Fsl2 141 141
@@ -69,7 +63,6 @@ Qke0 205 205
 Daj9 210 210
 Pfj0 214 214
 Tdx4 215 215
-Kim5 220 220
 Qlh4 223 223
 P_c9 226 226
 Ez_6 227 227
@@ -77,7 +70,6 @@ Ktq3 231 231
 Pan3 234 234
 Wrq2 239 239
 Gm_4 243 243
-O_y0 246 246
 Cie7 248 248
 P_u8 250 250
 Xu_9 251 251
@@ -111,7 +103,6 @@ Suf6 335 335
 Dig0 337 337
 Aux1 341 341
 Ce_1 343 343
-Itl3 346 346
 Cqq8 349 349
 Wgh5 351 351
 Vcv8 354 354
@@ -165,13 +156,11 @@ Gia3 487 487
 Sjb9 490 490
 Wtm5 493 493
 Jg_5 497 497
-Ndk8 501 501
 Pab2 502 502
 A_t9 505 505
 Qa_3 506 506
 Jao8 509 509
 Ulf9 511 511
-Oue2 512 512
 Ghe2 514 514
 Zlj4 517 517
 Xeh9 519 519
@@ -205,7 +194,6 @@ Abq6-Hcp8
 Qlh4-Vh_1
 Cie7-Gtl1
 Zgq2-Kgi1
-O_y0-Zgq2
 Gxf4-Fsk0
 Ga_4-Abq6
 Qke0-Zlj4
@@ -217,7 +205,6 @@ Q_s2-Ulf9
 Jao8-Q_s2
 Pab2-A_t9
 Kzi4-Wtm5
-Jir9-Ma_3
 Mgu9-Btj8
 Jcd0-Mgu9
 Dip7-Jcd0
@@ -259,7 +246,6 @@ Qmh9-Qke0
 Daj9-Qmh9
 Tdx4-Pfj0
 Cee4-Wjt9
-Qlh4-Kim5
 P_c9-Qlh4
 Ygy0-P_c9
 Ziw1-Ygy0
@@ -272,14 +258,12 @@ Xyr0-Poj8
 Wrq2-Xyr0
 Aaj5-Wrq2
 Zlt4-Aaj5
-Cie7-O_y0
 P_u8-Cie7
 Ncl7-Xu_9
 D__8-Ugt6
 Ee_1-Maj6
 Bwe0-Qdw0
 Qtf9-Bwe0
-Vah7-Dpv5
 Dms1-Vah7
 Gka6-Dms1
 Hfd6-Dim6
@@ -292,8 +276,6 @@ Vcv8-Gxf4
 Dg_7-Wwb0
 Cqq8-Wgh5
 Pul1-Cqq8
-Itl3-Pul1
-Ce_1-Itl3
 Aux1-Ce_1
 Hpu3-Dig0
 Keu8-Jdd5
@@ -320,11 +302,9 @@ W_u7-Sqq9
 Sqq9-D__8
 Ugt6-Ncl7
 Xu_9-P_u8
-O_y0-Gm_4
 Gm_4-Zlt4
 Pro2-Sqc9
 Sqc9-Pan3
-Kim5-Cee4
 Wjt9-Tdx4
 Pfj0-Daj9
 C_j8-Cmf6
@@ -338,11 +318,8 @@ Sk_3-Kab2
 Gyo5-Shk1
 Jx_3-Cpg5
 Cpg5-Bwx7
-Bwx7-Dpv5
 Dig5-Iqx4
 Fsl2-Adl4
-Wpt9-Qo_9
-Qo_9-Shr5
 Shr5-Cmb1
 Cmb1-Ga_4
 Ga_4-Swp8
@@ -359,32 +336,20 @@ Nik6-Jkj6
 Yaz6-Dip7
 Btj8-Gia3
 Gia3-Jir9
-Ma_3-Sjb9
 Sjb9-Kzi4
-Wtm5-X_a7
-X_a7-Jg_5
-Jg_5-Ndk8
-Ndk8-Gp_3
 Gp_3-Pab2
 A_t9-Qa_3
 Qa_3-Jao8
-Ulf9-Oue2
-Oue2-Ghe2
-Ghe2-Kbr0
-Kbr0-Dpv5
 Ziw1-Mkt9
 Jcd0-Unn6
 Zro2-Fjc2
 Ulf9-Xeh9
 Pad2-Ycb6
 Shk1-Pgd1
-Itl3-V_l9
 Gka6-Ogj2
 Wwb0-Flh1
 Bpb3-U_o6
 D_w4-Bxm8
-Pro2-Tgd3
 C_j8-Kkx3
-Ma_3-A_o8
 Sqq9-Nn_0
 #Here is the number of lines required: 31

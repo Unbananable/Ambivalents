@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 15:58:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 14:14:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 13:26:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 	size_t	i;
 
 	i = 0;
-	if (!src && !dst)
+	if (!src || !dst)
 		return (dst);
 	else
 	{

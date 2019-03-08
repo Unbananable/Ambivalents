@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 12:15:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:35:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	usage(void)
 {
 	ft_putstr_fd("usage: ./lem_in\n", 2);
 	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
-	ft_putstr_fd("./lem_in < file to read from a file\n", 2);
+	ft_putstr_fd("./lem_in < file to read from a file)\n", 2);
 }
 
 static void	initialize(t_lem *lem)
@@ -37,9 +37,9 @@ static void	initialize(t_lem *lem)
 					free(lem->links[i]);
 				i = lem->nb_rooms;
 			}
+			else
+				ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	}
-	if (lem->links && lem->links[0])
-		ft_bzero(lem->links, lem->nb_rooms * lem->nb_rooms);
 	if (!lem->rooms || !lem->links || !lem->links[0])
 		error(lem);
 }
@@ -53,19 +53,22 @@ int			main(int ac, char **av)
 	av += 0;
 	/* PARSING */
 
-printf("/// IN MAIN ///");
-printf("1/6");
+printf("/// IN MAIddN ///\n");
+printf("1/6\n");
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
+{printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
 		error(&lem);
-printf("2/6");
+}
+printf("2/6 (nb_rooms = %d)\n", lem.nb_rooms);
 	initialize(&lem);
-printf("3/6");
+printf("3/6\n");
 	parser(&lem);
-printf("4/6");
+printf("4/6\n");
+	printf("nb_ants = %d\n\n", lem.nb_ants);
 	display_rooms(lem);
-printf("5/6");
+printf("5/6\n");
 	display_adj_matrix(lem);
-printf("6/6");
+printf("6/6\n");
 
 	/* CALCUL DU CHEMIN */
 

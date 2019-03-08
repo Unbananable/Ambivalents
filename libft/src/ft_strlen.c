@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:46:49 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 14:13:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 12:26:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i])
-		i++;
+	if (s)
+		while (s[i])
+			i++;
 	return (i);
 }

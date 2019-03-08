@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 14:22:18 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/08 12:03:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 13:24:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_char_realloc(char *ptr, size_t size)
 	char	*p;
 	int		i;
 
-	if (!ptr)
-		return (NULL);
 	i = -1;
 	if (ptr && size == 0)
 	{

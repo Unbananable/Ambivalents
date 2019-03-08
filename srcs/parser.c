@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 12:04:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:08:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@ void	parser(t_lem *lem)
 {
 	int		i;
 	int		parse_step; // 0=nb_ants / 1=rooms / 2=links
+	int		current_room;
 
+printf("\t/// IN PARSER ///\n");
 	i = 0;
 	parse_step = 0;
+	current_room = 0;
+printf("\tLOOP1\n");
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
 		{
+printf("\tL1 -> comment/instr\n");
 			if (ft_strnequ(lem->input + i, "##start\n", 8))
 			{
 				if (parse_step != 1)
@@ -43,16 +48,24 @@ void	parser(t_lem *lem)
 				// MARQUER LA ROOM COMME END
 		}
 		else if (parse_step == 0)
-			parse_step = set_nb_ants(lem, lem->input + i);
+{printf("\tL1 -> set_nb_ants\n");
+			if ((parse_step = set_nb_ants(lem, lem->input + i)) == -1)
+				error(lem);
+}
 		else if (parse_step == 1 && lem->input[i] != 'L')
 		{
-			if ((parse_step = set_rooms(lem, lem->input + i)) == -1)
+printf("\tL1 -> set_rooms\n");
+			if ((parse_step = set_rooms(lem, lem->input + i, &current_room)) == -1)
 				error(lem);
+			if (current_room == lem->nb_rooms)
+				parse_step = 2;
 		}
 		else if (parse_step != 2)
 			error (lem); // erreur si il n'y a pas de ligne avec le nb de fourmis, si le nombre de fourmis est 0, si une room commence par un 'L'
 		else if (parse_step == 2 && lem->input[i] != 'L')
+{printf("\tL1 -> fill_adjacency_matrix\n");
 			parse_step = fill_adjacency_matrix(lem, lem->input + i);
+}
 		else 
 			parse_step = -1;
 		if (parse_step == -1)
@@ -65,4 +78,5 @@ void	parser(t_lem *lem)
 			
 		next_line(lem->input, &i);
 	}
+printf("\t/LOOP1\n");
 }
