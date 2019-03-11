@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 15:45:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:20:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void	parser(t_lem *lem)
 	int		parse_step; // 0=nb_ants / 1=rooms / 2=links
 	int		current_room;
 
-printf("\t/// IN PARSER ///\n");
+//printf("\t/// IN PARSER ///\n");
 	i = 0;
 	parse_step = SET_NB_ANTS;
 	current_room = END + 1;
-printf("\tLOOP1\n");
+//printf("\tLOOP1\n");
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
 		{
-printf("\tL1 -> comment/instr\n");
+//printf("\tL1 -> comment/instr\n");
 			if (ft_strnequ(lem->input + i, "##start\n", 8))
 			{
 				i += 8;
@@ -52,13 +52,13 @@ printf("\tL1 -> comment/instr\n");
 			}
 		}
 		else if (parse_step == SET_NB_ANTS)
-{printf("\tL1 -> set_nb_ants\n");
+{//printf("\tL1 -> set_nb_ants\n");
 			if ((parse_step = set_nb_ants(lem, lem->input + i)) == ERROR)
 				error(lem);
 }
 		else if (parse_step == 1 && lem->input[i] != 'L')
 		{
-printf("\tL1 -> set_rooms\n");
+//printf("\tL1 -> set_rooms\n");
 			if ((parse_step = set_rooms(lem, lem->input + i, current_room)) == ERROR)
 				error(lem);
 			current_room++;
@@ -68,7 +68,7 @@ printf("\tL1 -> set_rooms\n");
 		else if (parse_step != SET_LINKS)
 			error (lem); // erreur si il n'y a pas de ligne avec le nb de fourmis, si le nombre de fourmis est 0, si une room commence par un 'L'
 		else if (parse_step == SET_LINKS && lem->input[i] != 'L')
-{printf("\tL1 -> fill_adjacency_matrix\n");
+{//printf("\tL1 -> fill_adjacency_matrix\n");
 			parse_step = fill_adjacency_matrix(lem, lem->input + i);
 }
 		else 
@@ -77,5 +77,5 @@ printf("\tL1 -> set_rooms\n");
 			lem->input[--i] = 0;// on coupe ici l'input (on ignore la suite)
 		next_line(lem->input, &i);
 	}
-printf("\t/LOOP1\n");
+//printf("\t/LOOP1\n");
 }

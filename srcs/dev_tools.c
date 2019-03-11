@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 15:40:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:03:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	display_weights(t_lem lem)
 	while (++i < lem.nb_rooms)
 		if (lem.links[START][i] == 1 && max_weight < lem.rooms[i].w)
 			max_weight = lem.rooms[i].w;
-	while (max_weight >= 0 && i == 1)
+	while (max_weight >= 0 && (i = 1))
 	{
 		while (++i < lem.nb_rooms)
 			if (lem.rooms[i].w == max_weight)
-				printf("%d : %s\n", max_weight, lem.rooms[i].id);
+				printf("\t%d : %s\n", max_weight, lem.rooms[i].id);
 		max_weight--;
 	}
 }
