@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finding.c                                     :+:      :+:    :+:   */
+/*   set_weights.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:40:23 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 15:54:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:01:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ static int		count_links(t_lem *lem, int x)
 static void		bfs(t_lem *lem, int weight, int *current_w)
 {
 	int		i;
+	int		j;
 	int		count;
 	int		*tmp;
 
 	i = -1;
-	sum = 0;
+	count = 0;
 	while (current_w[i] != -1)
 		count += count_links(lem, current_w[i]) - 1;
 	if (!(tmp = malloc(sizeof(int) * (count + 1))))
-		error();
+		error(lem);
 	i = -1;
 	count = 0;
 	while (current_w[++i] != -1)
@@ -46,17 +47,19 @@ static void		bfs(t_lem *lem, int weight, int *current_w)
 			if (lem->links[i][j] == 1 && lem->rooms[j].w == 0) //j commence à 2 donc no need de rajouter les conditions associées
 			{
 				tmp[count++] = j;
-				lem->romms[j].w = weight;
+				lem->rooms[j].w = weight;
 			}
 		}
 	}
 	tmp[count] = -1;
 	free(current_w);
 	current_w = NULL;
+	if (tmp[0] == -1)
+		return ;
 	bfs(lem, weight + 1, tmp);
 }
 
-void			set_weight(t_lem *lem)
+void			set_weights(t_lem *lem)
 {
 	int		i;
 	int		count;
@@ -65,15 +68,15 @@ void			set_weight(t_lem *lem)
 	i = -1;
 	count = 0;
 	if (!(current_w = malloc(sizeof(int) * (count_links(lem, 1) + 1))))
-		error();
-	while (++i < lem->nb_room)
+		error(lem);
+	while (++i < lem->nb_rooms)
 	{
 		if (lem->links[END][i] == 1)
 		{
 			if (count >= count_links(lem, 1))
-				error();
+				error(lem);
 			current_w[count++] = i;
-			lem->romms[i].w = 1;
+			lem->rooms[i].w = 1;
 		}
 	}
 	current_w[count] = -1;

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 15:57:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:02:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void			parser(t_lem *lem);
 int				set_nb_ants(t_lem *lem, char *str);
 int				set_rooms(t_lem *lem, char *str, int current_room);
 int     		fill_adjacency_matrix(t_lem *lem, char *str);
+
+void			set_weights(t_lem *lem);
 
 /* DEV */
 void			display_rooms(t_lem lem);

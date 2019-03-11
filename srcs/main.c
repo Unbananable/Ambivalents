@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 15:46:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:01:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ printf("4/7\n");
 printf("5/7\n");
 	display_adj_matrix(lem);
 printf("6/7\n");
+	set_weights(&lem);
 	display_weights(lem);
 printf("7/7\n");
 
