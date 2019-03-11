@@ -6,28 +6,26 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/11 15:54:56 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/11 14:37:19 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MP -MMD -fsanitize=address
 
 SRC = main.c \
 	  count_rooms_and_fill_input.c \
 	  parser.c \
 	  parser_steps.c \
 	  end.c \
-	  set_weights.c \
 	  dev_tools.c
+
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-HDR = lem_in.h
-HDRSFD = includes/
-HDRS = $(addprefix $(HDRSFD),$(HDR))
+HDRS = $(OBJS:.o=.d)
 
 HDR_INC = -I./includes
 LIBFT_HDR = -I./libft/inc
@@ -38,10 +36,10 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
 
-all: check_libft $(NAME) $(HDRS)
+all: check_libft $(NAME)
 	@echo "Compilation successful"
 
-$(NAME): project $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
+$(NAME): project $(OBJSFD) $(OBJS) $(LIBFT)
 	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] lem-in executable"
 
@@ -56,7 +54,7 @@ $(OBJSFD):
 	@mkdir $@
 	@echo "\t[ $(GREEN)✔$(NONE) ] objs/ directory"
 
-$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
+$(OBJSFD)%.o: $(SRCSFD)%.c
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "\t[ $(GREEN)✔$(NONE) ] $@ object"
 
@@ -71,5 +69,7 @@ fclean: clean
 	@make -C ./libft fclean
 
 re: fclean all
+
+-include $(HDRS)
 
 .PHONY: all check_libft project clean fclean re
