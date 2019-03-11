@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:24:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:40:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,24 @@ void	display_adj_matrix(t_lem lem)
 			else
 				printf("%d ", lem.links[i - 1][j]);
 		printf("\n");
+	}
+}
+
+void	display_weights(t_lem lem)
+{
+	int		i;
+	int		max_weight;
+
+	max_weight = 0;
+	i = 1;
+	while (++i < lem.nb_rooms)
+		if (lem.links[START][i] == 1 && max_weight < lem.rooms[i].w)
+			max_weight = lem.rooms[i].w;
+	while (max_weight >= 0 && i == 1)
+	{
+		while (++i < lem.nb_rooms)
+			if (lem.rooms[i].w == max_weight)
+				printf("%d : %s\n", max_weight, lem.rooms[i].id);
+		max_weight--;
 	}
 }

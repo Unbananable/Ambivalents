@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:47:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:46:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,23 @@ int			main(int ac, char **av)
 	/* PARSING */
 
 printf("/// IN MAIN ///\n");
-printf("1/6\n");
+printf("1/7\n");
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
 {printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
 		error(&lem);
 }
-printf("2/6 (nb_rooms = %d)\n", lem.nb_rooms);
+printf("2/7 (nb_rooms = %d)\n", lem.nb_rooms);
 	initialize(&lem);
-printf("3/6\n");
+printf("3/7\n");
 	parser(&lem);
-printf("4/6\n");
+printf("4/7\n");
 	printf("nb_ants = %d\n\n", lem.nb_ants);
 	display_rooms(lem);
-printf("5/6\n");
+printf("5/7\n");
 	display_adj_matrix(lem);
-printf("6/6\n");
+printf("6/7\n");
+	display_weights(lem);
+printf("7/7\n");
 
 	/* CALCUL DU CHEMIN */
 

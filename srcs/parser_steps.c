@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 15:15:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:47:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ printf("\t\t4/5\n");
 			error(lem);
 printf("\t\t5/5\n");
 	lem->rooms[current_room].is_full = 0;
+	lem->rooms[current_room].w = 0;
 	return(1);
 }
 

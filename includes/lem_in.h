@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 15:08:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:47:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,20 @@
 
 # define BUFF_SIZE 4096
 
+# define START 0
+# define END 1
+
+# define SET_NB_ANTS 0
+# define SET_ROOMS 1
+# define SET_LINKS 2
+
+# define ERROR -1
+
 typedef struct	s_room
 {
 	int		is_full;
 	char	*id;
+	int		w;
 }				t_room;
 
 typedef struct	s_link
@@ -52,5 +62,6 @@ int     		fill_adjacency_matrix(t_lem *lem, char *str);
 /* DEV */
 void			display_rooms(t_lem lem);
 void			display_adj_matrix(t_lem lem);
+void			display_weights(t_lem lem);
 
 #endif
