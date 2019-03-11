@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/08 15:52:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:45:10 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # include "libft.h"
 # include <unistd.h>
 
+# define START 0
+# define END 1
+
 # define BUFF_SIZE 4096
 
 typedef struct	s_room
 {
 	int		is_full;
+	int		w;
 	char	*id;
 }				t_room;
 
