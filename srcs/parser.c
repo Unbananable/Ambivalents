@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:08:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:17:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parser(t_lem *lem)
 printf("\t/// IN PARSER ///\n");
 	i = 0;
 	parse_step = 0;
-	current_room = 0;
+	current_room = 2;
 printf("\tLOOP1\n");
 	while (lem->input[i])
 	{
@@ -38,14 +38,18 @@ printf("\tLOOP1\n");
 printf("\tL1 -> comment/instr\n");
 			if (ft_strnequ(lem->input + i, "##start\n", 8))
 			{
-				if (parse_step != 1)
-					error(lem); //erreur si start est a un autre endroit que dans les rooms
-				// MARQUER LA ROOM COMME START
+				i += 8;
+				if (parse_step != 1 || lem->rooms[0].id
+						|| (set_rooms(lem, lem->input + i, 0)) == -1)
+					error(lem);
 			}
 			else if (ft_strnequ(lem->input + i, "##end\n", 6))
-				if (parse_step != 1)
-					error(lem); //erreur si start est a un autre endroit que dans les rooms
-				// MARQUER LA ROOM COMME END
+			{
+				i += 6;
+				if (parse_step != 1 || lem->rooms[1].id
+						|| (set_rooms(lem, lem->input + i, 1)) == -1)
+					error(lem);
+			}
 		}
 		else if (parse_step == 0)
 {printf("\tL1 -> set_nb_ants\n");
@@ -55,8 +59,9 @@ printf("\tL1 -> comment/instr\n");
 		else if (parse_step == 1 && lem->input[i] != 'L')
 		{
 printf("\tL1 -> set_rooms\n");
-			if ((parse_step = set_rooms(lem, lem->input + i, &current_room)) == -1)
+			if ((parse_step = set_rooms(lem, lem->input + i, current_room)) == -1)
 				error(lem);
+			current_room++;
 			if (current_room == lem->nb_rooms)
 				parse_step = 2;
 		}

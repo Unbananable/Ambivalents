@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 17:24:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:15:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,31 @@ static int	is_room(char *str, int i)
 	return (i);
 }
 
-int		set_rooms(t_lem *lem, char *str, int *current_room)
+int		set_rooms(t_lem *lem, char *str, int current_room)
 {
 	int		i;
 	int		i_end_id;
-	
+
+printf("\t\t/// IN SET_ROOMS ///\n");
 	i = 0;
+printf("\t\t1/5\n");
 	while (str[i] && str[i] != '\n')
 		i++;
-	if ((i_end_id = is_room(str, i - 1)) == -1 && *current_room != lem->nb_rooms - 1)
+printf("\t\t2/5\n");
+	if ((i_end_id = is_room(str, i - 1)) == -1 && current_room != lem->nb_rooms - 1)
 		return (-1);
-	if(!(lem->rooms[*current_room].id = ft_strsub(str, 0, i_end_id + 1)))
+printf("\t\t3/5\n");
+	if(!(lem->rooms[current_room].id = ft_strsub(str, 0, i_end_id + 1)))
+{printf("\t\terror (input = %.10s)\n", str);
 		error(lem);
+}
+printf("\t\t4/5\n");
 	i = -1;
-	while (++i < *current_room)
-		if (ft_strequ(lem->rooms[i].id, lem->rooms[*current_room].id))
+	while (++i < current_room)
+		if (ft_strequ(lem->rooms[i].id, lem->rooms[current_room].id))
 			error(lem);
-	lem->rooms[*current_room].is_full = 0;
-	(*current_room)++;
+printf("\t\t5/5\n");
+	lem->rooms[current_room].is_full = 0;
 	return(1);
 }
 
