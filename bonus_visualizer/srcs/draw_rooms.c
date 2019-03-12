@@ -14,8 +14,8 @@
 
 static void init_room_pos(t_room room, SDL_Rect *room_pos)
 {
-    room_pos->x = room.x * 50; //10 est l'echelle juste pour test, a changer
-    room_pos->y = room.y * 50;
+    room_pos->x = room.x - 15; //10 est l'echelle juste pour test, a changer
+    room_pos->y = room.y - 15;
 }
 
 void        draw_rooms(t_lem *lem)

@@ -45,6 +45,10 @@ static void	initialize(t_lem *lem)
 	}
 	if (!lem->rooms || !lem->links || !lem->links[0])
 		error(lem);
+	lem->x_max = -2147483648;
+	lem->x_min = 2147483647;
+	lem->y_max = -2147483648;
+	lem->y_min = 2147483647;
 }
 
 int		main(int ac, char **av)
@@ -81,6 +85,15 @@ int		main(int ac, char **av)
 	parser(&lem);
 	set_weights(&lem);
 
+///TEST
+printf("x_max = %d / x_min = %d\n", lem.x_max, lem.x_min);
+printf("y_max = %d / y_min = %d\n", lem.y_max, lem.y_min);
+printf("scale = %d\n", lem.scale);
+printf("x_offset = %d / y_offset = %d\n", lem.x_offset, lem.y_offset);
+int k = -1;
+while (++k < lem.nb_rooms)
+printf("%s: x = %d, y = %d\n", lem.rooms[k].id, lem.rooms[k].x, lem.rooms[k].y);
+
 	int	i = -1;
 	int	j = -1;
 	int	quit = 0;
@@ -92,7 +105,7 @@ int		main(int ac, char **av)
 		j = i;
 		while (++j < lem.nb_rooms)
 			if (lem.links[i][j] == 1)
-				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x * 50, lem.rooms[i].y * 50, lem.rooms[j].x * 50, lem.rooms[j].y * 50);
+				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x, lem.rooms[i].y, lem.rooms[j].x, lem.rooms[j].y);
 	}
 	draw_rooms(&lem);
 

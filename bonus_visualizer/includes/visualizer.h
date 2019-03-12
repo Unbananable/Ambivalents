@@ -30,8 +30,9 @@
 
 # define ERROR -1
 
-# define HEIGHT 650
+# define HEIGHT 1000
 # define WIDTH 1000
+# define MARGIN 35
 
 typedef struct	s_room
 {
@@ -58,6 +59,13 @@ typedef struct	s_lem
 	int				nb_ants;
 	t_room			*rooms;
 	int				**links;
+	int				x_min;
+	int				x_max;
+	int				y_min;
+	int				y_max;
+	int				x_offset;
+	int				y_offset;
+	int				scale;
 }				t_lem;
 
 int				count_rooms_and_fill_input(t_lem *lem);

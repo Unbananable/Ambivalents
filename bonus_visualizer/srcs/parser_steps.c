@@ -25,7 +25,19 @@ int		set_nb_ants(t_lem *lem, char *str)
 	return (1);
 }
 
-static int	is_room(char *str, int i, t_room *room)
+static void	update_min_max(t_lem *lem, int current_room)
+{
+	if (lem->x_min > lem->rooms[current_room].x)
+		lem->x_min = lem->rooms[current_room].x;
+	if (lem->x_max < lem->rooms[current_room].x)
+		lem->x_max = lem->rooms[current_room].x;
+	if (lem->y_min > lem->rooms[current_room].y)
+		lem->y_min = lem->rooms[current_room].y;
+	if (lem->y_max < lem->rooms[current_room].y)
+		lem->y_max = lem->rooms[current_room].y;
+}
+
+static int	is_room(char *str, int i, t_lem *lem, int current_room)
 {
 	if (str[i] < '0' || str[i] > '9')
 		return (-1);
@@ -33,7 +45,7 @@ static int	is_room(char *str, int i, t_room *room)
 		i--;
 	if (i >= 0 && str[i] == '-')
 		i--;
-	room->y = ft_atoi(str + i + 1);
+	(lem->rooms + current_room)->y = ft_atoi(str + i + 1);
 	if (i < 0 || str[i--] != ' ')
 		return (-1);
 	if (i < 0 || str[i] < '0' || str[i] > '9')
@@ -42,11 +54,12 @@ static int	is_room(char *str, int i, t_room *room)
 		i--;
 	if (i >= 0 && str[i] == '-')
 		i--;
-	room->x = ft_atoi(str + i + 1);
+	(lem->rooms + current_room)->x = ft_atoi(str + i + 1);
 	if (i < 0 || str[i--] != ' ')
 		return (-1);
 	if (i < 0)
 		return (-1);
+	update_min_max(lem, current_room);
 	return (i);
 }
 
@@ -58,7 +71,7 @@ int		set_rooms(t_lem *lem, char *str, int current_room)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if ((i_end_id = is_room(str, i - 1, lem->rooms + current_room)) == -1
+	if ((i_end_id = is_room(str, i - 1, lem, current_room)) == -1
 			&& current_room != lem->nb_rooms - 1)
 		return (-1);
 	if(!(lem->rooms[current_room].id = ft_strsub(str, 0, i_end_id + 1)))

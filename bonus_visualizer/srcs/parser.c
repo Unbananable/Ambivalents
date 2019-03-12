@@ -12,6 +12,37 @@
 
 #include "visualizer.h"
 
+static void	scale(t_lem *lem)
+{
+	int		i;
+
+	i = -1;
+	while (++i < lem->nb_rooms)
+	{
+		lem->rooms[i].x = (lem->rooms[i].x - lem->x_min) * lem->scale + lem->x_offset;
+		lem->rooms[i].y = (lem->rooms[i].y - lem->y_min) * lem->scale + lem->y_offset;
+	}
+}
+
+static void	set_scale(t_lem *lem)
+{
+	int		tmp;
+
+	lem->scale = (HEIGHT - 2 * MARGIN) / (lem->y_max - lem->y_min);
+	tmp = (WIDTH - 2 * MARGIN) / (lem->x_max - lem->x_min);
+	if (tmp < lem->scale)
+	{
+		lem->scale = tmp;
+		lem->x_offset = MARGIN;
+		lem->y_offset = (MARGIN - lem->scale * (lem->y_max - lem->y_min)) / 2;
+	}
+	else
+	{
+		lem->y_offset = MARGIN;
+		lem->x_offset = (WIDTH - MARGIN - lem->scale * (lem->x_max - lem->x_min)) / 2;
+	}
+}
+
 static void	next_line(char *input, int *i)
 {
 	while (input[*i] && input[*i] != '\n')
@@ -71,4 +102,6 @@ void	parser(t_lem *lem)
 			lem->input[--i] = 0;
 		next_line(lem->input, &i);
 	}
+	set_scale(lem);
+	scale(lem);
 }
