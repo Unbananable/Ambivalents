@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 19:31:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 20:01:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		main(int ac, char **av)
 
 	if (TTF_Init() == -1)
 		error(&lem);
-	if (!(police = TTF_OpenFont("Chalkduster.ttf", 50)))
+	if (!(police = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
 		error(&lem);
 	while (++i < lem.nb_rooms)
 	{
