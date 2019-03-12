@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 14:55:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:27:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ int		main(int ac, char **av)
 	}
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
 		error(&lem); //checker ici potentiel pb de free
+	IMG_Init(IMG_INIT_PNG);
 	initialize(&lem);
 	parser(&lem);
 	set_weights(&lem);
+	IMG_Quit();
 	SDL_Quit();
 	return (0);
 }

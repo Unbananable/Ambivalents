@@ -2,3 +2,4 @@ lem-in
 *.swp
 *.o
 objs/
+.DS_Store
