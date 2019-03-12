@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 16:03:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:11:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(int ac, char **av)
 	if (ac != 1)
 		usage();
 	av += 0;
-	if (SDL_Init() != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
 		return (1);
@@ -86,13 +86,14 @@ int		main(int ac, char **av)
 
 	SDL_SetRenderDrawColor(lem.rend, 255, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(lem.rend);
-	while (++i < nb_rooms - 1)
+	while (++i < lem.nb_rooms - 1)
 	{
 		j = i;
-		while (++j < nb_rooms)
+		while (++j < lem.nb_rooms)
 			if (lem.links[i][j] == 1)
 				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x, lem.rooms[i].y, lem.rooms[j].x, lem.rooms[j].y);
 	}
+	draw_rooms(&lem);
 	SDL_RenderPresent(lem.rend);
 
 	IMG_Quit();
@@ -123,4 +124,4 @@ A VERIFIER MAIS POUR LES POIDS JE CROIS QU ON FAIT COMME CA
 	TTF_CloseFont(police);
 	TTF_Quit();
 
- * /
+ */
