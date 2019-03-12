@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 15:14:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 17:04:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:23:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void        draw_rooms(t_lem *lem)
     if (!(room_img = IMG_Load("imgs/room_ant.jpg")))
 		error(lem);
     room_texture = SDL_CreateTextureFromSurface(lem->rend, room_img);
-    room_pos.h = 30; //il faudra peut etre adapter la taille de la room en fonction de l'echelle aussi
-    room_pos.w = 30;
+    room_pos.h = 50; //il faudra peut etre adapter la taille de la room en fonction de l'echelle aussi
+    room_pos.w = 50;
     i = -1;
     while (++i < lem->nb_rooms)
     {
