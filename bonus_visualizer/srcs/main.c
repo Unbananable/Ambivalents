@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 15:27:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:03:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,24 @@ int		main(int ac, char **av)
 	if (ac != 1)
 		usage();
 	av += 0;
-	if (!SDL_Init(SDL_INIT_VIDEO))
+	if (SDL_Init() != 0)
 	{
-		ft_putstr_fd("error: couldn't initialize SDL\n", 2);
+		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+		return (1);
+	}
+/*	if (!(lem.win = SDL_CreateWindow("Some Awesome Visualizer, made by awesome people", 0, 0, WIDTH, HEIGHT, 0)))
+	{
+		SDL_Log("Unable to initialize Window: %s", SDL_GetError());
+		return (1);
+	};
+	if (!(lem.rend = SDL_CreateRenderer(lem.win, -1, 0)))
+	{
+		SDL_Log("Unable to initialize Renderer: %s", SDL_GetError());
+		return (1);
+	}*/
+	if (SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &lem.win, &lem.rend) != 0)
+	{
+		SDL_Log("Unable to initialize Window and Renderer: %s", SDL_GetError());
 		return (1);
 	}
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
@@ -65,7 +80,47 @@ int		main(int ac, char **av)
 	initialize(&lem);
 	parser(&lem);
 	set_weights(&lem);
+
+	int	i = -1;
+	int	j = -1;
+
+	SDL_SetRenderDrawColor(lem.rend, 255, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(lem.rend);
+	while (++i < nb_rooms - 1)
+	{
+		j = i;
+		while (++j < nb_rooms)
+			if (lem.links[i][j] == 1)
+				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x, lem.rooms[i].y, lem.rooms[j].x, lem.rooms[j].y);
+	}
+	SDL_RenderPresent(lem.rend);
+
 	IMG_Quit();
 	SDL_Quit();
 	return (0);
 }
+
+/*
+
+A VERIFIER MAIS POUR LES POIDS JE CROIS QU ON FAIT COMME CA
+
+#include <SDL/SDL_ttf.h
+
+	TTF_Font	*police = NULL;
+	SDL_Color	rouge = {0, 0, 0};
+	SDL_Surface	*texte = NULL;
+	SDL_Rect	position;
+	SDL_Surface	*ecran = NULL;
+
+	if (TTF_Init() == -1)
+		error(lem);
+	ecran = CREATION SURFACE;
+	police = TTF_OpenFont("file.ttf", 14) //Choisir la police et la stocker dans le dossier
+	texte = TTF_RenderText_Shaded(police, "Bonjour Anleclab", rouge);
+	position.x = 10;
+	position.y = 10;
+	SDL_BlitSurface(textem NULL, ecran, &position);
+	TTF_CloseFont(police);
+	TTF_Quit();
+
+ * /
