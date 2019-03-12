@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 17:04:03 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 18:59:54 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,41 @@ int		main(int ac, char **av)
 				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x * 50, lem.rooms[i].y * 50, lem.rooms[j].x * 50, lem.rooms[j].y * 50);
 	}
 	draw_rooms(&lem);
+
+	
+	TTF_Font	*police = NULL;
+	SDL_Color	rouge = {100, 100, 255, 255};
+	SDL_Color	blanc = {255, 255, 255, 255};
+	SDL_Surface	*texte = NULL;
+	SDL_Rect	position;
+    SDL_Texture *texture = NULL;;
+
+	if (TTF_Init() == -1)
+		error(&lem);
+	if (!(police = TTF_OpenFont("Chalkduster.ttf", 50)))
+		error(&lem);
+	texte = TTF_RenderText_Shaded(police, "Bonjour Anleclab", rouge, blanc);
+	position.x = 70;
+	position.y = 70;
+	position.h = 70;
+	position.w = 700;
+    if (!(texture = SDL_CreateTextureFromSurface(lem.rend, texte)))
+		error(&lem);
+    if (SDL_RenderCopy(lem.rend, texture, NULL, &position))
+		error(&lem);
 	SDL_RenderPresent(lem.rend);
+	TTF_CloseFont(police);
+	TTF_Quit();
+
+
 	while (!quit)
 	{
 		SDL_WaitEvent(&event);
 		if (event.type == SDL_QUIT)
 			quit = 1;
 	}
+	
+
 	IMG_Quit();
 	SDL_Quit();
 	return (0);
@@ -111,22 +139,20 @@ int		main(int ac, char **av)
 
 A VERIFIER MAIS POUR LES POIDS JE CROIS QU ON FAIT COMME CA
 
-#include <SDL/SDL_ttf.h
+#include <ddSDL/SDL_ttf.h
 
 	TTF_Font	*police = NULL;
 	SDL_Color	rouge = {0, 0, 0};
 	SDL_Surface	*texte = NULL;
 	SDL_Rect	position;
-	SDL_Surface	*ecran = NULL;
 
 	if (TTF_Init() == -1)
 		error(lem);
-	ecran = CREATION SURFACE;
 	police = TTF_OpenFont("file.ttf", 14) //Choisir la police et la stocker dans le dossier
 	texte = TTF_RenderText_Shaded(police, "Bonjour Anleclab", rouge);
 	position.x = 10;
 	position.y = 10;
-	SDL_BlitSurface(textem NULL, ecran, &position);
+    SDL_RenderCopy(lem->rend, texte, NULL, &position);
 	TTF_CloseFont(police);
 	TTF_Quit();
 

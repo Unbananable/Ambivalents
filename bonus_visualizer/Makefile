@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 18:19:13 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/12 18:38:42 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ LIBFT_HDR = -I../libft/inc
 LIB_BINARY = -L../libft -lft
 SDL_HDR=$(shell sdl2-config --cflags | cut -d' ' -f1)
 SDL_IMAGE_HDR=$(SDL_HDR)_image
-SDL_BINARY=$(shell sdl2-config --libs) -lSDL2_image
+SDL_TTF_HDR=$(SDL_HDR)_ttf
+SDL_BINARY=$(shell sdl2-config --libs) -lSDL2_image -lSDL2_ttf
 
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -58,7 +59,7 @@ $(OBJSFD):
 	@mkdir $@
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
-	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) $(SDL_IMAGE_HDR) -c $< -o $@
+	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) $(SDL_IMAGE_HDR) $(SDL_TTF_HDR) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJSFD)

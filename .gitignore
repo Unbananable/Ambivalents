@@ -1,5 +1,6 @@
 lem-in
+visualizer
 *.swp
 *.o
 objs/
-.DS_Store
+*.DS_Store

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 16:40:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 18:37:49 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <SDL.h>
 # include <SDL_image.h>
+# include <SDL_ttf.h>
 # include "libft.h"
 # include <unistd.h>
 
