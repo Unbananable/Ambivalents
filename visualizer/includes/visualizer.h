@@ -6,14 +6,14 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 18:57:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 13:48:47 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
 
-# include <SDL2/SDL.h>
+# include <SDL2.h>
 # include "libft.h"
 # include <unistd.h>
 

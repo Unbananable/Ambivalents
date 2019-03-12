@@ -6,11 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:40:23 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 18:58:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 13:44:33 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "visualizer.h"
 
 static int		count_links(t_lem *lem, int x)
 {
