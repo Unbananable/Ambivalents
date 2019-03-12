@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/11 19:00:15 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/12 14:59:28 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	  parser.c \
 	  parser_steps.c \
-	  set_weight.c
+	  set_weights.c \
+	  count_rooms_and_fill_input.c \
+	  end.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
@@ -27,9 +29,10 @@ HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
 HDR_INC = -I./includes
-LIBFT_HDR = -I./libft/inc
+LIBFT_HDR = -I../libft/inc
 LIB_BINARY = -L../libft -lft
-LIBFT= ../libft/libft.a
+SDL_HDR = -I./SDL/SDL2 -I./SDL_image/include/SDL2
+SDL_BINARY = -L./SDL -lSDL2 -L./SDL_image/lib -lSDL2_image
 
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -37,20 +40,19 @@ NONE = \033[0m
 
 all: $(NAME) $(HDRS)
 
-$(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
-	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
+$(NAME): $(OBJSFD) $(OBJS) $(HDRS)
+	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
 
 $(OBJSFD):
 	@mkdir $@
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
-	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
+	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJSFD)
 	@echo "\t[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
-	@make -C ./libft clean
 
 fclean: clean
 	@/bin/rm -f $(NAME)

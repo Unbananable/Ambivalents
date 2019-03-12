@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 18:58:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:55:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	usage(void)
 {
 	ft_putstr_fd("usage: ./visualizer\n", 2);
 	ft_putstr_fd("(Nota Bene: visualizer reads the standard input, use ", 2);
-	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of lem_in");
+	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of lem_in", 2);
 	ft_putstr_fd("with a file)\n", 2);
 	exit(0);
 }
@@ -64,4 +64,6 @@ int		main(int ac, char **av)
 	initialize(&lem);
 	parser(&lem);
 	set_weights(&lem);
+	SDL_Quit();
+	return (0);
 }
