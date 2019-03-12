@@ -6,77 +6,58 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 15:05:32 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/12 14:59:28 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem-in
+NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = main.c \
-	  count_rooms_and_fill_input.c \
 	  parser.c \
 	  parser_steps.c \
-	  end.c \
 	  set_weights.c \
-	  dev_tools.c
+	  count_rooms_and_fill_input.c \
+	  end.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-HDR = lem_in.h
+HDR = visualizer.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
 HDR_INC = -I./includes
-LIBFT_HDR = -I./libft/inc
-LIB_BINARY = -L./libft -lft
-LIBFT= libft/libft.a
+LIBFT_HDR = -I../libft/inc
+LIB_BINARY = -L../libft -lft
+SDL_HDR = -I./SDL/SDL2 -I./SDL_image/include/SDL2
+SDL_BINARY = -L./SDL -lSDL2 -L./SDL_image/lib -lSDL2_image
 
 RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
 
-all: check_libft $(NAME) $(HDRS)
-	@echo "Compilation successful"
+all: $(NAME) $(HDRS)
 
-$(NAME): project $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
-	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
-	@echo "\t[ \033[0;32m✔\033[0m ] lem-in executable"
-
-check_libft:
-	@echo "Checking libft..."
-	@make -C libft
-
-project:
-	@echo "Checking project..."
+$(NAME): $(OBJSFD) $(OBJS) $(HDRS)
+	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
+	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
 
 $(OBJSFD):
 	@mkdir $@
-	@echo "\t[ $(GREEN)✔$(NONE) ] objs/ directory"
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
-	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
-	@echo "\t[ $(GREEN)✔$(NONE) ] $@ object"
-
-visualizer:
-	@echo "Adding visualizer..."
-	@make -C ./bonus_visualizer
-	@mv bonus_visualizer/visualizer .
+	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) -c $< -o $@
 
 clean:
-	@/bin/rm -rf $(OBJSFD)
+	@rm -rf $(OBJSFD)
 	@echo "\t[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
-	@make -C ./libft clean
-	@make -C ./bonus_visualizer clean
 
 fclean: clean
-	@/bin/rm -f $(NAME) visualizer
+	@/bin/rm -f $(NAME)
 	@echo "\t[ $(RED)✗$(NONE) ] $(NAME) executable"
-	@echo "\t[ $(RED)✗$(NONE) ] visualizer executable"
-	@make -C ./libft fclean
 
 re: fclean all
 
-.PHONY: all check_libft project clean fclean re
+.PHONY: all project clean fclean re
