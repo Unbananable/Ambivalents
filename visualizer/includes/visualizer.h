@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 13:48:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:33:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct	s_link
 
 typedef struct	s_lem
 {
+	void	*win;
+	void	*rend;
 	char	*input;
 	int		nb_rooms;
 	int		nb_ants;
