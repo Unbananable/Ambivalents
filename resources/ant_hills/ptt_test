@@ -1,12 +1,12 @@
 10
 ##start
-start 1 1
+start 5 5
 ##end
-end 2 2
-2 3 3
-1 4 4
-4 5 5
-3 6 6
+end 5 10
+2 3 7
+1 5 8
+4 7 7
+3 7 9
 start-2
 start-1
 start-4
