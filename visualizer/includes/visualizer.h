@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 18:36:27 by anleclab         ###   ########.fr       */
+/*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
+/*   Updated: 2019/03/11 18:57:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef VISUALIZER_H
+# define VISUALIZER_H
 
+# include <SDL2/SDL.h>
 # include "libft.h"
 # include <unistd.h>
 
@@ -27,11 +28,16 @@
 
 # define ERROR -1
 
+# define HEIGHT 650
+# define WIDTH 1000
+
 typedef struct	s_room
 {
 	int		is_full;
 	char	*id;
 	int		w;
+    int     x;
+    int     y;
 }				t_room;
 
 typedef struct	s_link
@@ -50,20 +56,11 @@ typedef struct	s_lem
 	int		**links;
 }				t_lem;
 
-void			error(t_lem *lem);
-
-int				count_rooms_and_fill_input(t_lem *lem);
-
-void			parser(t_lem *lem);
-int				set_nb_ants(t_lem *lem, char *str);
-int				set_rooms(t_lem *lem, char *str, int current_room);
-int     		fill_adjacency_matrix(t_lem *lem, char *str);
+void	        parser(t_lem *lem);
+int		        set_nb_ants(t_lem *lem, char *str);
+int		        set_rooms(t_lem *lem, char *str, int current_room);
+int             fill_adjacency_matrix(t_lem *lem, char *str);
 
 void			set_weights(t_lem *lem);
-
-/* DEV */
-void			display_rooms(t_lem lem);
-void			display_adj_matrix(t_lem lem);
-void			display_weights(t_lem lem);
 
 #endif

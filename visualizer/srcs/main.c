@@ -5,20 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 18:45:53 by anleclab         ###   ########.fr       */
+/*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
+/*   Updated: 2019/03/11 18:58:46 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
-
-#include <stdio.h>
+#include "visualizer.h"
 
 static void	usage(void)
 {
-	ft_putstr_fd("usage: ./lem_in\n", 2);
-	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
-	ft_putstr_fd("./lem_in < file to read from a file)\n", 2);
+	ft_putstr_fd("usage: ./visualizer\n", 2);
+	ft_putstr_fd("(Nota Bene: visualizer reads the standard input, use ", 2);
+	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of lem_in");
+	ft_putstr_fd("with a file)\n", 2);
 	exit(0);
 }
 
@@ -48,38 +47,21 @@ static void	initialize(t_lem *lem)
 		error(lem);
 }
 
-int			main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_lem	lem;
 
 	if (ac != 1)
 		usage();
 	av += 0;
-	/* PARSING */
-
-printf("/// IN MAIN ///\n");
-printf("1/7\n");
+	if (!SDL_Init(SDL_INIT_VIDEO))
+	{
+		ft_putstr_fd("error: couldn't initialize SDL\n", 2);
+		return (1);
+	}
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
-{printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
 		error(&lem); //checker ici potentiel pb de free
-}
-printf("2/7 (nb_rooms = %d)\n", lem.nb_rooms);
 	initialize(&lem);
-printf("3/7\n");
 	parser(&lem);
-printf("4/7\n");
-	//printf("nb_ants = %d\n\n", lem.nb_ants);
-	//display_rooms(lem);
-printf("5/7\n");
-	//display_adj_matrix(lem);
-printf("6/7\n");
 	set_weights(&lem);
-	display_weights(lem);
-printf("7/7\n");
-
-	/* CALCUL DU CHEMIN */
-
-	/* AFFICHAGE */
-
-	return (0);
 }
