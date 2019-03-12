@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 15:14:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 15:41:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 17:04:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void init_room_pos(t_room room, SDL_Rect *room_pos)
 {
-    room_pos->x = room.x * 100; //100 est l'echelle juste pour test, a changer
-    room_pos->y = room.y * 100;
+    room_pos->x = room.x * 50; //10 est l'echelle juste pour test, a changer
+    room_pos->y = room.y * 50;
 }
 
 void        draw_rooms(t_lem *lem)
@@ -25,7 +25,8 @@ void        draw_rooms(t_lem *lem)
     int         i;
     SDL_Rect    room_pos;
 
-    room_img = IMG_Load("imgs/room.png");
+    if (!(room_img = IMG_Load("imgs/room_ant.jpg")))
+		error(lem);
     room_texture = SDL_CreateTextureFromSurface(lem->rend, room_img);
     room_pos.h = 30; //il faudra peut etre adapter la taille de la room en fonction de l'echelle aussi
     room_pos.w = 30;

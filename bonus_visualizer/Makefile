@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 14:59:28 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/12 16:44:02 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC = main.c \
 	  parser_steps.c \
 	  set_weights.c \
 	  count_rooms_and_fill_input.c \
+	  draw_rooms.c \
 	  end.c
 SRCSFD = srcs/
 OBJSFD = objs/
@@ -31,24 +32,25 @@ HDRS = $(addprefix $(HDRSFD),$(HDR))
 HDR_INC = -I./includes
 LIBFT_HDR = -I../libft/inc
 LIB_BINARY = -L../libft -lft
-SDL_HDR = -I./SDL/SDL2 -I./SDL_image/include/SDL2
-SDL_BINARY = -L./SDL -lSDL2 -L./SDL_image/lib -lSDL2_image
 
 RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
 
-all: $(NAME) $(HDRS)
+all: sdl2 $(NAME) $(HDRS)
 
 $(NAME): $(OBJSFD) $(OBJS) $(HDRS)
-	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
+	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -L/Users/dtrigalo/.brew/lib -lSDL2 -lSDL2_image -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
+
+sdl2:
+	@sdl2-config --cflags --libs
 
 $(OBJSFD):
 	@mkdir $@
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
-	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) -c $< -o $@
+	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -I/Users/dtrigalo/.brew/include/SDL2 -I/Users/dtrigalo/.brew/include/SDL_image -D_THREAD_SAFE -c $< -o $@
 
 clean:
 	@rm -rf $(OBJSFD)
@@ -60,4 +62,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all project clean fclean re
+.PHONY: sdl2 all project clean fclean re

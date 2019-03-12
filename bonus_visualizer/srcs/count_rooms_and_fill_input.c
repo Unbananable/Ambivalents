@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 14:54:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:45:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ int			count_rooms_and_fill_input(t_lem *lem)
 	}
 	if (rd_size < 0)
 		return (0);
-printf("\t2/2\n");
 	return (count);
 }

@@ -6,15 +6,15 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 15:56:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:40:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
 
-# include "SDL.h"
-# include "SDL_image.h"
+# include <SDL.h>
+# include <SDL_image.h>
 # include "libft.h"
 # include <unistd.h>
 
@@ -50,13 +50,13 @@ typedef struct	s_link
 
 typedef struct	s_lem
 {
-	void	*win;
-	void	*rend;
-	char	*input;
-	int		nb_rooms;
-	int		nb_ants;
-	t_room	*rooms;
-	int		**links;
+	SDL_Window		*win;
+	SDL_Renderer	*rend;
+	char			*input;
+	int				nb_rooms;
+	int				nb_ants;
+	t_room			*rooms;
+	int				**links;
 }				t_lem;
 
 int				count_rooms_and_fill_input(t_lem *lem);
@@ -67,6 +67,8 @@ int		        set_rooms(t_lem *lem, char *str, int current_room);
 int             fill_adjacency_matrix(t_lem *lem, char *str);
 
 void			set_weights(t_lem *lem);
+
+void			draw_rooms(t_lem *lems);
 
 void    		error(t_lem *lem);
 

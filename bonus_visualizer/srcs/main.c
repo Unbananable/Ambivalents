@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 16:11:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/12 17:04:03 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,32 @@ int		main(int ac, char **av)
 	}
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
 		error(&lem); //checker ici potentiel pb de free
-	IMG_Init(IMG_INIT_PNG);
+	IMG_Init(IMG_INIT_JPG);
 	initialize(&lem);
 	parser(&lem);
 	set_weights(&lem);
 
 	int	i = -1;
 	int	j = -1;
+	int	quit = 0;
+	SDL_Event event;
 
 	SDL_SetRenderDrawColor(lem.rend, 255, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(lem.rend);
 	while (++i < lem.nb_rooms - 1)
 	{
 		j = i;
 		while (++j < lem.nb_rooms)
 			if (lem.links[i][j] == 1)
-				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x, lem.rooms[i].y, lem.rooms[j].x, lem.rooms[j].y);
+				SDL_RenderDrawLine(lem.rend, lem.rooms[i].x * 50, lem.rooms[i].y * 50, lem.rooms[j].x * 50, lem.rooms[j].y * 50);
 	}
 	draw_rooms(&lem);
 	SDL_RenderPresent(lem.rend);
-
+	while (!quit)
+	{
+		SDL_WaitEvent(&event);
+		if (event.type == SDL_QUIT)
+			quit = 1;
+	}
 	IMG_Quit();
 	SDL_Quit();
 	return (0);
