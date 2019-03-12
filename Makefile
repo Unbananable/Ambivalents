@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 15:05:32 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/12 18:14:24 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,10 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
 
-all: check_libft $(NAME) $(HDRS)
-	@echo "Compilation successful"
+all: check_libft project $(NAME) $(HDRS)
+	@echo "Success !!"
 
-$(NAME): project $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
+$(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] lem-in executable"
 

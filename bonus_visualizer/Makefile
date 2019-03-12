@@ -6,7 +6,7 @@
 #    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 17:47:20 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/12 18:19:13 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,19 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
 
-all: $(NAME) $(HDRS)
+all: check_libft project $(NAME) $(HDRS)
+	@echo "Succes !!"
 
 $(NAME): $(OBJSFD) $(OBJS) $(HDRS)
 	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
+
+check_libft:
+	@echo "Checking libft..."
+	@make -C ../libft
+
+project:
+	@echo "Checking project..."
 
 $(OBJSFD):
 	@mkdir $@
