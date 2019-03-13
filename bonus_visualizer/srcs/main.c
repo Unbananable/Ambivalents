@@ -54,6 +54,8 @@ static void	initialize(t_lem *lem)
 int		main(int ac, char **av)
 {
 	t_lem	lem;
+	int	quit = 0;
+	SDL_Event event;
 
 	if (ac != 1)
 		usage();
@@ -63,16 +65,6 @@ int		main(int ac, char **av)
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
 		return (1);
 	}
-/*	if (!(lem.win = SDL_CreateWindow("Some Awesome Visualizer, made by awesome people", 0, 0, WIDTH, HEIGHT, 0)))
-	{
-		SDL_Log("Unable to initialize Window: %s", SDL_GetError());
-		return (1);
-	};
-	if (!(lem.rend = SDL_CreateRenderer(lem.win, -1, 0)))
-	{
-		SDL_Log("Unable to initialize Renderer: %s", SDL_GetError());
-		return (1);
-	}*/
 	if (SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &lem.win, &lem.rend) != 0)
 	{
 		SDL_Log("Unable to initialize Window and Renderer: %s", SDL_GetError());
@@ -84,71 +76,15 @@ int		main(int ac, char **av)
 	initialize(&lem);
 	parser(&lem);
 	set_weights(&lem);
-
-///TEST
-printf("x_max = %d / x_min = %d\n", lem.x_max, lem.x_min);
-printf("y_max = %d / y_min = %d\n", lem.y_max, lem.y_min);
-printf("scale = %d\n", lem.scale);
-printf("x_offset = %d / y_offset = %d\n", lem.x_offset, lem.y_offset);
-int k = -1;
-while (++k < lem.nb_rooms)
-printf("%s: x = %d, y = %d\n", lem.rooms[k].id, lem.rooms[k].x, lem.rooms[k].y);
-
-	int	i = -1;
-	int	j = -1;
-	int	quit = 0;
-	SDL_Event event;
-
-	SDL_SetRenderDrawColor(lem.rend, 255, 0, 0, SDL_ALPHA_OPAQUE);
-	while (++i < lem.nb_rooms - 1)
-	{
-		j = i;
-		while (++j < lem.nb_rooms)
-			if (lem.links[i][j] == 1)
-				thickLineRGBA(lem.rend, lem.rooms[i].x, lem.rooms[i].y, lem.rooms[j].x, lem.rooms[j].y, 5, 0, 0, 255,255);
-	}
+	draw_tunnels(&lem);
 	draw_rooms(&lem);
-
-	
-	TTF_Font	*police = NULL;
-	SDL_Color	rouge = {100, 100, 255, 255};
-	SDL_Color	blanc = {255, 255, 255, 255};
-	SDL_Surface	*texte = NULL;
-	SDL_Rect	position;
-    SDL_Texture *texture = NULL;
-	position.x = 0;
-	position.y = 0;
-	i = -1;
-
-	if (TTF_Init() == -1)
-		error(&lem);
-	if (!(police = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
-		error(&lem);
-	while (++i < lem.nb_rooms)
-	{
-	texte = TTF_RenderText_Shaded(police, ft_itoa(lem.rooms[i].w), rouge, blanc);
-	position.x = lem.rooms[i].x * 50;
-	position.y = lem.rooms[i].y * 50;
-	position.h = 20;
-	position.w = 20;
-    if (!(texture = SDL_CreateTextureFromSurface(lem.rend, texte)))
-		error(&lem);
-    if (SDL_RenderCopy(lem.rend, texture, NULL, &position))
-		error(&lem);
-	}
 	SDL_RenderPresent(lem.rend);
-	TTF_CloseFont(police);
-	TTF_Quit();
-
-
 	while (!quit)
 	{
 		SDL_WaitEvent(&event);
 		if (event.type == SDL_QUIT)
 			quit = 1;
 	}
-	
-
 	IMG_Quit();
 	SDL_Quit();
 	return (0);

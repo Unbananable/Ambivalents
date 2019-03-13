@@ -18,6 +18,38 @@ static void init_room_pos(t_room room, SDL_Rect *room_pos)
     room_pos->y = room.y - 15;
 }
 
+static void draw_weight(t_lem *lem)
+{
+    TTF_Font	*police = NULL;
+	SDL_Color	rouge = {100, 100, 255, 255};
+	SDL_Color	blanc = {255, 255, 255, 255};
+	SDL_Surface	*texte = NULL;
+	SDL_Rect	position;
+    SDL_Texture *texture = NULL;
+	position.x = 0;
+	position.y = 0;
+
+	if (TTF_Init() == -1)
+		error(&lem);
+	if (!(police = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
+		error(&lem);
+	i = -1;
+	while (++i < lem.nb_rooms)
+	{
+	texte = TTF_RenderText_Shaded(police, ft_itoa(lem.rooms[i].w), rouge, blanc);
+	position.x = lem.rooms[i].x * 50;
+	position.y = lem.rooms[i].y * 50;
+	position.h = 20;
+	position.w = 20;
+    if (!(texture = SDL_CreateTextureFromSurface(lem.rend, texte)))
+		error(&lem);
+    if (SDL_RenderCopy(lem.rend, texture, NULL, &position))
+		error(&lem);
+	}
+    TTF_CloseFont(police);
+    TTF_Quit();
+}
+
 void        draw_rooms(t_lem *lem)
 {
     SDL_Surface *room_img;
@@ -38,4 +70,5 @@ void        draw_rooms(t_lem *lem)
     }
     SDL_DestroyTexture(room_texture); //il faudrait aussi peut-etre plutot inclure ca dans le t_lem pour pas avoir a les recharger plein de fois ? (je sais pas si c'est necessaire pour les rooms)
     SDL_FreeSurface(room_img);
+    draw_weight(lem);
 }

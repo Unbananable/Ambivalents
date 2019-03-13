@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 19:52:49 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/13 11:40:31 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC = main.c \
 	  parser_steps.c \
 	  set_weights.c \
 	  count_rooms_and_fill_input.c \
+	  draw_tunnels.c \
 	  draw_rooms.c \
 	  end.c
 SRCSFD = srcs/

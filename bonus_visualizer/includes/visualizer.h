@@ -78,6 +78,7 @@ int             fill_adjacency_matrix(t_lem *lem, char *str);
 
 void			set_weights(t_lem *lem);
 
+void    		draw_tunnels(t_lem *lem);
 void			draw_rooms(t_lem *lems);
 
 void    		error(t_lem *lem);
