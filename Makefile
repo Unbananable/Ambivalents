@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anleclab <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/12 18:14:24 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/14 12:01:34 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = main.c \
 	  parser.c \
 	  parser_steps.c \
 	  end.c \
-	  set_weights.c \
+	  edmonds_karp.c \
 	  dev_tools.c
 SRCSFD = srcs/
 OBJSFD = objs/

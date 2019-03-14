@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dev_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 17:03:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 12:14:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,9 @@ void	display_adj_matrix(t_lem lem)
 void	display_weights(t_lem lem)
 {
 	int		i;
-	int		max_weight;
 
-	max_weight = 0;
+printf("\t>> WEIGTHS\n");
 	i = 1;
 	while (++i < lem.nb_rooms)
-		if (lem.links[START][i] == 1 && max_weight < lem.rooms[i].w)
-			max_weight = lem.rooms[i].w;
-	while (max_weight >= 0 && (i = 1))
-	{
-		while (++i < lem.nb_rooms)
-			if (lem.rooms[i].w == max_weight)
-				printf("\t%d : %s\n", max_weight, lem.rooms[i].id);
-		max_weight--;
-	}
+		printf("\t\troom %s:\t%d\n", lem.rooms[i].id, lem.rooms[i].w);
 }

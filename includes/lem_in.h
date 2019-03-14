@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/11 18:36:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 12:01:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int				set_nb_ants(t_lem *lem, char *str);
 int				set_rooms(t_lem *lem, char *str, int current_room);
 int     		fill_adjacency_matrix(t_lem *lem, char *str);
 
-void			set_weights(t_lem *lem);
+void    		edmonds_karp(t_lem *lem);
+
+//void			set_weights(t_lem *lem);
 
 /* DEV */
 void			display_rooms(t_lem lem);
