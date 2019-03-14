@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 15:14:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 19:23:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/14 09:04:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,26 @@ static void draw_weight(t_lem *lem)
 	SDL_Surface	*texte = NULL;
 	SDL_Rect	position;
     SDL_Texture *texture = NULL;
-	position.x = 0;
-	position.y = 0;
+    int         i;
 
+    position.x = 0;
+	position.y = 0;
 	if (TTF_Init() == -1)
-		error(&lem);
+		error(lem);
 	if (!(police = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
-		error(&lem);
+		error(lem);
 	i = -1;
-	while (++i < lem.nb_rooms)
+	while (++i < lem->nb_rooms)
 	{
-	texte = TTF_RenderText_Shaded(police, ft_itoa(lem.rooms[i].w), rouge, blanc);
-	position.x = lem.rooms[i].x * 50;
-	position.y = lem.rooms[i].y * 50;
+	texte = TTF_RenderText_Shaded(police, ft_itoa(lem->rooms[i].w), rouge, blanc);
+	position.x = lem->rooms[i].x ;
+	position.y = lem->rooms[i].y;
 	position.h = 20;
 	position.w = 20;
-    if (!(texture = SDL_CreateTextureFromSurface(lem.rend, texte)))
-		error(&lem);
-    if (SDL_RenderCopy(lem.rend, texture, NULL, &position))
-		error(&lem);
+    if (!(texture = SDL_CreateTextureFromSurface(lem->rend, texte)))
+		error(lem);
+    if (SDL_RenderCopy(lem->rend, texture, NULL, &position))
+		error(lem);
 	}
     TTF_CloseFont(police);
     TTF_Quit();
