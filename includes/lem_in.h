@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/14 12:01:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:35:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ typedef struct	s_lem
 	int		nb_ants;
 	t_room	*rooms;
 	int		**links;
+	char	*instr;
 }				t_lem;
 
 void			error(t_lem *lem);
 
 int				count_rooms_and_fill_input(t_lem *lem);
+void			send_ants(t_lem *lem);
 
 void			parser(t_lem *lem);
 int				set_nb_ants(t_lem *lem, char *str);

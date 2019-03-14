@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/14 13:28:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:45:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static void	initialize(t_lem *lem)
 {
 	int		i;
 
-	lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms);
+	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
+		error(lem);
 	i = -1;
 	while (++i < lem->nb_rooms)
 		lem->rooms[i].id = NULL;
-	lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms);
+	if (!(lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms)))
+		error(lem);
 	if (lem->links)
 	{
 		i = -1;
@@ -44,8 +46,9 @@ static void	initialize(t_lem *lem)
 			else
 				ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	}
-	if (!lem->rooms || !lem->links || !lem->links[0])
-		error(lem);
+	lem->instr = NULL;
+/*	if (!lem->links[0])
+		error(lem); DU COUP PLUS BESOIN DE CA, SI ?*/
 }
 
 int			main(int ac, char **av)

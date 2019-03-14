@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 12:27:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:43:56 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void    error(t_lem *lem)
             free(lem->links[i]);
     }
     free(lem->links);
+	free(lem->instr);
     ft_putstr_fd("ERROR\n", 2);
     exit(0);
 }
