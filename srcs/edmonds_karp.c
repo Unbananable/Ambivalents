@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/14 12:24:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:28:30 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int  bfs(t_lem *lem)
 	i = 1;
 	while (++i < lem->nb_rooms)
 	{
-		if (lem->links[END][i] == 1)
+		if (lem->links[END][i] == 1 && !lem->rooms[i].w)
 		{
 			current_w[count++] = i;
 			lem->rooms[i].w = 1;
@@ -94,7 +94,7 @@ static void  isolate_path(t_lem *lem, int prev_room, int current_room)
     int     next_room;
 
 lem->rooms[0].id = ft_strdup("START");
-printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
+//printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
     lem->rooms[current_room].is_full = 1;
     i = -1;
     done = 0;
@@ -129,11 +129,10 @@ void    edmonds_karp(t_lem *lem)
 {
     int     first_room;
 
-printf("\t/// IN EDMONDS_KARP ///\n");
+//printf("\t/// IN EDMONDS_KARP ///\n");
     while ((first_room = bfs(lem)) != -1)
     {
-display_weights(*lem);
-printf("\tfirst_room : room %s\n", lem->rooms[first_room].id);
+//printf("\tfirst_room : room %s\n", lem->rooms[first_room].id);
         isolate_path(lem, START, first_room);
         clear_weights(lem);
     }
