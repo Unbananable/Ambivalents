@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:06:45 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:05:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,14 @@ void	parser(t_lem *lem)
 			if (current_room == lem->nb_rooms)
 				parse_step = SET_LINKS;
 		}
-		else if (parse_step != SET_LINKS)
-			error (lem);
-		else if (parse_step == SET_LINKS && lem->input[i] != 'L')
+		else if (parse_step == SET_LINKS && lem->input[i] != 'L' && lem->input[i] != '\n')
 			parse_step = fill_adjacency_matrix(lem, lem->input + i);
-
+		else if (lem->input[i] == '\n' && lem->input[i + 1] == 'L')
+			parse_step++;
 		else if (parse_step != SET_INSTR || lem->input[i] != 'L')
 			error(lem);
-		else if (parse_step == SET_INSTR && lem->input[i] == '\n')
-			;
 		else if (parse_step == SET_INSTR && lem->input[i] == 'L')
 			parse_step = set_instructions(lem, lem->input + i, ++i_visu);
-
 		else
 			parse_step = ERROR;
 		if (parse_step == ERROR)

@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/15 14:18:53 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/15 19:22:10 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC = main.c \
 	  parser.c \
@@ -21,6 +21,7 @@ SRC = main.c \
 	  count_and_fill_input.c \
 	  draw_tunnels.c \
 	  draw_rooms.c \
+	  draw_ants.c \
 	  end.c
 SRCSFD = srcs/
 OBJSFD = objs/

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:05:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:11:43 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 # define HEIGHT 1000
 # define WIDTH 1000
 # define MARGIN 35
+
+typedef enum	e_color
+{
+	PATTERN_1,
+	PATTERN_2,
+	PATTERN_3,
+	PATTERN_4,
+	PATTERN_5
+}				t_color;
 
 typedef struct	s_room
 {
@@ -76,6 +85,7 @@ typedef struct	s_lem
 	int				y_offset;
 	int				scale;
 	t_visu			**visu;//** to initialize malloc * nb_instr + 1, et set le dernier à ant_id = 0(* init in set_instr)
+	t_color			color;
 }				t_lem;
 
 int				count_and_fill_input(t_lem *lem);
@@ -89,7 +99,8 @@ int				set_instructions(t_lem *lem, char *str, int i_visu);
 void			set_weights(t_lem *lem);
 
 void    		draw_tunnels(t_lem *lem);
-void			draw_rooms(t_lem *lems);
+void			draw_rooms(t_lem *lem);
+void			draw_ants(t_lem *lem);
 
 void    		error(t_lem *lem);
 

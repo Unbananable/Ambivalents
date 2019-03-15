@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/15 17:04:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:00:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,10 @@ while (w_list[++j] != 0)
 //printf("\t3/4 (HERE)\n");
 	while (++i <= lem->rooms[w_list[0]].w)
 	{
-		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 		make_ants_move(lem);
+		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 	}
+	lem->instr[ft_strlen(lem->instr) - 1] = '\0';
 	free(w_list);
 //printf("\t4/4\n");
 }

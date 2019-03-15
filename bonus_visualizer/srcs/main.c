@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:14:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:10:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ static void	initialize(t_lem *lem)
 			else
 				ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	}
-	if (!(lem->visu = (t_visu **)malloc(sizeof(t_visu *) * lem->nb_instr + 1)))
+	if (!(lem->visu = (t_visu **)malloc(sizeof(t_visu *) * (lem->nb_instr + 1))))
 		error(lem);
 	if (!lem->links[0])
 		error(lem);
+	lem->color = PATTERN_1;
 	lem->x_max = -2147483648;
 	lem->x_min = 2147483647;
 	lem->y_max = -2147483648;
@@ -83,6 +84,7 @@ int		main(int ac, char **av)
 	draw_tunnels(&lem);
 	draw_rooms(&lem);
 	SDL_RenderPresent(lem.rend);
+	draw_ants(&lem);
 	while (!quit)
 	{
 		SDL_WaitEvent(&event);

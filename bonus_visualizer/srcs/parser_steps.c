@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:12:10 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 21:09:50 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int         fill_adjacency_matrix(t_lem *lem, char *str)
 		return (-1);
     lem->links[link.st][link.nd] = 1;
     lem->links[link.nd][link.st] = 1;
-    return(2);
+    return (2);
 }
 
 int		set_instructions(t_lem *lem, char *str, int i_visu)
@@ -163,15 +163,16 @@ int		set_instructions(t_lem *lem, char *str, int i_visu)
 		lem->visu[i_visu][++k].ant_id = ft_atoi(str + i);
 		while (ft_isdigit(str[i++]))
 			;
-		if (str[i] != '-')
+		if (str[--i] != '-')
 			return (-1);
 		count = 0;
-		while (str[++i] && (str[i] != ' ' || str[i] != '\n'))
+		while (str[++i] && str[i] != ' ' && str[i] != '\n')
 			count++;
 		j = -1;
 		while (++j < lem->nb_rooms)
 			if (ft_strnequ(lem->rooms[j].id, str + i - count, count))
 				lem->visu[i_visu][k].i_room = j;
+		i += (str[i] == '\n') ? -1 : 0;
 	}
 	lem->visu[i_visu][++k].ant_id = 0;
 	return (3);
