@@ -4,3 +4,4 @@ visualizer
 *.o
 objs/
 *.DS_Store
+libft/libft.a
