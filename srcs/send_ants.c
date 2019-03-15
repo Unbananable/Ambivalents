@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/15 10:53:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 11:34:31 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,44 +27,48 @@ static void	make_w_list(t_lem *lem)
 	lem->w_list[++j] = 0;
 }
 
-static int	search_next_room(t_lem *lem, int i_room)
+static int	get_prev_room(t_lem *lem, int current_room)
 {
-	int	j;
+	int		i;
 
-	j = 0; 
-	while (++j < nb_rooms)
-		if (lem->links[i_room][j] == 1 && (lem->rooms[j].w || j == END) /* */)
-			return (j);
+	i = -1;
+	while (++i < lem->nb_rooms)
+		if (lem->links[current_room][i] && (lem->rooms[i].w == lem->rooms[i].w + 1 || i == 0))
+			return (i);
 	return (-1);
 }
 
 static void	make_ants_move(t_lem *lem)
 {
-	int		i;
+	int		current_room;
 	int		next_room;
+	int		start_room;
 
-	i = 1;
-	while (++i < lem->nb_rooms)
+	start_room = -1;
+	while (++start_room < lem->nb_rooms)
 	{
-		if (lem->rooms[i].is_full)
+		if (lem->links[start_room][END] && lem->rooms[start_room].w)
 		{
-			if (!(next_room = search_next_room(lem, i)) == -1)
-				error(lem);
-			ft_char_realloc(lem->instr, ft_strlen(lem->instr)
-					+ ft_intlen(lem->rooms[i].ant_id)
-					+ ft_strlen(lem->rooms[next_room].id) + 3);
-			ft_strcat(lem->instr, "L");
-			ft_strcat(lem->instr, ft_itoa(lem->rooms[i].ant_id));
-			ft_strcat(lem->instr, "-");
-			ft_strcat(lem->instr, lem->rooms[next_room].id);
-			ft_strcat(lem->instr, " ");
-			if (next_room != END)
+			current_room = start_room;
+			next_room = END;
+			while (current_room != START)
 			{
-				lem->rooms[next_room].is_full = 1;
-				lem->rooms[next_room].ant_id = lem->rooms[i].ant_id;
+				if (lem->rooms[current_room].ant_id)
+				{
+					ft_char_realloc(lem->instr, ft_strlen(lem->instr)
+						+ ft_intlen(lem->rooms[current_room].ant_id)
+						+ ft_strlen(lem->rooms[next_room].id) + 3);
+					ft_strcat(lem->instr, "L");
+					ft_strcat(lem->instr, ft_itoa(lem->rooms[current_room].ant_id));
+					ft_strcat(lem->instr, "-");
+					ft_strcat(lem->instr, lem->rooms[next_room].id);
+					ft_strcat(lem->instr, " ");
+					lem->rooms[next_room].ant_id = lem->rooms[next_room].ant_id;
+					lem->rooms[next_room].ant_id = 0;
+				}
+				next_room = current_room;
+				current_room = get_prev_room(lem, next_room);
 			}
-			lem->rooms[i].is_full = 0;
-			lem->rooms[i].ant_id = 0;
 		}
 	}
 }
@@ -85,7 +89,6 @@ void		send_ants(t_lem *lem)
 				- lem->rooms[lem->w_list[0]].w)
 		{
 			lem->rooms[lem->w_list[i]].ant_id = lem->nb_ants - ants_left + 1;
-			lem->rooms[lem->w_list[i]].is_full = 1;
 			ft_char_realloc(lem->instr, ft_strlen(lem->instr)
 					+ ft_intlen(lem->nb_ants - ants_left + 1)
 					+ ft_strlen(lem->rooms[lem->w_list[i]].id) + 3);
@@ -100,10 +103,8 @@ void		send_ants(t_lem *lem)
 		i = -1;
 	}
 	i = -1;
-	while (++i < lem->rooms[lem->w_list[0]])
+	while (++i < lem->rooms[lem->w_list[0]].w)
 		make_ants_move(lem);
 	ft_putstr_fd(lem->instr, 1);
 	ft_strdel(lem->instr);
 }
-
-//put is full to 0 before start
