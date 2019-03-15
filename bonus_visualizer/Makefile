@@ -6,19 +6,19 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/13 11:40:31 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/15 14:18:53 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 SRC = main.c \
 	  parser.c \
 	  parser_steps.c \
 	  set_weights.c \
-	  count_rooms_and_fill_input.c \
+	  count_and_fill_input.c \
 	  draw_tunnels.c \
 	  draw_rooms.c \
 	  end.c

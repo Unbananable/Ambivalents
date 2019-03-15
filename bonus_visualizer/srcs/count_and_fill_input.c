@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_rooms_and_fill_input.c                       :+:      :+:    :+:   */
+/*   count_and_fill_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 16:45:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 11:54:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	is_room(char *str, int i)
 	return (1);
 }
 
-int			count_rooms_and_fill_input(t_lem *lem)
+int			count_and_fill_input(t_lem *lem)
 {
 	int		i;
 	int		count;
