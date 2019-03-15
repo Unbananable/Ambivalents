@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:45:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:05:33 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void  isolate_path(t_lem *lem, int prev_room, int current_room)
     int     next_room;
 
 lem->rooms[0].id = ft_strdup("START");
-printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
+//printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
     lem->rooms[current_room].is_full = 1;
     i = -1;
     done = 0;
@@ -130,20 +130,20 @@ void    edmonds_karp(t_lem *lem)
 {
     int     first_room;
 
-printf("\t/// IN EDMONDS_KARP ///\n");
-printf("\tLOOP1\n");
+//printf("\t/// IN EDMONDS_KARP ///\n");
+//printf("\tLOOP1\n");
     while ((first_room = bfs(lem)) != -1)
     {
-printf("\t x Initial adjacency matrix:\n");
-display_adj_matrix(*lem);
-printf("\t L1: 1/3\n");
-printf("\t x first_room : room %s\n", lem->rooms[first_room].id);
+//printf("\t x Initial adjacency matrix:\n");
+//display_adj_matrix(*lem);
+//printf("\t L1: 1/3\n");
+//printf("\t x first_room : room %s\n", lem->rooms[first_room].id);
         isolate_path(lem, START, first_room);
-printf("\t L1: 2/3\n");
+//printf("\t L1: 2/3\n");
         clear_weights(lem);
-printf("\t x Modified adjacency matrix:\n");
-display_adj_matrix(*lem);
-printf("\t L1: 3/3\n");
+//printf("\t x Modified adjacency matrix:\n");
+//display_adj_matrix(*lem);
+//printf("\t L1: 3/3\n");
     }
-printf("\t/LOOP1\n");
+//printf("\t/LOOP1\n");
 }
