@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 13:44:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 16:34:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	initialize(t_lem *lem)
 	while (++i < lem->nb_rooms)
 	{
 		lem->rooms[i].w = 0;
-		lem->rooms[i].ant_id = 0;
+		lem->rooms[i].ant_id = NULL;
 		lem->rooms[i].id = NULL;
 		lem->rooms[i].is_full = 0;
 	}
@@ -51,7 +51,6 @@ static void	initialize(t_lem *lem)
 	if (!lem->links[0])
 		error(lem);
 	lem->instr = NULL;
-
 }
 
 int			main(int ac, char **av)
@@ -89,6 +88,7 @@ printf("6/7\n");
 	ft_putstr(lem.input);
 	ft_putchar('\n');
 	ft_putstr(lem.instr);
+	ft_putchar('\n');
 	end(&lem);
 printf("7/7\n");
 	return (0);
