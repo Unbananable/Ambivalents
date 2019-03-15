@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 19:46:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:05:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define SET_NB_ANTS 0
 # define SET_ROOMS 1
 # define SET_LINKS 2
+# define SET_INSTR 3
+# define PARSING_IS_OVER 4
 
 # define ERROR -1
 
@@ -50,6 +52,11 @@ typedef struct	s_link
 	int		nd;
 }				t_link;
 
+typedef struct	s_visu
+{
+	int		ant_id;
+	int		i_room;
+}				t_visu;
 
 typedef struct	s_lem
 {
@@ -58,6 +65,7 @@ typedef struct	s_lem
 	char			*input;
 	int				nb_rooms;
 	int				nb_ants;
+	int				nb_instr;
 	t_room			*rooms;
 	int				**links;
 	int				x_min;
@@ -67,14 +75,16 @@ typedef struct	s_lem
 	int				x_offset;
 	int				y_offset;
 	int				scale;
+	t_visu			**visu;//** to initialize malloc * nb_instr + 1, et set le dernier à ant_id = 0(* init in set_instr)
 }				t_lem;
 
-int				count_rooms_and_fill_input(t_lem *lem);
+int				count_and_fill_input(t_lem *lem);
 
 void	        parser(t_lem *lem);
 int		        set_nb_ants(t_lem *lem, char *str);
 int		        set_rooms(t_lem *lem, char *str, int current_room);
 int             fill_adjacency_matrix(t_lem *lem, char *str);
+int				set_instructions(t_lem *lem, char *str, int i_visu);
 
 void			set_weights(t_lem *lem);
 

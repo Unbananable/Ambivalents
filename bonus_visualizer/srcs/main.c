@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 20:04:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:14:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static void	initialize(t_lem *lem)
 {
 	int		i;
 
-	lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms);
+	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
+		error(lem);
 	i = -1;
 	while (++i < lem->nb_rooms)
 		lem->rooms[i].id = NULL;
-	lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms);
+	if (!(lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms)))
+		error(lem);
 	if (lem->links)
 	{
 		i = -1;
@@ -43,7 +45,9 @@ static void	initialize(t_lem *lem)
 			else
 				ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	}
-	if (!lem->rooms || !lem->links || !lem->links[0])
+	if (!(lem->visu = (t_visu **)malloc(sizeof(t_visu *) * lem->nb_instr + 1)))
+		error(lem);
+	if (!lem->links[0])
 		error(lem);
 	lem->x_max = -2147483648;
 	lem->x_min = 2147483647;
@@ -70,7 +74,7 @@ int		main(int ac, char **av)
 		SDL_Log("Unable to initialize Window and Renderer: %s", SDL_GetError());
 		return (1);
 	}
-	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
+	if ((lem.nb_rooms = count_and_fill_input(&lem)) <= 1)
 		error(&lem); //checker ici potentiel pb de free
 	IMG_Init(IMG_INIT_JPG);
 	initialize(&lem);

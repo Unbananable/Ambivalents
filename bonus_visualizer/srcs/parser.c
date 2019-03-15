@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/12 13:44:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:06:45 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ static void	next_line(char *input, int *i)
 void	parser(t_lem *lem)
 {
 	int		i;
+	int		i_visu;
 	int		parse_step;
 	int		current_room;
 
 	i = 0;
+	i_visu = -1;
 	parse_step = SET_NB_ANTS;
 	current_room = END + 1;
 	while (lem->input[i])
@@ -84,7 +86,7 @@ void	parser(t_lem *lem)
 			if ((parse_step = set_nb_ants(lem, lem->input + i)) == ERROR)
 				error(lem);
 		}
-		else if (parse_step == 1 && lem->input[i] != 'L')
+		else if (parse_step == SET_ROOMS && lem->input[i] != 'L')
 		{
 			if ((parse_step = set_rooms(lem, lem->input + i, current_room)) == ERROR)
 				error(lem);
@@ -96,7 +98,15 @@ void	parser(t_lem *lem)
 			error (lem);
 		else if (parse_step == SET_LINKS && lem->input[i] != 'L')
 			parse_step = fill_adjacency_matrix(lem, lem->input + i);
-		else 
+
+		else if (parse_step != SET_INSTR || lem->input[i] != 'L')
+			error(lem);
+		else if (parse_step == SET_INSTR && lem->input[i] == '\n')
+			;
+		else if (parse_step == SET_INSTR && lem->input[i] == 'L')
+			parse_step = set_instructions(lem, lem->input + i, ++i_visu);
+
+		else
 			parse_step = ERROR;
 		if (parse_step == ERROR)
 			lem->input[--i] = 0;
@@ -104,4 +114,4 @@ void	parser(t_lem *lem)
 	}
 	set_scale(lem);
 	scale(lem);
-}
+}// Where shall we free lem->visu
