@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/14 12:01:34 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/15 13:38:44 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC = main.c \
 	  parser_steps.c \
 	  end.c \
 	  edmonds_karp.c \
+	  send_ants.c \
 	  dev_tools.c
 SRCSFD = srcs/
 OBJSFD = objs/

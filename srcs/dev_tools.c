@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/14 12:14:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:29:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,11 @@ void	display_adj_matrix(t_lem lem)
 	int		j;
 
 	i = -1;
-	while (++i <= lem.nb_rooms && (j = -1))
+	while (++i < lem.nb_rooms && (j = -1))
 	{
-		if (i == 0)
-			printf("  ");
-		else
-			printf("%d ", (i - 1) % 10);
+		printf("%s\t(%d / %d) : ", lem.rooms[i].id, lem.rooms[i].is_full, lem.rooms[i].w);
 		while (++j < lem.nb_rooms)
-			if (i == 0)
-				printf("%d ", j % 10);
-			else
-				printf("%d ", lem.links[i - 1][j]);
+			printf("%d ", lem.links[i][j]);
 		printf("\n");
 	}
 }

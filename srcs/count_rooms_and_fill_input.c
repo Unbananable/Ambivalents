@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_rooms_and_fill_input.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/08 16:41:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:41:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int			count_rooms_and_fill_input(t_lem *lem)
 	int		rd_size;
 	char	buff[BUFF_SIZE + 1];
 
-printf("\t/// IN COUNT_ROOMS_AND_FILL_INPUT ///\n");
-printf("\t1/2\n");
+//printf("\t/// IN COUNT_ROOMS_AND_FILL_INPUT ///\n");
+//printf("\t1/2\n");
 	rd_size = 0;
 	count = 0;
 	stop = -1;
 	lem->input = NULL;
-printf("\tLOOP1\n");
+//printf("\tLOOP1\n");
 	while ((rd_size = read(0, buff, BUFF_SIZE)) > 0)
 	{
 		buff[rd_size] = 0;
@@ -81,11 +81,11 @@ printf("\tLOOP1\n");
 					stop = 1;				
 			}
 	}
-printf("\t/LOOP1\n");
+//printf("\t/LOOP1\n");
 	if (rd_size < 0)
-{printf("\t->SORTIE (erreur lecture)\n");
+//{printf("\t->SORTIE (erreur lecture)\n");
 		return (0);
-}
-printf("\t2/2\n");
+//}
+//printf("\t2/2\n");
 	return (count); // returns -1 si y a des fourmis mais 0 salles (ou parametres fourmis non valide), renvoie 0 si le nombre de salle est zero ou si read a rencontré une erreur, renvoie le nombre de salles sinon
 }

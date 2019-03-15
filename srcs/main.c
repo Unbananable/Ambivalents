@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 11:46:16 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:44:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static void	initialize(t_lem *lem)
 			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	if (!lem->links[0])
 		error(lem);
-	if (!(lem->w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 2))))
-		error(lem);
 	lem->instr = NULL;
 
 }
@@ -63,31 +61,35 @@ int			main(int ac, char **av)
 	if (ac != 1)
 		usage();
 	av += 0;
-	/* PARSING */
 
-	printf("/// IN MAIN ///\n");
-	printf("1/7\n");
+	/* PARSING */
+printf("/// IN MAIN ///\n");
+printf("1/7\n");
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
-	{printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
+{printf("SORTIE-> erreur (nb_rooms = %d)\n", lem.nb_rooms);
 		error(&lem); //checker ici potentiel pb de free
-	}
-	printf("2/7 (nb_rooms = %d)\n", lem.nb_rooms);
+}
+printf("2/7 (nb_rooms = %d)\n", lem.nb_rooms);
 	initialize(&lem);
-	printf("3/7\n");
+printf("3/7\n");
 	parser(&lem);
-	printf("4/7\n");
-	//printf("nb_ants = %d\n\n", lem.nb_ants);
-	//display_rooms(lem);
-	printf("5/7\n");
-	//display_adj_matrix(lem);
-	printf("6/7\n");
-	edmonds_karp(&lem);
-	display_weights(lem);
-	printf("7/7\n");
+printf("4/7\n");
+//printf("nb_ants = %d\n\n", lem.nb_ants);
+//display_rooms(lem);
+//display_adj_matrix(lem);
 
 	/* CALCUL DU CHEMIN */
+	edmonds_karp(&lem);
+printf("5/7\n");
+//display_weights(lem);
+	send_ants(&lem);
+printf("6/7\n");
 
 	/* AFFICHAGE */
-
+	ft_putstr(lem.input);
+	ft_putchar('\n');
+	ft_putstr(lem.instr);
+	end(&lem);
+printf("7/7\n");
 	return (0);
 }

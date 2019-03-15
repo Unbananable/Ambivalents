@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 15:14:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/14 09:04:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:06:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void draw_weight(t_lem *lem)
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-	texte = TTF_RenderText_Shaded(police, ft_itoa(lem->rooms[i].w), rouge, blanc);
+	texte = TTF_RenderText_Shaded(police, lem->rooms[i].id, rouge, blanc);
 	position.x = lem->rooms[i].x ;
 	position.y = lem->rooms[i].y;
 	position.h = 20;

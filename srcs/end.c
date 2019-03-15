@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/14 18:08:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:35:29 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void    error(t_lem *lem)
+void    end(t_lem *lem)
 {
     int     i;
 
@@ -32,7 +32,13 @@ void    error(t_lem *lem)
     }
     free(lem->links);
 	free(lem->instr);
-	free(lem->w_list);
+}
+
+void    error(t_lem *lem)
+{
+
+
+    end(lem);
     ft_putstr_fd("ERROR\n", 2);
     exit(0);
 }
