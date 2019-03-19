@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 18:51:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/19 19:22:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	initialize_lem(t_lem *lem)
 {
 	int		i;
 
-	lem->input = NULL;
 	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
 		error(lem);
 	i = -1;
@@ -68,40 +67,53 @@ static void	initialize_lem(t_lem *lem)
 	lem->visual.ant_text = NULL;
 }
 
-int		main(int ac, char **av)
+static void	initialize_SDL(t_lem *lem)
+{
+	SDL_Surface	*ant_surf;
+
+	if (SDL_Init(SDL_INIT_VIDEO))
+		error(lem);
+	if (TTF_Init())
+		error(lem);
+	if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG))
+		error(lem);
+	if (!(lem->visual.win = SDL_CreateWindow("lem-in", SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0)))
+		error(lem);
+	if (!(lem->visual.rend = SDL_CreateRenderer(lem->visual.win, -1,
+			SDL_RENDERER_ACCELERATED)))
+		error(lem);
+	if (SDL_SetRenderDrawColor(lem->visual.rend, 0, 0, 0, 255))
+		error(lem);
+	if (!(lem->visual.font = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
+		error(lem);
+	/* On cree une texture qui accueillera toutes les images de la fourmilliere (qui sont fixes) */
+	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
+			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
+		error(lem);
+	if (!(ant_surf = IMG_Load("imgs/ant.png")))
+		error(lem);
+	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend, ant_surf);
+	SDL_FreeSurface(ant_surf);
+	if (!lem->visual.ant_text)
+		error(lem);
+}
+
+int			main(int ac, char **av)
 {
 	t_lem		lem;
 	SDL_Event	event;
 	int			quit;
-	SDL_Surface	*ant_surf;
 
 	if (ac != 1)
 		usage();
 	av += 0;
 	quit = 0;
-	lem.nb_rooms = count_and_fill_input(&lem);
+	if (!(lem.nb_rooms = count_and_fill_input(&lem)))
+		usage();
 	initialize_lem(&lem);
 	parser(&lem);
-	if (SDL_Init(SDL_INIT_VIDEO))
-		error(&lem);
-	if (TTF_Init())
-		error(&lem);
-	if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG))
-		error(&lem);
-	if (!(lem.visual.win = SDL_CreateWindow("lem-in", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0)))
-		error(&lem);
-	if (!(lem.visual.rend = SDL_CreateRenderer(lem.visual.win, -1,
-			SDL_RENDERER_ACCELERATED)))
-		error(&lem);
-	if (SDL_SetRenderDrawColor(lem.visual.rend, 0, 0, 0, 255))
-		error(&lem);
-	if (!(lem.visual.font = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
-		error(&lem);
-	/* On cree une texture qui accueillera toutes les images de la fourmilliere (qui sont fixes) */
-	if (!(lem.visual.anthill_text = SDL_CreateTexture(lem.visual.rend,
-			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
-		error(&lem);
+	initialize_SDL(&lem);
 	/* On dit que la texture de la foumilliere sert de renderer le temps de mettre toutes les images des rools et tunnels dedans */
 	if (SDL_SetRenderTarget(lem.visual.rend, lem.visual.anthill_text))
 		error(&lem);
@@ -115,12 +127,6 @@ int		main(int ac, char **av)
 		error(&lem);
 	/* On affiche la fourmiliere vide */
 	SDL_RenderPresent(lem.visual.rend);
-	if (!(ant_surf = IMG_Load("imgs/ant.png")))
-		error(&lem);
-	lem.visual.ant_text = SDL_CreateTextureFromSurface(lem.visual.rend, ant_surf);
-	SDL_FreeSurface(ant_surf);
-	if (!lem.visual.ant_text)
-		error(&lem);
 	while (!quit)
 	{
 		if (!SDL_WaitEvent(&event))
@@ -131,9 +137,9 @@ int		main(int ac, char **av)
 		else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_n)
 			draw_ants(&lem);
 	}
+	end(&lem);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
-	end(&lem);
 	return (0);
 }
