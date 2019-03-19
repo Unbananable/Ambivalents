@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_steps.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 21:09:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:51:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,14 @@ int		set_instructions(t_lem *lem, char *str, int i_visu)
 	count = 0;
 	while (str[++i] && str[i] != '\n')
 		count += (str[i] == 'L') ? 1 : 0;
-	if (!(lem->visu[i_visu] = (t_visu *)malloc(sizeof(t_visu) * (count + 1))))
+	if (!(lem->instr[i_visu] = (t_instr *)malloc(sizeof(t_instr) * (count + 1))))
 		error(lem);
 	i = -1;
 	while (str[++i] && str[i] != '\n')
 	{
 		if (str[i++] != 'L')
 			return (-1);
-		lem->visu[i_visu][++k].ant_id = ft_atoi(str + i);
+		lem->instr[i_visu][++k].ant_id = ft_atoi(str + i);
 		while (ft_isdigit(str[i++]))
 			;
 		if (str[--i] != '-')
@@ -171,9 +171,9 @@ int		set_instructions(t_lem *lem, char *str, int i_visu)
 		j = -1;
 		while (++j < lem->nb_rooms)
 			if (ft_strnequ(lem->rooms[j].id, str + i - count, count))
-				lem->visu[i_visu][k].i_room = j;
+				lem->instr[i_visu][k].i_room = j;
 		i += (str[i] == '\n') ? -1 : 0;
 	}
-	lem->visu[i_visu][++k].ant_id = 0;
+	lem->instr[i_visu][++k].ant_id = 0;
 	return (3);
 }

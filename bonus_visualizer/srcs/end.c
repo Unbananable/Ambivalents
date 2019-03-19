@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 14:25:23 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:44:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void    error(t_lem *lem)
 {
+    ft_putstr_fd("ERROR\n", 2);
+    end(lem);
+    exit(0);
+}
+
+void    end(t_lem *lem)
+{
     int     i;
 
-    ft_putstr_fd("ERROR\n", 2);
     free(lem->input);
     if (lem->rooms)
     {
@@ -32,12 +38,17 @@ void    error(t_lem *lem)
             free(lem->links[i]);
     }
     free(lem->links);
-	if (lem->visu)
+	if (lem->instr)
 	{
 		i = -1;
 		while (++i < lem->nb_instr)
-			free(lem->visu[i]);
+			free(lem->instr[i]);
 	}
-	free(lem->visu);
-    exit(0);
+	free(lem->instr);
+    SDL_DestroyWindow(lem->visual.win);
+    SDL_DestroyRenderer(lem->visual.rend);
+    SDL_DestroyTexture(lem->visual.anthill_text);
+    TTF_CloseFont(lem->visual.font);
+    free(lem->visual.colors);
+    SDL_DestroyTexture(lem->visual.ant_text);
 }
