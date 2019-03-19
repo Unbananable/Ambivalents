@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/19 18:06:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/19 20:33:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ void		send_ants(t_lem *lem)
 //printf("\tx w_list =");
 //int j = -1;
 //while (w_list[++j] != 0)
-//printf(" %s", lem->rooms[w_list[j]].id);
+//printf("w_list[j]: %d, j: %d\n", w_list[j], j);
+//printf("r: %s\n", lem->rooms[w_list[j]].id);
 //printf("\n");
 //printf("\t2/4\n");
 //printf("\tLOOP1\n");
@@ -180,8 +181,8 @@ void		send_ants(t_lem *lem)
 		i = -1;
 	}
 //printf("\t/LOOP1\n");
-	i = -1;
 //printf("\t3/4 (HERE)\n");
+	i = -1;
 	while (w_list[++i])
 		;
 	max_weight_idx = w_list[i - 1];
