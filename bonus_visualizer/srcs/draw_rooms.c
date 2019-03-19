@@ -5,71 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 15:14:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 17:38:37 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/03/19 17:35:54 by anleclab          #+#    #+#             */
+/*   Updated: 2019/03/19 18:44:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-static void init_room_pos(t_room room, SDL_Rect *room_pos)
+static void draw_room_names(t_lem *lem)
 {
-    room_pos->x = room.x - 15; //10 est l'echelle juste pour test, a changer
-    room_pos->y = room.y - 15;
-}
-
-static void draw_weight(t_lem *lem)
-{
-    TTF_Font	*police = NULL;
-	SDL_Color	rouge = {100, 100, 255, 255};
-	SDL_Color	blanc = {255, 255, 255, 255};
-	SDL_Surface	*texte = NULL;
-	SDL_Rect	position;
-    SDL_Texture *texture = NULL;
+	SDL_Surface	*text_surf;
+    SDL_Texture *text_text;
+	SDL_Rect	text_pos;
     int         i;
 
-    position.x = 0;
-	position.y = 0;
-	if (TTF_Init() == -1)
-		error(lem);
-	if (!(police = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
-		error(lem);
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-	texte = TTF_RenderText_Shaded(police, lem->rooms[i].id, rouge, blanc);
-	position.x = lem->rooms[i].x ;
-	position.y = lem->rooms[i].y;
-	position.h = 20;
-	position.w = 20;
-    if (!(texture = SDL_CreateTextureFromSurface(lem->rend, texte)))
-		error(lem);
-    if (SDL_RenderCopy(lem->rend, texture, NULL, &position))
-		error(lem);
+	    if (!(text_surf = TTF_RenderText_Shaded(lem->visual.font,
+                lem->rooms[i].id, lem->visual.colors[RED],
+                lem->visual.colors[WHITE])))
+            error(lem);
+	    text_pos.x = lem->rooms[i].x;
+	    text_pos.y = lem->rooms[i].y;
+	    text_pos.h = 20;
+	    text_pos.w = 20;
+        text_text = SDL_CreateTextureFromSurface(lem->visual.rend, text_surf);
+        SDL_FreeSurface(text_surf);
+        if (!text_text)
+            error(lem);
+        if (SDL_RenderCopy(lem->visual.rend, text_text, NULL, &text_pos))
+            error(lem);
+        SDL_DestroyTexture(text_text);
 	}
-    TTF_CloseFont(police);
-    TTF_Quit();
 }
 
 void        draw_rooms(t_lem *lem)
 {
-    SDL_Surface *room_img;
-    SDL_Texture *room_texture;
+    SDL_Surface *room_surf;
+    SDL_Texture *room_text;
     int         i;
     SDL_Rect    room_pos;
 
-    if (!(room_img = IMG_Load("imgs/room_ant.jpg")))
+    if (!(room_surf = IMG_Load("imgs/room_ant.jpg")))
 		error(lem);
-    room_texture = SDL_CreateTextureFromSurface(lem->rend, room_img);
+    room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
+    SDL_FreeSurface(room_surf);
+    if (!room_text)
+        error(lem);
     room_pos.h = 50; //il faudra peut etre adapter la taille de la room en fonction de l'echelle aussi
     room_pos.w = 50;
     i = -1;
     while (++i < lem->nb_rooms)
     {
-        init_room_pos(lem->rooms[i], &room_pos);
-        SDL_RenderCopy(lem->rend, room_texture, NULL, &room_pos);
+        room_pos.x = lem->rooms[i].x - 15;
+        room_pos.y = lem->rooms[i].y - 15;
+        if (SDL_RenderCopy(lem->visual.rend, room_text, NULL, &room_pos))
+            error(lem);
     }
-    SDL_DestroyTexture(room_texture); //il faudrait aussi peut-etre plutot inclure ca dans le t_lem pour pas avoir a les recharger plein de fois ? (je sais pas si c'est necessaire pour les rooms)
-    SDL_FreeSurface(room_img);
-    draw_weight(lem);
+    SDL_DestroyTexture(room_text);
+    draw_room_names(lem);
 }

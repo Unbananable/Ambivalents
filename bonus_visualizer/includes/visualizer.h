@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 18:11:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:39:53 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,8 @@
 # define WIDTH 1000
 # define MARGIN 35
 
-typedef enum	e_color
-{
-	PATTERN_1,
-	PATTERN_2,
-	PATTERN_3,
-	PATTERN_4,
-	PATTERN_5
-}				t_color;
+# define WHITE 0
+# define RED 1
 
 typedef struct	s_room
 {
@@ -61,16 +55,24 @@ typedef struct	s_link
 	int		nd;
 }				t_link;
 
-typedef struct	s_visu
+typedef struct	s_instr
 {
 	int		ant_id;
 	int		i_room;
-}				t_visu;
+}				t_instr;
 
-typedef struct	s_lem
+typedef struct	s_visual
 {
 	SDL_Window		*win;
 	SDL_Renderer	*rend;
+	SDL_Texture		*anthill_text;
+	TTF_Font		*font;
+	SDL_Color		*colors;
+	SDL_Texture		*ant_text;
+}				t_visual;
+
+typedef struct	s_lem
+{
 	char			*input;
 	int				nb_rooms;
 	int				nb_ants;
@@ -84,8 +86,8 @@ typedef struct	s_lem
 	int				x_offset;
 	int				y_offset;
 	int				scale;
-	t_visu			**visu;//** to initialize malloc * nb_instr + 1, et set le dernier à ant_id = 0(* init in set_instr)
-	t_color			color;
+	t_instr			**instr;
+	t_visual		visual;
 }				t_lem;
 
 int				count_and_fill_input(t_lem *lem);
@@ -96,12 +98,11 @@ int		        set_rooms(t_lem *lem, char *str, int current_room);
 int             fill_adjacency_matrix(t_lem *lem, char *str);
 int				set_instructions(t_lem *lem, char *str, int i_visu);
 
-void			set_weights(t_lem *lem);
-
-void    		draw_tunnels(t_lem *lem);
+void			draw_tunnels(t_lem *lem);
 void			draw_rooms(t_lem *lem);
 void			draw_ants(t_lem *lem);
 
 void    		error(t_lem *lem);
+void			end(t_lem *lem);
 
 #endif
