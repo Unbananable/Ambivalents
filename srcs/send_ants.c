@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/19 16:11:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:06:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static void	make_ants_move(t_lem *lem)
 //printf("\t\t  L2: 1/3 (current_room = %s / ant_id = %s)\n", lem->rooms[current_room].id, lem->rooms[current_room].ant_id);
 				if (lem->rooms[current_room].ant_id)
 				{
+//printf("current_room: %d, next_room: %d\n", current_room, next_room);
+//printf("lem->rooms[current_room].ant_id: %s\n", lem->rooms[current_room].ant_id);
 //printf("\t\t  L2: writing instruction\n");
 					lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
 						+ ft_strlen(lem->rooms[current_room].ant_id)
@@ -127,6 +129,7 @@ void		send_ants(t_lem *lem)
 {
 	int		i;
 	int		ants_left;
+	int		max_weight_idx;
 	int		*w_list;
 
 //printf("\t/// IN SEND_ANTS ///\n");
@@ -135,8 +138,8 @@ void		send_ants(t_lem *lem)
 	if (!(w_list = make_w_list(lem)))
 		error(lem);
 //printf("\tx w_list =");
-int j = -1;
-while (w_list[++j] != 0)
+//int j = -1;
+//while (w_list[++j] != 0)
 //printf(" %s", lem->rooms[w_list[j]].id);
 //printf("\n");
 //printf("\t2/4\n");
@@ -179,7 +182,11 @@ while (w_list[++j] != 0)
 //printf("\t/LOOP1\n");
 	i = -1;
 //printf("\t3/4 (HERE)\n");
-	while (++i <= lem->rooms[w_list[0]].w)
+	while (w_list[++i])
+		;
+	max_weight_idx = w_list[i - 1];
+	i = -1;
+	while (++i <= lem->rooms[max_weight_idx].w)
 	{
 		make_ants_move(lem);
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
