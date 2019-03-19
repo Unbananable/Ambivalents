@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/15 13:38:44 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/19 18:19:02 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,14 @@ $(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] lem-in executable"
 
+brewing:
+	@brew install sdl2
+	@brew install sdl2_gfx
+	@brew install sdl2_image
+	@brew install sdl2_mixer
+	@brew install sdl2_net
+	@brew install sdl2_ttf
+
 check_libft:
 	@echo "Checking libft..."
 	@make -C libft
@@ -80,4 +88,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all check_libft project clean fclean re
+.PHONY: brewing all check_libft project clean fclean re
