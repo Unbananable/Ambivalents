@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:09:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:44:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,30 @@ void    draw_start_ants(t_lem *lem)
     if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
             &start_ant_pos))
         error(lem);
+}
+
+static void draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
+{
+    char        *id;
+    SDL_Surface *id_surf;
+    SDL_Texture *id_text;
+    
+    ant_pos.x += 20;
+    ant_pos.h = 10;
+    ant_pos.w = 10;
+    if (!(id = ft_itoa(ant_id)))
+        error(lem);
+    if (!(id_surf = TTF_RenderText_Shaded(lem->visual.font, id,
+            lem->visual.colors[RED], lem->visual.colors[WHITE])))
+        error(lem);
+    free(id);
+    id_text = SDL_CreateTextureFromSurface(lem->visual.rend, id_surf);
+    SDL_FreeSurface(id_surf);
+    if (!id_text)
+        error(lem);
+    if (SDL_RenderCopy(lem->visual.rend, id_text, NULL, &ant_pos))
+        error(lem);
+    SDL_DestroyTexture(id_text);
 }
 
 void    draw_ants(t_lem *lem, SDL_Keycode key)
@@ -60,6 +84,8 @@ void    draw_ants(t_lem *lem, SDL_Keycode key)
             if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
                     &ant_pos))
                 error(lem);
+            if (lem->instr[lem->visual.step][i].i_room != 1)
+                draw_ant_id(lem, lem->instr[lem->visual.step][i].ant_id, ant_pos);
         }
     }
     draw_start_ants(lem);
