@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:10:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:30:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,7 @@ int			main(int ac, char **av)
 	initialize_lem(&lem);
 	parser(&lem);
 	initialize_SDL(&lem);
-	/* On dit que la texture de la foumilliere sert de renderer le temps de mettre toutes les images des rools et tunnels dedans */
-	if (SDL_SetRenderTarget(lem.visual.rend, lem.visual.anthill_text))
-		error(&lem);
-	draw_tunnels(&lem);
-	draw_rooms(&lem);
-	/* On reset le renderer */
-	if (SDL_SetRenderTarget(lem.visual.rend, NULL))
-		error(&lem);
+	draw_anthill(&lem);
 	/* On copie la texture de la fourmiliere dans le renderer */
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
@@ -142,8 +135,5 @@ int			main(int ac, char **av)
 			draw_ants(&lem, event.key.keysym.sym);
 	}
 	end(&lem);
-	TTF_Quit();
-	IMG_Quit();
-	SDL_Quit();
 	return (0);
 }

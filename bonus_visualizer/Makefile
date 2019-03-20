@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/19 18:45:12 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/20 16:31:35 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ SRC = main.c \
 	  parser.c \
 	  parser_steps.c \
 	  count_and_fill_input.c \
-	  draw_tunnels.c \
-	  draw_rooms.c \
+	  draw_anthill.c \
 	  draw_ants.c \
 	  end.c
 SRCSFD = srcs/

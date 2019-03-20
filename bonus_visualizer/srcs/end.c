@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 18:44:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:25:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,7 @@ void    end(t_lem *lem)
     TTF_CloseFont(lem->visual.font);
     free(lem->visual.colors);
     SDL_DestroyTexture(lem->visual.ant_text);
+    TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
 }

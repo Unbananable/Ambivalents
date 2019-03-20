@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:09:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:31:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ int		        set_rooms(t_lem *lem, char *str, int current_room);
 int             fill_adjacency_matrix(t_lem *lem, char *str);
 int				set_instructions(t_lem *lem, char *str, int i_visu);
 
-void			draw_tunnels(t_lem *lem);
-void			draw_rooms(t_lem *lem);
+void    		draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void    		draw_start_ants(t_lem *lem);
 
