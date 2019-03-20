@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 19:22:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:10:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	initialize_lem(t_lem *lem)
 	lem->visual.colors[RED].b = 0;
 	lem->visual.colors[RED].a = 255;
 	lem->visual.ant_text = NULL;
+	lem->visual.step = -1;
 }
 
 static void	initialize_SDL(t_lem *lem)
@@ -125,6 +126,8 @@ int			main(int ac, char **av)
 	/* On copie la texture de la fourmiliere dans le renderer */
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
+	/* On ajoute les fourmis dans start */
+	draw_start_ants(&lem);
 	/* On affiche la fourmiliere vide */
 	SDL_RenderPresent(lem.visual.rend);
 	while (!quit)
@@ -134,8 +137,9 @@ int			main(int ac, char **av)
 		if (event.type == SDL_WINDOWEVENT
 				&& event.window.event == SDL_WINDOWEVENT_CLOSE)
 			quit = 1;
-		else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_n)
-			draw_ants(&lem);
+		else if (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_RIGHT
+				|| event.key.keysym.sym == SDLK_LEFT))
+			draw_ants(&lem, event.key.keysym.sym);
 	}
 	end(&lem);
 	TTF_Quit();

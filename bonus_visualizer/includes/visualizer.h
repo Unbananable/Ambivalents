@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 18:39:53 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:09:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_visual
 	TTF_Font		*font;
 	SDL_Color		*colors;
 	SDL_Texture		*ant_text;
+	int				step;
 }				t_visual;
 
 typedef struct	s_lem
@@ -100,7 +101,8 @@ int				set_instructions(t_lem *lem, char *str, int i_visu);
 
 void			draw_tunnels(t_lem *lem);
 void			draw_rooms(t_lem *lem);
-void			draw_ants(t_lem *lem);
+void			draw_ants(t_lem *lem, SDL_Keycode key);
+void    		draw_start_ants(t_lem *lem);
 
 void    		error(t_lem *lem);
 void			end(t_lem *lem);
