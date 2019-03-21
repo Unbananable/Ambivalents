@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 15:14:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:52:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	parser(t_lem *lem)
 		else if (parse_step != SET_INSTR || lem->input[i] != 'L')
 			error(lem);
 		else if (parse_step == SET_INSTR && lem->input[i] == 'L')
-			parse_step = set_instructions(lem, lem->input + i, ++i_visu);
+		{
+			if ((parse_step = set_instructions(lem, lem->input + i, ++i_visu)) == -1)
+				error(lem);
+		}
 		else
 			parse_step = ERROR;
 		if (parse_step == ERROR)

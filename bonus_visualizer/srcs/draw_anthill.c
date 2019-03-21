@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:31:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/21 18:50:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void draw_tunnels(t_lem *lem)
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] == 1)
 				if (thickLineRGBA(lem->visual.rend, lem->rooms[i].x,
-                        lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 5, 0,
-                        0, 255,255))
+                        lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 5, rand() % 255,
+                        rand() % 255, rand() % 255, 255))
                     error(lem);
 	}
 }

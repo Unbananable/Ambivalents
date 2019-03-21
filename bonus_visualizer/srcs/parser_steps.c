@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 18:51:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/21 18:37:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,20 @@ int		set_instructions(t_lem *lem, char *str, int i_visu)
 	count = 0;
 	while (str[++i] && str[i] != '\n')
 		count += (str[i] == 'L') ? 1 : 0;
-	if (!(lem->instr[i_visu] = (t_instr *)malloc(sizeof(t_instr) * (count + 1))))
+	if (!(lem->instr[i_visu] = (t_instr *)malloc(sizeof(t_instr) * (count++ + 1))))
 		error(lem);
+	while (count--)
+	{
+		lem->instr[i_visu][count].i_room = 0;
+		lem->instr[i_visu][count].ant_id = 0;
+	}
 	i = -1;
 	while (str[++i] && str[i] != '\n')
 	{
 		if (str[i++] != 'L')
 			return (-1);
 		lem->instr[i_visu][++k].ant_id = ft_atoi(str + i);
+		j = i;
 		while (ft_isdigit(str[i++]))
 			;
 		if (str[--i] != '-')
@@ -169,11 +175,11 @@ int		set_instructions(t_lem *lem, char *str, int i_visu)
 		while (str[++i] && str[i] != ' ' && str[i] != '\n')
 			count++;
 		j = -1;
-		while (++j < lem->nb_rooms)
+		while (++j < lem->nb_rooms && !lem->instr[i_visu][k].i_room)
 			if (ft_strnequ(lem->rooms[j].id, str + i - count, count))
 				lem->instr[i_visu][k].i_room = j;
 		i += (str[i] == '\n') ? -1 : 0;
 	}
-	lem->instr[i_visu][++k].ant_id = 0;
+//	lem->instr[i_visu][++k].ant_id = 0;
 	return (3);
 }

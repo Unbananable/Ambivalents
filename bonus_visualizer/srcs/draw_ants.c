@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:44:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/21 18:11:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,26 @@
 
 void    draw_start_ants(t_lem *lem)
 {
+	static int	marker = -1;
     SDL_Rect    start_ant_pos;
     int         i;
 
     i = -1;
     if (lem->visual.step != -1)
+	{
         while (lem->instr[lem->visual.step][++i].ant_id)
-            if (lem->instr[lem->visual.step][i].ant_id == lem->nb_ants)
+		{
+			marker = (lem->visual.step == marker) ? -1 : marker;
+            if (lem->instr[lem->visual.step][i].ant_id == lem->nb_ants
+					|| marker != -1)
+			{
+				marker = (marker == -1) ? lem->visual.step - 1 : marker;
                 return ;
-    start_ant_pos.h = 8;
-    start_ant_pos.w = 20;
+			}
+		}
+	}
+    start_ant_pos.h = 10;
+    start_ant_pos.w = 10;
     start_ant_pos.x = lem->rooms[0].x;
     start_ant_pos.y = lem->rooms[0].y;
     if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
@@ -74,13 +84,17 @@ void    draw_ants(t_lem *lem, SDL_Keycode key)
         error(lem);
     if (lem->visual.step != -1)
     {
-        ant_pos.h = 8;
-        ant_pos.w = 20;
+        ant_pos.h = 10;
+        ant_pos.w = 10;
         i = -1;
         while (lem->instr[lem->visual.step][++i].ant_id)
         {
             ant_pos.x = lem->rooms[lem->instr[lem->visual.step][i].i_room].x;
-	        ant_pos.y = lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
+            ant_pos.y = lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
+//printf("lem->rooms[lem->instr[lem->visual.step][i].i_room].id: %s\n", lem->rooms[lem->instr[lem->visual.step][i].i_room].id);
+//printf("lem->instr[lem->visual.step][i].i_room: %d\n", lem->instr[lem->visual.step][i].i_room);
+//printf("i: %d\n", i);
+//printf("lem->visual.step: %d\n", lem->visual.step);
             if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
                     &ant_pos))
                 error(lem);

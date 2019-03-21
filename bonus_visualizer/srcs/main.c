@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:30:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:15:49 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	usage(void)
 {
 	ft_putstr_fd("usage: ./visualizer\n", 2);
 	ft_putstr_fd("(Nota Bene: visualizer reads the standard input, use ", 2);
-	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of lem_in", 2);
-	ft_putstr_fd("with a file)\n", 2);
+	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of ", 2);
+	ft_putstr_fd("lem-in with a file)\n", 2);
 	exit(0);
 }
 
@@ -127,8 +127,10 @@ int			main(int ac, char **av)
 	{
 		if (!SDL_WaitEvent(&event))
 			error(&lem);
-		if (event.type == SDL_WINDOWEVENT
-				&& event.window.event == SDL_WINDOWEVENT_CLOSE)
+		if ((event.type == SDL_WINDOWEVENT
+					&& event.window.event == SDL_WINDOWEVENT_CLOSE)
+				|| (event.type == SDL_KEYUP
+					&& event.key.keysym.sym == SDLK_ESCAPE))
 			quit = 1;
 		else if (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_RIGHT
 				|| event.key.keysym.sym == SDLK_LEFT))
