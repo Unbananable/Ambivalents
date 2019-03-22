@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/19 20:33:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/22 09:59:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ static void	make_ants_move(t_lem *lem)
 //printf("\t\t  L2: 2/3\n");
 				next_room = current_room;
 				current_room = get_prev_room(lem, next_room);
-//printf("\t\t  L2: 3/3 (current_room: %d / next_room: %d)\n", current_room, next_room);
+//if (current_room != -1 && next_room != -1)
+//printf("\t\t  L2: 3/3 (current_room: %s / next_room: %s)\n", lem->rooms[current_room].id, lem->rooms[next_room].id);
 			}
 //printf("\t\t /LOOP2\n");
 		}

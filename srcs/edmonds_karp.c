@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 17:05:33 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/22 10:27:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,21 +93,22 @@ static void  isolate_path(t_lem *lem, int prev_room, int current_room)
     int     done;
     int     next_room;
 
-lem->rooms[0].id = ft_strdup("START");
+//lem->rooms[0].id = ft_strdup("START");
 //printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
     lem->rooms[current_room].is_full = 1;
     i = -1;
     done = 0;
     while (++i < lem->nb_rooms)
-        if (lem->links[i][current_room] && ((done != 2 && i != prev_room && lem->rooms[i].w
-				&& lem->rooms[i].w == lem->rooms[current_room].w - 1)
-				|| (i == END)))
-        {
+        if (i != prev_room && i != current_room && lem->links[i][current_room]
+				&& ((done != 1 && lem->rooms[i].w && lem->rooms[i].w == lem->rooms[current_room].w - 1)
+				|| i == END))
+		{
 			next_room = i;
 			done++;
-        }
+		}
 		else if (i != prev_room)
 		{
+//printf("\t\tx isolating current (%s) from %s\n", lem->rooms[current_room].id, lem->rooms[i].id);
             lem->links[current_room][i] = 0;
             lem->links[i][current_room] = 0;
 		}
