@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/21 17:52:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:37:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	set_scale(t_lem *lem)
 	{
 		lem->scale = tmp;
 		lem->x_offset = MARGIN;
-		lem->y_offset = (MARGIN - lem->scale * (lem->y_max - lem->y_min)) / 2;
+		lem->y_offset = (HEIGHT - MARGIN - lem->scale * (lem->y_max - lem->y_min)) / 2;
 	}
 	else
 	{
