@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/22 09:59:36 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/22 10:54:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	*make_w_list(t_lem *lem)
 
 	i = -1;
 	j = -1;
-	if (!(w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 2))))
+	if (!(w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 2)))) // ameliorer la taille pour economie de memoire
 		return (NULL);
 	while (++i < lem->nb_rooms)
 		if (lem->rooms[i].w && lem->links[START][i])
@@ -130,7 +130,7 @@ void		send_ants(t_lem *lem)
 {
 	int		i;
 	int		ants_left;
-	int		max_weight_idx;
+	int		nb_paths;
 	int		*w_list;
 
 //printf("\t/// IN SEND_ANTS ///\n");
@@ -138,6 +138,9 @@ void		send_ants(t_lem *lem)
 	ants_left = lem->nb_ants;
 	if (!(w_list = make_w_list(lem)))
 		error(lem);
+	nb_paths = 0;
+	while (w_list[nb_paths])
+		nb_paths++;
 //printf("\tx w_list =");
 //int j = -1;
 //while (w_list[++j] != 0)
@@ -154,8 +157,8 @@ void		send_ants(t_lem *lem)
 //printf("\t LOOP2\n");
 		i = -1;
 		while (w_list[++i] && ants_left
-				&& ants_left >= lem->rooms[w_list[i]].w
-				- lem->rooms[w_list[0]].w)
+				&& (i == 0 || ants_left >= lem->rooms[w_list[i]].w
+				- lem->rooms[w_list[0]].w + i))
 		{
 //printf("\t  L2: 1/8\n");
 			lem->rooms[w_list[i]].ant_id = ft_itoa(lem->nb_ants - ants_left + 1);
@@ -184,11 +187,7 @@ void		send_ants(t_lem *lem)
 //printf("\t/LOOP1\n");
 //printf("\t3/4 (HERE)\n");
 	i = -1;
-	while (w_list[++i])
-		;
-	max_weight_idx = w_list[i - 1];
-	i = -1;
-	while (++i <= lem->rooms[max_weight_idx].w)
+	while (++i <= lem->rooms[w_list[nb_paths - 1]].w)
 	{
 		make_ants_move(lem);
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
