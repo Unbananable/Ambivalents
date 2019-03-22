@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/22 14:45:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:55:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	initialize(t_lem *lem)
 			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	if (!lem->links[0])
 		error(lem);
-	lem->instr = ft_strdup("\n");
+	if (!(lem->instr = ft_strdup("\n")))
+		error(lem);
 }
 
 int			main(int ac, char **av)
