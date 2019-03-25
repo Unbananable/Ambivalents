@@ -44,14 +44,24 @@ static void	initialize(t_lem *lem)
 		{
 			while (--i >= 0)
 				free(lem->links[i]);
-			i = lem->nb_rooms;
+			error(lem);
 		}
 		else
 			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
-	if (!lem->links[0])
-		error(lem);
 	if (!(lem->instr = ft_strdup("\n")))
 		error(lem);
+	if (!(lem->d_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2 - 2))))
+		error(lem);
+	i = -1;
+	while (++i < lem->nb_rooms * 2 - 2)
+		if (!(lem->d_links[i] = (int *)malloc(sizeof(int) * (lem->nb_rooms * 2 - 2))))
+		{
+			while (--i >= 0)
+				free(lem->d_links[i]);
+			error(lem);
+		}
+		else
+			ft_bzero(lem->links[i], (lem->nb_rooms * 2 - 2) * sizeof(int));
 }
 
 int			main(int ac, char **av)
