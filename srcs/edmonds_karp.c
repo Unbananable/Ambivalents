@@ -12,139 +12,162 @@
 
 #include "lem_in.h"
 
-#include <stdio.h>
-
-static int		count_links(t_lem *lem, int x)
+static int	nb_links_from(t_lem *lem, int **matrix, int index)
 {
-	int		i;
 	int		res;
+	int		i;
 
-	i = 1;
 	res = 0;
-	while (++i < lem->nb_rooms)
-		res += lem->links[x][i];
+	i = -1;
+	while (++i < lem->nb_rooms * 2 - 2)
+		if (!lem->split_rooms[i].w)
+			res += matrix[index][i];
 	return (res);
 }
 
-static int		bfs_recursion(t_lem *lem, int weight, int *current_w)
+
+/* Suppose la creation de lem->split_rooms, qui est pareil que lem->rooms mais en
+splitant in et out, et en mettant tous les .w a 0 */
+static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int current_w)
 {
+	int		*next_w_list;
 	int		i;
 	int		j;
 	int		count;
-	int		*tmp;
+	int		nb_links;
 
 	i = -1;
-	count = 0;
-	while (current_w[++i] != -1)
-		count += count_links(lem, current_w[i]);
-	if (!(tmp = (int *)malloc(sizeof(int) * (count + 1))))
+	nb_links = 0;
+	while (current_w_list[++i] != -1)
+		nb_links += nb_links_from(lem, matrix, current_w_list[i]);
+	if (!(next_w_list = (int *)malloc(sizeof(int) * nb_links)))
+	{
+		free(current_w_list);
+		delete_matrix(&matrix);
 		error(lem);
+	}
+	count = -1;
 	i = -1;
-	count = 0;
-	while (current_w[++i] != -1)
+	while (current_w_list[++i] != -1)
 	{
-        if (lem->links[current_w[i]][START] == 1)
-            return (current_w[i]);
-		j = 1;
-		while (++j < lem->nb_rooms)
-		{
-			if (lem->links[current_w[i]][j] == 1 && lem->rooms[j].w == 0)
+		j = -1;
+		while (++j < lem->nb_rooms * 2 - 2)
+			if (matrix[current_w_list[i]][j] == 1 && !lem->split_rooms[j])
 			{
-				tmp[count++] = j;
-				lem->rooms[j].w = weight;
+				lem->split_rooms[j].w = current_w;
+				next_w_list[++count] = j;
 			}
-		}
 	}
-	tmp[count] = -1;
-	free(current_w);
-	if (tmp[0] == -1)
-	{
-		free(tmp);
-		return (-1);
-	}
-	return(bfs_recursion(lem, weight + 1, tmp));
+	next_w_list[++count] = -1;
+	j = bfs_recursive(lem, matrix, next_w_list, current_w + 1);
+	i = -1;
+	while (current_w_list[++i] != -1)
+		if (i != j)
+			lem->split_rooms[current_w_list[i]].w = 0;
+	j = current_w_list[j];
+	free(current_w_list);
+	return (j);
 }
 
-static int  bfs(t_lem *lem)
+static void	bfs(t_lem *lem, int **tmp_flow)
+{
+	int		*start_list;
+	int 	count;
+	int		i;
+	int		path_index;
+	
+	if (!(start_list = (int *)malloc(sizeof(int) * (nb_links_from(lem, tmp_flow, START) + 1))))
+	{
+		delete_matrix(tmp_flow);
+		error(lem);
+	}
+	count = -1;
+	i = 1;
+	while (++i < lem->nb_rooms * 2 - 2)
+	{
+		if (tmp_flow[START][i] == 1)
+		{
+			start_list[++count] = i;
+			lem->split_rooms[i].w = 1;
+		}
+	}
+	start_list[++count] = -1; 
+	path_index = bfs_recursive(lem, tmp_flow, start_list, 2);
+	i = -1;
+	while (start_list[++i] != -1)
+		if (i != path_index)
+			lem->split_rooms[start_list[i]].w = 0;
+	free(start_list);
+}
+
+static int	**copy_matrix(t_lem *lem, int **matrix)
 {
 	int		i;
-	int		count;
-	int		*current_w;
+	int		**res;
 
-	if (!(current_w = (int *)malloc(sizeof(int) * (count_links(lem, 1) + 1))))
+	if (!(res = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2 - 2))))
 		error(lem);
-	count = 0;
-	i = 1;
-	while (++i < lem->nb_rooms)
+	i = -1;
+	while (++i < lem->nb_rooms * 2 - 2)
 	{
-		if (lem->links[END][i] == 1 && !lem->rooms[i].w)
+		if (!(res[i] = (int *)malloc(sizeof(int) * (lem->nb_rooms * 2 - 2))))
 		{
-			current_w[count++] = i;
-			lem->rooms[i].w = 1;
+			while (--i >= 0)
+				free(res[i]);
+			free(res);
+			error(lem);
+		}
+		if (!(res[i] = ft_memcpy(res[i], matrix[i], sizeof(int) * lem->nb_rooms * 2 - 2)))
+		{
+			while (--i >= 0)
+				free(res[i]);
+			free(res);
+			error(lem);
 		}
 	}
-	current_w[count] = -1;
-	return(bfs_recursion(lem, 2, current_w));
+	return (res);
 }
 
-static void  isolate_path(t_lem *lem, int prev_room, int current_room)
+static void	delete_matrix(t_lem *lem, int ***matrix)
 {
-    int     i;
-    int     done;
-    int     next_room;
+	int		i;
 
-//lem->rooms[0].id = ft_strdup("START");
-//printf("\t\t/// IN ISOLATE_PATH (prev = %s, current = %s)\n", lem->rooms[prev_room].id, lem->rooms[current_room].id);
-    lem->rooms[current_room].is_full = 1;
-    i = -1;
-    done = 0;
-    while (++i < lem->nb_rooms)
-        if (i != prev_room && i != current_room && lem->links[i][current_room]
-				&& ((done != 1 && lem->rooms[i].w && lem->rooms[i].w == lem->rooms[current_room].w - 1)
-				|| i == END))
-		{
-			next_room = i;
-			done++;
-		}
-		else if (i != prev_room)
-		{
-//printf("\t\tx isolating current (%s) from %s\n", lem->rooms[current_room].id, lem->rooms[i].id);
-            lem->links[current_room][i] = 0;
-            lem->links[i][current_room] = 0;
-		}
-    if (next_room == END)
-        return ;
-    isolate_path(lem, current_room, next_room);
-}
-
-static void clear_weights(t_lem *lem)
-{
-    int     i;
-
-    i = 1;
-    while (++i < lem->nb_rooms)
-        if (!lem->rooms[i].is_full)
-            lem->rooms[i].w = 0;
+	i = -1;
+	while (++i < lem->nb_rooms * 2 - 2)
+		free((*matrix)[i]);
+	free(*matrix);
+	*matrix = NULL;
 }
 
 void    edmonds_karp(t_lem *lem)
 {
-    int     first_room;
+    int     prev_nb_instr;
+	int		current_nb_instr;
+	int		stop;
+	int		*paths_len;
+	int		**tmp_flow;
 
-//printf("\t/// IN EDMONDS_KARP ///\n");
-//printf("\tLOOP1\n");
-    while ((first_room = bfs(lem)) != -1)
-    {
-//printf("\t x Initial adjacency matrix:\n");
-//display_adj_matrix(*lem);
-//printf("\t L1: 1/3\n");
-//printf("\t x first_room : room %s\n", lem->rooms[first_room].id);
-        isolate_path(lem, START, first_room);
-//printf("\t L1: 2/3\n");
-        clear_weights(lem);
-//printf("\t x Modified adjacency matrix:\n");
-//display_adj_matrix(*lem);
-//printf("\t L1: 3/3\n");
-    }
-//printf("\t/LOOP1\n");
+	prev_nb_instr = MAX_INT;
+	stop = 0;
+	tmp_flow = copy_matrix(lem, lem->flow);
+
+	/* CREATING THE FLOW MATRIX AND THE INITIAL ORIENTATION OF TUNNELS */
+
+	/* IN LOOP FIND NEW PATHS AS LONG AS IT INCREASES EFFICIENCY */
+	while (!stop)
+	{
+		bfs(lem, tmp_flow_matrix);
+		paths_len = get_path_len_list(tmp_flow);
+		current_nb_instr = number_of_instr(lem, paths_len);
+		if (current_nb_instr <= prev_nb_instr)
+		{
+			delete_matrix(lem, &(lem->flow));
+			lem->flow = copy_matrix(lem, tmp_flow);
+		}
+		else
+		{
+			delete_matrix(lem, &tmp_flow);
+			stop = 1;
+		}
+	}
 }
