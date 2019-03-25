@@ -48,6 +48,7 @@ typedef struct	s_lem
 	int		nb_ants;
 	t_room	*rooms;
 	int		**links;
+	int		**d_links;
 	char	*instr;
 }				t_lem;
 
