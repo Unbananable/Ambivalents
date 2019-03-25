@@ -16,9 +16,7 @@
 char	*ft_char_realloc(char *ptr, size_t size)
 {
 	char	*p;
-	int		i;
 
-	i = -1;
 	if (ptr && size == 0)
 	{
 		if (!(p = (char *)malloc(sizeof(char))))
