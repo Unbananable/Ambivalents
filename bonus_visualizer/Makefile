@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/26 19:01:14 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/26 19:35:18 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,14 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC = main.c \
 	  parser.c \
-	  parser_steps.c \
+	  set_rooms_and_ants.c \
 	  count_and_fill_input.c \
 	  draw_anthill.c \
 	  draw_ants.c \
 	  end.c \
 	  fill_adjacency_matrix.c \
-	  set_instructions.c
+	  set_instructions.c \
+	  event_manager.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

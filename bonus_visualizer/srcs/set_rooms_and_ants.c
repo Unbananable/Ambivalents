@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 19:01:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 19:10:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,101 +84,3 @@ int			set_rooms(t_lem *lem, char *str, int current_room)
 	lem->rooms[current_room].w = 0;
 	return (1);
 }
-/*
-int		set_instructions(t_lem *lem, char *str, int i_visu)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		count;
-
-	i = -1;
-	k = -1;
-	count = 0;
-	while (str[++i] && str[i] != '\n')
-		count += (str[i] == 'L') ? 1 : 0;
-	if (!(lem->instr[i_visu] = (t_instr *)malloc(sizeof(t_instr) * (count++ + 1))))
-		error(lem);
-	while (count--)
-	{
-		lem->instr[i_visu][count].i_room = 0;
-		lem->instr[i_visu][count].ant_id = 0;
-	}
-	i = -1;
-	while (str[++i] && str[i] != '\n')
-	{
-		if (str[i++] != 'L')
-			return (-1);
-		lem->instr[i_visu][++k].ant_id = ft_atoi(str + i);
-		j = i;
-		while (ft_isdigit(str[i++]))
-			;
-		if (str[--i] != '-')
-			return (-1);
-		count = 0;
-		while (str[++i] && str[i] != ' ' && str[i] != '\n')
-			count++;
-		j = -1;
-		while (++j < lem->nb_rooms && !lem->instr[i_visu][k].i_room)
-			if (ft_strnequ(lem->rooms[j].id, str + i - count, count))
-				lem->instr[i_visu][k].i_room = j;
-		i += (str[i] == '\n') ? -1 : 0;
-	}
-	return (3);
-}*/
-
-/*static void init_links(t_link *link1, t_link *link2)
-{
-	link1->st = -1;
-	link1->nd = -1;
-	link2->st = -1;
-	link2->nd = -1;
-}
-
-int		fill_adjacency_matrix(t_lem *lem, char *str)
-{
-	int     i;
-	int     j;
-	int     k;
-	t_link  link;
-	t_link  search;
-
-	init_links(&link, &search);
-	i = 0;
-	search.st = -1;
-	search.nd = -1;
-	while (str[i] && str[i] != '\n')
-	{
-		if (str[i] == '-')
-		{
-			j = i;
-			while (str[j] && str[j] != '\n')
-				j++;
-			str[i] = 0;
-			str[j] = 0;
-			k = -1;
-			while (++k < lem->nb_rooms)
-			{
-				if (ft_strequ(str, lem->rooms[k].id))
-					search.st = k;
-				if (ft_strequ(str + i + 1, lem->rooms[k].id))
-					search.nd = k;
-			}
-			str[i] = '-';
-			str[j] = '\n';
-			if (search.st != -1 && search.nd != -1)
-			{
-				if (link.st != -1)
-					return (-1);
-				link.st = search.st;
-				link.nd = search.nd;
-			}
-		}
-		i++;
-	}
-	if (link.st == -1 || link.nd == -1)
-		return (-1);
-	lem->links[link.st][link.nd] = 1;
-	lem->links[link.nd][link.st] = 1;
-	return (2);
-}*/

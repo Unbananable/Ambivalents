@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:23:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 19:32:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,8 @@ static void	usage(void)
 	exit(0);
 }
 
-static void	initialize_lem(t_lem *lem)
+static void	initialize_instr_and_visual(t_lem *lem)
 {
-	int		i;
-
-	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
-		error(lem);
-	i = -1;
-	while (++i < lem->nb_rooms)
-		lem->rooms[i].id = NULL;
-	if (!(lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms)))
-		error(lem);
-	i = -1;
-	while (++i < lem->nb_rooms)
-		if (!(lem->links[i] = (int *)malloc(sizeof(int) * lem->nb_rooms)))
-		{
-			while (--i >= 0)
-				free(lem->links[i]);
-			i = lem->nb_rooms;
-		}
-		else
-			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
-	if (!lem->links[0])
-		error(lem);
 	lem->x_max = -2147483648;
 	lem->x_min = 2147483647;
 	lem->y_max = -2147483648;
@@ -72,11 +51,8 @@ static void	initialize_sdl(t_lem *lem)
 {
 	SDL_Surface	*ant_surf;
 
-	if (SDL_Init(SDL_INIT_VIDEO))
-		error(lem);
-	if (TTF_Init())
-		error(lem);
-	if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG))
+	if (SDL_Init(SDL_INIT_VIDEO) || TTF_Init()
+			|| (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG)))
 		error(lem);
 	if (!(lem->visual.win = SDL_CreateWindow("lem-in", SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0)))
@@ -100,10 +76,36 @@ static void	initialize_sdl(t_lem *lem)
 		error(lem);
 }
 
+static void	initialize_lem(t_lem *lem)
+{
+	int		i;
+
+	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
+		error(lem);
+	i = -1;
+	while (++i < lem->nb_rooms)
+		lem->rooms[i].id = NULL;
+	if (!(lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms)))
+		error(lem);
+	i = -1;
+	while (++i < lem->nb_rooms)
+		if (!(lem->links[i] = (int *)malloc(sizeof(int) * lem->nb_rooms)))
+		{
+			while (--i >= 0)
+				free(lem->links[i]);
+			i = lem->nb_rooms;
+		}
+		else
+			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
+	if (!lem->links[0])
+		error(lem);
+	initialize_instr_and_visual(lem);
+	initialize_sdl(lem);
+}
+
 int			main(int ac, char **av)
 {
 	t_lem		lem;
-	SDL_Event	event;
 	int			quit;
 
 	if (ac != 1)
@@ -114,25 +116,12 @@ int			main(int ac, char **av)
 		usage();
 	initialize_lem(&lem);
 	parser(&lem);
-	initialize_sdl(&lem);
 	draw_anthill(&lem);
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
 	draw_start_ants(&lem);
 	SDL_RenderPresent(lem.visual.rend);
-	while (!quit)
-	{
-		if (!SDL_WaitEvent(&event))
-			error(&lem);
-		if ((event.type == SDL_WINDOWEVENT
-					&& event.window.event == SDL_WINDOWEVENT_CLOSE)
-				|| (event.type == SDL_KEYUP
-					&& event.key.keysym.sym == SDLK_ESCAPE))
-			quit = 1;
-		else if (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_RIGHT
-				|| event.key.keysym.sym == SDLK_LEFT))
-			draw_ants(&lem, event.key.keysym.sym);
-	}
+	event_manager(lem);
 	end(&lem);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:20:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 19:33:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int				set_instructions(t_lem *lem, char *str, int i_visu);
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
+void			event_manager(t_lem lem);
 
 void			error(t_lem *lem);
 void			end(t_lem *lem);
