@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 15:05:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 18:48:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,31 @@ void	display_d_links(t_lem lem)
 	int		j;
 
 	i = -1;
-	printf("         0 0 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 0 0 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9\n");
 	while (++i < (lem.nb_rooms) * 2 && (j = -1))
 	{
-		if (i / 2 < 10)
-			printf("i: (%d)   ", i / 2);
-		else
-			printf("i: (%d)  ", i / 2);
+		printf("(%.1s)\t", lem.rooms[i / 2].id);
 		while (++j < (lem.nb_rooms) * 2)
 			printf("%d ", lem.d_links[i][j]);
 		printf("\n");
 	}
 }
 
+void	display_d_weights(t_lem lem)
+{
+	int		i;
+
+printf(">> D_WEIGTHS\n");
+	i = 1;
+	while (++i < lem.nb_rooms * 2)
+		printf("room %s:\t%d\n", lem.rooms[i / 2].id, lem.split_rooms[i]);
+}
+
 void	display_weights(t_lem lem)
 {
 	int		i;
 
-printf("\t>> WEIGTHS\n");
+printf(">> WEIGTHS\n");
 	i = 1;
 	while (++i < lem.nb_rooms)
-		printf("\t\troom %s:\t%d\n", lem.rooms[i].id, lem.rooms[i].w);
+		printf("room %s:\t%d\n", lem.rooms[i].id, lem.rooms[i].w);
 }
