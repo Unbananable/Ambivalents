@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/22 14:37:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:24:21 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static void	scale(t_lem *lem)
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-		lem->rooms[i].x = (lem->rooms[i].x - lem->x_min) * lem->scale + lem->x_offset;
-		lem->rooms[i].y = (lem->rooms[i].y - lem->y_min) * lem->scale + lem->y_offset;
+		lem->rooms[i].x = (lem->rooms[i].x - lem->x_min) * lem->scale
+			+ lem->x_offset;
+		lem->rooms[i].y = (lem->rooms[i].y - lem->y_min) * lem->scale
+			+ lem->y_offset;
 	}
 }
 
@@ -34,12 +36,14 @@ static void	set_scale(t_lem *lem)
 	{
 		lem->scale = tmp;
 		lem->x_offset = MARGIN;
-		lem->y_offset = (HEIGHT - MARGIN - lem->scale * (lem->y_max - lem->y_min)) / 2;
+		lem->y_offset = (HEIGHT - MARGIN - lem->scale * (lem->y_max
+					- lem->y_min)) / 2;
 	}
 	else
 	{
 		lem->y_offset = MARGIN;
-		lem->x_offset = (WIDTH - MARGIN - lem->scale * (lem->x_max - lem->x_min)) / 2;
+		lem->x_offset = (WIDTH - MARGIN - lem->scale * (lem->x_max
+					- lem->x_min)) / 2;
 	}
 }
 
@@ -51,7 +55,7 @@ static void	next_line(char *input, int *i)
 		(*i)++;
 }
 
-void	parser(t_lem *lem)
+void		parser(t_lem *lem)
 {
 	int		i;
 	int		i_visu;
@@ -88,13 +92,15 @@ void	parser(t_lem *lem)
 		}
 		else if (parse_step == SET_ROOMS && lem->input[i] != 'L')
 		{
-			if ((parse_step = set_rooms(lem, lem->input + i, current_room)) == ERROR)
+			if ((parse_step = set_rooms(lem, lem->input + i, current_room))
+					== ERROR)
 				error(lem);
 			current_room++;
 			if (current_room == lem->nb_rooms)
 				parse_step = SET_LINKS;
 		}
-		else if (parse_step == SET_LINKS && lem->input[i] != 'L' && lem->input[i] != '\n')
+		else if (parse_step == SET_LINKS && lem->input[i] != 'L'
+				&& lem->input[i] != '\n')
 			parse_step = fill_adjacency_matrix(lem, lem->input + i);
 		else if (lem->input[i] == '\n' && lem->input[i + 1] == 'L')
 			parse_step++;
@@ -102,7 +108,8 @@ void	parser(t_lem *lem)
 			error(lem);
 		else if (parse_step == SET_INSTR && lem->input[i] == 'L')
 		{
-			if ((parse_step = set_instructions(lem, lem->input + i, ++i_visu)) == -1)
+			if ((parse_step = set_instructions(lem, lem->input + i, ++i_visu))
+					== -1)
 				error(lem);
 		}
 		else
