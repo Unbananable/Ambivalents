@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/15 16:21:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/26 12:31:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_lem
 	int		nb_rooms;
 	int		nb_ants;
 	t_room	*rooms;
+	t_room	*split_rooms;
 	int		**links;
 	int		**d_links;
 	char	*instr;
