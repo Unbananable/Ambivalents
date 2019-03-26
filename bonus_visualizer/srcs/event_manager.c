@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:13 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/26 19:32:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 19:36:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		event_manager(t_lem lem)
 {
-	int		quit;
+	int			quit;
 	SDL_Event	event;
 
 	quit = 0;
