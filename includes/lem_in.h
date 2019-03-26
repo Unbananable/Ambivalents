@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/15 16:21:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/26 14:05:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int				set_rooms(t_lem *lem, char *str, int current_room);
 int     		fill_adjacency_matrix(t_lem *lem, char *str);
 
 void    		edmonds_karp(t_lem *lem);
+void			make_d_links(t_lem *lem);
 
 //void			set_weights(t_lem *lem);
 
@@ -71,5 +72,6 @@ void    		edmonds_karp(t_lem *lem);
 void			display_rooms(t_lem lem);
 void			display_adj_matrix(t_lem lem);
 void			display_weights(t_lem lem);
+void			display_d_links(t_lem lem);
 
 #endif
