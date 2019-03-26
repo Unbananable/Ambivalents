@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/20 16:31:36 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:20:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct	s_room
 	int		is_full;
 	char	*id;
 	int		w;
-    int     x;
-    int     y;
+	int		x;
+	int		y;
 }				t_room;
 
 typedef struct	s_link
@@ -93,17 +93,17 @@ typedef struct	s_lem
 
 int				count_and_fill_input(t_lem *lem);
 
-void	        parser(t_lem *lem);
-int		        set_nb_ants(t_lem *lem, char *str);
-int		        set_rooms(t_lem *lem, char *str, int current_room);
-int             fill_adjacency_matrix(t_lem *lem, char *str);
+void			parser(t_lem *lem);
+int				set_nb_ants(t_lem *lem, char *str);
+int				set_rooms(t_lem *lem, char *str, int current_room);
+int				fill_adjacency_matrix(t_lem *lem, char *str);
 int				set_instructions(t_lem *lem, char *str, int i_visu);
 
-void    		draw_anthill(t_lem *lem);
+void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
-void    		draw_start_ants(t_lem *lem);
+void			draw_start_ants(t_lem *lem);
 
-void    		error(t_lem *lem);
+void			error(t_lem *lem);
 void			end(t_lem *lem);
 
 #endif

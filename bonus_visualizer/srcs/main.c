@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/21 17:15:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:23:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	initialize_lem(t_lem *lem)
 	lem->visual.step = -1;
 }
 
-static void	initialize_SDL(t_lem *lem)
+static void	initialize_sdl(t_lem *lem)
 {
 	SDL_Surface	*ant_surf;
 
@@ -88,13 +88,13 @@ static void	initialize_SDL(t_lem *lem)
 		error(lem);
 	if (!(lem->visual.font = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
 		error(lem);
-	/* On cree une texture qui accueillera toutes les images de la fourmilliere (qui sont fixes) */
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
 		error(lem);
 	if (!(ant_surf = IMG_Load("imgs/ant.png")))
 		error(lem);
-	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend, ant_surf);
+	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend,
+			ant_surf);
 	SDL_FreeSurface(ant_surf);
 	if (!lem->visual.ant_text)
 		error(lem);
@@ -114,14 +114,11 @@ int			main(int ac, char **av)
 		usage();
 	initialize_lem(&lem);
 	parser(&lem);
-	initialize_SDL(&lem);
+	initialize_sdl(&lem);
 	draw_anthill(&lem);
-	/* On copie la texture de la fourmiliere dans le renderer */
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
-	/* On ajoute les fourmis dans start */
 	draw_start_ants(&lem);
-	/* On affiche la fourmiliere vide */
 	SDL_RenderPresent(lem.visual.rend);
 	while (!quit)
 	{

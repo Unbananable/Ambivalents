@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/19 19:11:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:40:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	is_room(char *str, int i)
 	return (1);
 }
 
-//On prend pas la peine de verifier si les deux noms sont bien des rooms, gain de performances, et si jamais le link est non valable, et relie deux choses qui ne sont pas des rooms, il y aura un appel a error dans les fonctions suivantes
 int			count_and_fill_input(t_lem *lem)
 {
 	int		i;
@@ -75,16 +74,13 @@ int			count_and_fill_input(t_lem *lem)
 					flag = 1;
 			}
 		while (lem->input[++i])
-			if (lem->input[i] != '\n' && lem->input[i + 1] != '\n')
-			{
-				flag = 2;
-				break;
-			}
+			if (lem->input[i] != '\n' && lem->input[i + 1] != '\n'
+					&& (flag = 2))
+				break ;
 		while (flag == 2 && lem->input[++i])
 			if (lem->input[i] == '\n' && lem->input[i + 1] == 'L')
 				lem->nb_instr++;
 	}
-	if (rd_size < 0)
-		return (0);
+	count = (rd_size < 0) ? 0 : count;
 	return (count);
 }
