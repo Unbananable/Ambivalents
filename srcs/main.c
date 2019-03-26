@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/22 14:55:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:45:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ static void	initialize(t_lem *lem)
 			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	if (!(lem->instr = ft_strdup("\n")))
 		error(lem);
-	if (!(lem->d_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2 - 2))))
+	if (!(lem->d_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2))))
 		error(lem);
 	i = -1;
-	while (++i < lem->nb_rooms * 2 - 2)
-		if (!(lem->d_links[i] = (int *)malloc(sizeof(int) * (lem->nb_rooms * 2 - 2))))
+	while (++i < lem->nb_rooms * 2)
+		if (!(lem->d_links[i] = (int *)malloc(sizeof(int) * (lem->nb_rooms * 2))))
 		{
 			while (--i >= 0)
 				free(lem->d_links[i]);
 			error(lem);
 		}
 		else
-			ft_bzero(lem->links[i], (lem->nb_rooms * 2 - 2) * sizeof(int));
+			ft_bzero(lem->d_links[i], (lem->nb_rooms * 2) * sizeof(int));
 }
 
 int			main(int ac, char **av)
@@ -87,6 +87,8 @@ int			main(int ac, char **av)
 //printf("nb_ants = %d\n\n", lem.nb_ants);
 //display_rooms(lem);
 //display_adj_matrix(lem);
+//	make_d_links(&lem);
+//	display_d_links(lem);
 
 	/* CALCUL DU CHEMIN */
 	edmonds_karp(&lem);

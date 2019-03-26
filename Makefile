@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/19 18:19:02 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/03/26 14:08:43 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC = main.c \
 	  count_rooms_and_fill_input.c \
@@ -21,7 +21,8 @@ SRC = main.c \
 	  end.c \
 	  edmonds_karp.c \
 	  send_ants.c \
-	  dev_tools.c
+	  dev_tools.c \
+	  init_d_links.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

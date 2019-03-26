@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:08:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:11:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,14 +167,14 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 	while (++i < lem->nb_rooms * 2)
 		if (lem->split_rooms[i].w)
 			nb_paths++;
-	if (!(res = (int *)malloc(sizeof(int) * (nb_paths + 1)))
+	if (!(res = (int *)malloc(sizeof(int) * (nb_paths + 1))))
 	{
 		delete_matrix(lem, &matrix);
 		error(lem);		
 	}
 	j = -1;
 	i = 2;
-	while (++i < lem->rooms * 2)
+	while (++i < lem->nb_rooms * 2)
 		if (lem->split_rooms[i].w)
 			res[++j] = i;
 	res[++j] = 0;
