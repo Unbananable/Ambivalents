@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 17:58:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:47:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 	}
 	else // Si il n'y a plus de rooms dispo : il n'y a pas de chemin supplementaire entre start et end
 		j = -1;
-	// TODO : ici on est CENSE clean les poids et inverser le lien //
 //printf("\t\t\t7/9\n");
 //printf("\t\t\t x j = %d\n", j);
 	if (j != -1)
@@ -194,8 +193,15 @@ static void	bfs(t_lem *lem, int **tmp_flow)
 //printf(")");
 //}
 //printf(" ]\n");
-	tmp_flow[2 * END + 1][path_index] = 0;
-	tmp_flow[path_index][2 * END + 1] = 1;
+//printf("path_index: %d\n", path_index);
+//int a=-1;
+//while(++a < path_index)
+//	printf("tmp_flow[3][a]: %d\n", tmp_flow[2 * END + 1][a]);
+	if (path_index != -1)
+	{
+		tmp_flow[2 * END + 1][path_index] = 0;
+		tmp_flow[path_index][2 * END + 1] = 1;
+	}
 //printf("\t\t5/6\n");
 	free(start_list);
 //printf("\t\t6/6\n");
