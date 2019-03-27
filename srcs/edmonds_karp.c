@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 17:39:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:41:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ printf("\t\t2/6\n");
 	j = -1;
 	i = 2;
 printf("\t\t3/6\n");
-	while (++i < lem->nb_rooms * 2)
+	while (++i < lem->nb_rooms)
 		if (lem->links[i][START] && lem->split_rooms[2 * i + 1])
 			res[++j] = lem->split_rooms[2 * i + 1] / 2;
 printf("\t\t4/6\n");
