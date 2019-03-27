@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 16:47:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 21:04:45 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,21 @@ static void	draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
 
 static void	print_and_draw_ant_id(t_lem *lem, int i, SDL_Rect ant_pos)
 {
-	ant_pos.x = lem->rooms[lem->instr[lem->visual.step][i].i_room].x;
-	ant_pos.y = lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
-	if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
-				&ant_pos))
-		error(lem);
-	if (lem->instr[lem->visual.step][i].i_room != 1)
-		draw_ant_id(lem, lem->instr[lem->visual.step][i].ant_id,
-				ant_pos);
+	int	anim_step;
+
+	anim_step = -1;
+	while (++anim_step < 4)
+	{
+		ant_pos.x = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x + (double)((lem->ants[lem->instr[lem->visual.step][i].ant_id-1].last_x + lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x) / 4) * anim_step;
+		ant_pos.y = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y + (double)((lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y + lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y) / 4) * anim_step;
+		printf("ant_id: %d, (x / y): (%d / %d)\n", lem->instr[lem->visual.step][i].ant_id, ant_pos.x, ant_pos.y);
+		if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
+					&ant_pos))
+			error(lem);
+		if (lem->instr[lem->visual.step][i].i_room != 1)
+			draw_ant_id(lem, lem->instr[lem->visual.step][i].ant_id,
+					ant_pos);
+	}
 }
 
 void		draw_ants(t_lem *lem, SDL_Keycode key)

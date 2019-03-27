@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 17:00:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:09:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ typedef struct	s_link
 	int		nd;
 }				t_link;
 
+typedef struct	s_ant
+{
+	int		x;
+	int		y;
+	int		last_x;
+	int		last_y;
+}				t_ant;
+
 typedef struct	s_instr
 {
 	int		ant_id;
@@ -96,6 +104,7 @@ typedef struct	s_lem
 	int				y_offset;
 	int				scale;
 	t_instr			**instr;
+	t_ant			*ants;
 	t_visual		visual;
 	int				parse_step;
 }				t_lem;
