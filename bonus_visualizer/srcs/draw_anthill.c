@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:21:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 16:41:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	draw_room_names(t_lem *lem)
 	while (++i < lem->nb_rooms)
 	{
 		if (!(text_surf = TTF_RenderText_Shaded(lem->visual.font,
-						lem->rooms[i].id, lem->visual.colors[RED],
+						lem->rooms[i].id, lem->visual.colors[BLACK],
 						lem->visual.colors[WHITE])))
 			error(lem);
 		text_pos.x = lem->rooms[i].x;
@@ -87,6 +87,9 @@ static void	draw_rooms(t_lem *lem)
 void		draw_anthill(t_lem *lem)
 {
 	if (SDL_SetRenderTarget(lem->visual.rend, lem->visual.anthill_text))
+		error(lem);
+	if (SDL_SetRenderDrawColor(lem->visual.rend, BG_R, BG_G, BG_B, BG_A)
+			|| SDL_RenderClear(lem->visual.rend))
 		error(lem);
 	draw_tunnels(lem);
 	draw_rooms(lem);
