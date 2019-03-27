@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/22 10:54:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 19:18:41 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	*make_w_list(t_lem *lem)
 	if (!(w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 2)))) // ameliorer la taille pour economie de memoire
 		return (NULL);
 	while (++i < lem->nb_rooms)
-		if (lem->rooms[i].w && lem->links[START][i])
+		if (lem->split_rooms[2 * i + 1] && lem->links[START][i])
 			w_list[++j] = i;
 	w_list[++j] = 0;
 	if (j > 1)
@@ -34,7 +34,7 @@ static int	*make_w_list(t_lem *lem)
 		i = 0;
 		while (++i < j)
 		{
-			if (lem->rooms[w_list[i]].w < lem->rooms[w_list[i - 1]].w)
+			if (lem->split_rooms[w_list[i] * 2 + 1] < lem->split_rooms[w_list[i - 1] * 2 + 1])
 			{
 				tmp = w_list[i];
 				w_list[i] = w_list[i - 1];
@@ -52,15 +52,15 @@ static int	get_prev_room(t_lem *lem, int current_room)
 
 //printf("\t\t\t/// IN GET_PREV_ROOM ///\n");
 //printf("\t\t\tx links current_room (%s):", lem->rooms[current_room].id);
-int j = -1;
-while(++j < lem->nb_rooms)
+//int j = -1;
+//while(++j < lem->nb_rooms)
 //printf(" %d", lem->links[current_room][j]);
 //printf("\n");
 	i = -1;
 //printf("\t\t\tLOOP1\n");
 	while (++i < lem->nb_rooms)
 //{printf("\t\t\t L1: 1/2\n");
-		if (lem->links[current_room][i] && (lem->rooms[i].w == lem->rooms[current_room].w + 1 || i == 0))
+		if (lem->links[current_room][i] && (lem->split_rooms[2 * i] == lem->split_rooms[2 * current_room + 1] + 1 || i == 0))
 //{printf("\t\t\t ->return prev room (%s)\n", lem->rooms[i].id);
 			return (i);
 //printf("\t\t\t L1: 2/2");
@@ -86,7 +86,7 @@ static void	make_ants_move(t_lem *lem)
 	while (++start_room < lem->nb_rooms)
 	{
 //printf("\t\t L1: 1/2\n");
-		if (lem->links[start_room][END] && lem->rooms[start_room].w)
+		if (lem->links[start_room][END] && lem->split_rooms[start_room * 2])
 		{
 			current_room = start_room;
 			next_room = END;
