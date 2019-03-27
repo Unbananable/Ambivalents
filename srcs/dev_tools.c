@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 18:48:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 16:44:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,25 @@ void	display_adj_matrix(t_lem lem)
 	}
 }
 
-void	display_d_links(t_lem lem)
+void	display_d_links(t_lem lem, int **matrix)
 {
 	int		i;
 	int		j;
 
 	i = -1;
+	printf("   \t");
+	while (++i < (lem.nb_rooms) * 2)
+		printf("%.1s ", lem.rooms[i / 2].id);
+	printf("\n");
+	i = -1;
 	while (++i < (lem.nb_rooms) * 2 && (j = -1))
 	{
 		printf("(%.1s)\t", lem.rooms[i / 2].id);
 		while (++j < (lem.nb_rooms) * 2)
-			printf("%d ", lem.d_links[i][j]);
+			if (matrix[i][j])
+				printf("%d ", matrix[i][j]);
+			else
+				printf("  ");
 		printf("\n");
 	}
 }
@@ -63,9 +71,9 @@ void	display_d_weights(t_lem lem)
 	int		i;
 
 printf(">> D_WEIGTHS\n");
-	i = 1;
+	i = -1;
 	while (++i < lem.nb_rooms * 2)
-		printf("room %s:\t%d\n", lem.rooms[i / 2].id, lem.split_rooms[i]);
+		printf("room %.1s:\t%d\n", lem.rooms[i / 2].id, lem.split_rooms[i]);
 }
 
 void	display_weights(t_lem lem)

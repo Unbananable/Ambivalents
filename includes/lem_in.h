@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/26 18:45:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 11:43:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void			display_rooms(t_lem lem);
 void			display_adj_matrix(t_lem lem);
 void			display_d_weights(t_lem lem);
 void			display_weights(t_lem lem);
-void			display_d_links(t_lem lem);
+void			display_d_links(t_lem lem, int **matrix);
 
 #endif
