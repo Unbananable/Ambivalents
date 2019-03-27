@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:47:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:42:19 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	int			i;
 	SDL_Rect	ant_pos;
 
-	lem->visual.step += (key == SDLK_LEFT) ? -1 : 1;
+	lem->visual.step += (key == SDLK_LEFT) ? -1 : 0;
+	lem->visual.step += (key == SDLK_RIGHT) ? 1 : 0;
+	lem->visual.step = (key == SDLK_SPACE) ? -1 : lem->visual.step;
 	if (lem->visual.step < -1 || lem->visual.step >= lem->nb_instr)
 	{
 		lem->visual.step = (lem->visual.step < 0) ? -1 : lem->nb_instr - 1;

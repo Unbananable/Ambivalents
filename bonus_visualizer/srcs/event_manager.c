@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:13 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/26 19:36:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:38:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void		event_manager(t_lem lem)
 				|| (event.type == SDL_KEYUP
 					&& event.key.keysym.sym == SDLK_ESCAPE))
 			quit = 1;
-		else if (event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_RIGHT
-				|| event.key.keysym.sym == SDLK_LEFT))
-			draw_ants(&lem, event.key.keysym.sym);
+		else if (event.type == SDL_KEYUP)
+		{
+			if (event.key.keysym.sym == SDLK_RIGHT
+					|| event.key.keysym.sym == SDLK_LEFT
+					|| event.key.keysym.sym == SDLK_SPACE)
+				draw_ants(&lem, event.key.keysym.sym);
+		}
 	}
 }
