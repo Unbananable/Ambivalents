@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_d_links.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
+/*   Updated: 2019/03/26 19:16:28 by anleclab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 static int	count_links(t_lem *lem)
@@ -63,7 +75,7 @@ static void set_weights(t_lem *lem)
 	i = -1;
 	j = -1;
 	while (++i < lem->nb_rooms)
-		if (lem->links[START][i] == 1 && !lem->rooms[i].w)
+		if (lem->links[END][i] == 1 && !lem->rooms[i].w)
 		{
 			lem->rooms[i].w = 1;
 			current_w_list[++j] = i;
@@ -80,23 +92,25 @@ void	make_d_links(t_lem *lem)
 	int		i;
 	int		j;
 
+printf("\t\t/// IN MAKE_D_LINKS ///\n");
+printf("\t\t1/3\n");
 	set_weights(lem);
+display_weights(*lem);
+printf("\t\t2/3\n");
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-		j = i - 1;
+printf("\t\tLOOP1\n");
 		lem->d_links[2 * i][2 * i + 1] = 1; // X_in >> X_out
-
+		j = i - 1;
 		while (++j < lem->nb_rooms)
-		{
-			if (lem->links[i][j] == 1 && lem->rooms[i].w > lem->rooms[j].w && j != END)
-			{
+			if (lem->links[i][j] && (i == START || j == END || (lem->rooms[i].w >= lem->rooms[j].w
+					&& j != END && i != END && i != START && j != START)))
 				lem->d_links[j * 2 + 1][i * 2] = 1; // j_out >> i_in
-			}
-			else if (lem->links[i][j] == 1 && i != END)
-			{
+			else if (lem->links[i][j])
 				lem->d_links[i * 2 + 1][j * 2] = 1; // i_out >> j_in
-			}
-		}
+printf("\t\t/LOOP1\n");
 	}
+printf("\t\t3/3\n");
+display_d_links(*lem);
 }
