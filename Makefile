@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/26 17:40:19 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/27 20:03:39 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC = main.c \
 	  dev_tools.c \
 	  init_d_links.c \
 	  number_of_instr.c \
-	  matrix_tools.c
+	  matrix_tools.c \
+	  options.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
