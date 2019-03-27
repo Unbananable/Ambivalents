@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:40:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:47:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	add_buffer(t_lem *lem, char *buff, int rd_size)
 {
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
-			* (ft_strlen(lem->input) + rd_size))))
+					* (ft_strlen(lem->input) + rd_size))))
 		error(lem);
 	lem->input = ft_strncat(lem->input, buff, rd_size);
 }
@@ -43,6 +43,33 @@ static int	is_room(char *str, int i)
 	return (1);
 }
 
+static void	count_rooms(t_lem *lem, int *i, int *flag, int *count)
+{
+	if (lem->input[*i] == '#')
+		while (lem->input[*i] && lem->input[*i] != '\n')
+			(*i)++;
+	else if (lem->input[*i] == '\n')
+	{
+		if (*flag == -1)
+			*flag = 0;
+		else if (is_room(lem->input, *i - 1))
+			(*count)++;
+		else
+			*flag = 1;
+	}
+}
+
+static void	count_instr(t_lem *lem, int i, int *flag)
+{
+	while (lem->input[++i])
+		if (lem->input[i] != '\n' && lem->input[i + 1] != '\n'
+				&& (*flag = 2))
+			break ;
+	while (*flag == 2 && lem->input[++i])
+		if (lem->input[i] == '\n' && lem->input[i + 1] == 'L')
+			lem->nb_instr++;
+}
+
 int			count_and_fill_input(t_lem *lem)
 {
 	int		i;
@@ -61,25 +88,8 @@ int			count_and_fill_input(t_lem *lem)
 		i = ft_strlen(lem->input) - 1;
 		add_buffer(lem, buff, rd_size);
 		while ((flag == 0 || flag == -1) && lem->input[++i])
-			if (lem->input[i] == '#')
-				while (lem->input[i] && lem->input[i] != '\n')
-					i++;
-			else if (lem->input[i] == '\n')
-			{
-				if (flag == -1)
-					flag = 0;
-				else if (is_room(lem->input, i - 1))
-					count++;
-				else
-					flag = 1;
-			}
-		while (lem->input[++i])
-			if (lem->input[i] != '\n' && lem->input[i + 1] != '\n'
-					&& (flag = 2))
-				break ;
-		while (flag == 2 && lem->input[++i])
-			if (lem->input[i] == '\n' && lem->input[i + 1] == 'L')
-				lem->nb_instr++;
+			count_rooms(lem, &i, &flag, &count);
+		count_instr(lem, i, &flag);
 	}
 	count = (rd_size < 0) ? 0 : count;
 	return (count);

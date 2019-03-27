@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 19:32:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 16:43:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ static void	initialize_instr_and_visual(t_lem *lem)
 	lem->visual.colors[WHITE].g = 255;
 	lem->visual.colors[WHITE].b = 255;
 	lem->visual.colors[WHITE].a = 255;
-	lem->visual.colors[RED].r = 255;
-	lem->visual.colors[RED].g = 0;
-	lem->visual.colors[RED].b = 0;
-	lem->visual.colors[RED].a = 255;
+	lem->visual.colors[BLACK].r = 0;
+	lem->visual.colors[BLACK].g = 0;
+	lem->visual.colors[BLACK].b = 0;
+	lem->visual.colors[BLACK].a = 255;
 	lem->visual.ant_text = NULL;
 	lem->visual.step = -1;
+	lem->parse_step = SET_NB_ANTS;
 }
 
 static void	initialize_sdl(t_lem *lem)
@@ -59,8 +60,6 @@ static void	initialize_sdl(t_lem *lem)
 		error(lem);
 	if (!(lem->visual.rend = SDL_CreateRenderer(lem->visual.win, -1,
 			SDL_RENDERER_ACCELERATED)))
-		error(lem);
-	if (SDL_SetRenderDrawColor(lem->visual.rend, 0, 0, 0, 255))
 		error(lem);
 	if (!(lem->visual.font = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
 		error(lem);
@@ -116,10 +115,14 @@ int			main(int ac, char **av)
 		usage();
 	initialize_lem(&lem);
 	parser(&lem);
+	if (SDL_SetRenderDrawColor(lem.visual.rend, BG_R, BG_G, BG_B, BG_A)
+			|| SDL_RenderClear(lem.visual.rend))
+		error(&lem);
 	draw_anthill(&lem);
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
 	draw_start_ants(&lem);
+	render_menu(&lem);
 	SDL_RenderPresent(lem.visual.rend);
 	event_manager(lem);
 	end(&lem);

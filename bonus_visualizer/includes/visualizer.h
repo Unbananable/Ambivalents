@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 19:33:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:00:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define SET_INSTR 3
 # define PARSING_IS_OVER 4
 
+# define ANTS 0
+# define INSTR 1
+
 # define ERROR -1
 
 # define HEIGHT 1000
@@ -38,7 +41,12 @@
 # define MARGIN 35
 
 # define WHITE 0
-# define RED 1
+# define BLACK 1
+
+# define BG_R 250
+# define BG_G 150
+# define BG_B 90
+# define BG_A 255
 
 typedef struct	s_room
 {
@@ -89,6 +97,7 @@ typedef struct	s_lem
 	int				scale;
 	t_instr			**instr;
 	t_visual		visual;
+	int				parse_step;
 }				t_lem;
 
 int				count_and_fill_input(t_lem *lem);
@@ -99,10 +108,14 @@ int				set_rooms(t_lem *lem, char *str, int current_room);
 int				fill_adjacency_matrix(t_lem *lem, char *str);
 int				set_instructions(t_lem *lem, char *str, int i_visu);
 
+void			scale(t_lem *lem);
+void			set_scale(t_lem *lem);
+
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
 void			event_manager(t_lem lem);
+void			render_menu(t_lem *lem);
 
 void			error(t_lem *lem);
 void			end(t_lem *lem);

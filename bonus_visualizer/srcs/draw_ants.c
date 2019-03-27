@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:47:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 16:47:43 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
 	if (!(id = ft_itoa(ant_id)))
 		error(lem);
 	if (!(id_surf = TTF_RenderText_Shaded(lem->visual.font, id,
-					lem->visual.colors[RED], lem->visual.colors[WHITE])))
+					lem->visual.colors[BLACK], lem->visual.colors[WHITE])))
 		error(lem);
 	free(id);
 	id_text = SDL_CreateTextureFromSurface(lem->visual.rend, id_surf);
@@ -84,14 +84,14 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	int			i;
 	SDL_Rect	ant_pos;
 
-	lem->visual.step += (key == SDLK_LEFT) ? -1 : 1;
+	lem->visual.step += (key == SDLK_LEFT) ? -1 : 0;
+	lem->visual.step += (key == SDLK_RIGHT) ? 1 : 0;
+	lem->visual.step = (key == SDLK_SPACE) ? -1 : lem->visual.step;
 	if (lem->visual.step < -1 || lem->visual.step >= lem->nb_instr)
 	{
 		lem->visual.step = (lem->visual.step < 0) ? -1 : lem->nb_instr - 1;
 		return ;
 	}
-	if (SDL_RenderClear(lem->visual.rend))
-		error(lem);
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.anthill_text, NULL, NULL))
 		error(lem);
 	if (lem->visual.step != -1)
@@ -103,5 +103,6 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 			print_and_draw_ant_id(lem, i, ant_pos);
 	}
 	draw_start_ants(lem);
+	render_menu(lem);
 	SDL_RenderPresent(lem->visual.rend);
 }
