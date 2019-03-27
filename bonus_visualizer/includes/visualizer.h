@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 19:33:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 14:36:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define SET_LINKS 2
 # define SET_INSTR 3
 # define PARSING_IS_OVER 4
+
+# define ANTS 0
+# define INSTR 1
 
 # define ERROR -1
 
@@ -89,6 +92,7 @@ typedef struct	s_lem
 	int				scale;
 	t_instr			**instr;
 	t_visual		visual;
+	int				parse_step;
 }				t_lem;
 
 int				count_and_fill_input(t_lem *lem);
@@ -98,6 +102,9 @@ int				set_nb_ants(t_lem *lem, char *str);
 int				set_rooms(t_lem *lem, char *str, int current_room);
 int				fill_adjacency_matrix(t_lem *lem, char *str);
 int				set_instructions(t_lem *lem, char *str, int i_visu);
+
+void			scale(t_lem *lem);
+void			set_scale(t_lem *lem);
 
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);

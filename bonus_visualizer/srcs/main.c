@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 19:32:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 14:37:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	initialize_instr_and_visual(t_lem *lem)
 	lem->visual.colors[RED].a = 255;
 	lem->visual.ant_text = NULL;
 	lem->visual.step = -1;
+	lem->parse_step = SET_NB_ANTS;
 }
 
 static void	initialize_sdl(t_lem *lem)
