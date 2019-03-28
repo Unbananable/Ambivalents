@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 17:59:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:45:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 static void	usage(void)
 {
-	ft_putstr_fd("usage: ./lem_in\n", 2);
+	ft_putstr_fd("usage: ./lem_in [options]\n", 2);
 	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
 	ft_putstr_fd("./lem_in < file to read from a file)\n", 2);
+	ft_putstr_fd("options: --silent --show-paths --line-count\n", 2);
 	exit(0);
 }
 
@@ -70,10 +71,10 @@ static void	initialize(t_lem *lem)
 int			main(int ac, char **av)
 {
 	t_lem	lem;
+	int		options;
 
-	if (ac != 1)
+	if ((options = get_options(&ac, &av)) == -1)
 		usage();
-	av += 0;
 
 	/* PARSING */
 //printf("/// IN MAIN ///\n");
@@ -100,10 +101,24 @@ int			main(int ac, char **av)
 //printf("6/7\n");
 
 	/* AFFICHAGE */
-	ft_putstr(lem.input);
-//	ft_putchar('\n');
-	ft_putstr(lem.instr);
-	ft_putchar('\n');
+	if (!(options & (1 << ('s' - 'a'))))
+	{
+		ft_putstr(lem.input);
+		ft_putstr(lem.instr);
+		ft_putchar('\n');
+	}
+	if ((options & (1 << ('l' - 'a'))))
+	{
+		if (!(options & (1 << ('s' - 'a'))))
+			ft_putchar('#');
+		print_line_count(lem);
+	}
+	if ((options & (1 << ('p' - 'a'))))
+	{
+		if (!(options & (1 << ('s' - 'a'))))
+			ft_putchar('#');
+		print_paths(lem);
+	}
 	end(&lem);
 //printf("7/7\n");
 	return (0);

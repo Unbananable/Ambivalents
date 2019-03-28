@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 18:23:10 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/27 20:59:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:35:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,6 @@ static int	skip_digits(char *str, int *i)
 	return (0);
 }
 
-static void	set_ants_and_instr(t_lem *lem, int j, int i_visu, int k)
-{
-	lem->ants[lem->instr[i_visu][k].ant_id].last_x
-		= lem->ants[lem->instr[i_visu][k].ant_id].x;
-	lem->ants[lem->instr[i_visu][k].ant_id].last_y
-		= lem->ants[lem->instr[i_visu][k].ant_id].y;
-	lem->ants[lem->instr[i_visu][k].ant_id].x = lem->rooms[j].x;
-	lem->ants[lem->instr[i_visu][k].ant_id].y = lem->rooms[j].y;
-	lem->instr[i_visu][k].i_room = j;
-}
-
 int			set_instructions(t_lem *lem, char *str, int i_visu)
 {
 	int		i;
@@ -80,7 +69,7 @@ int			set_instructions(t_lem *lem, char *str, int i_visu)
 		j = -1;
 		while (++j < lem->nb_rooms && !lem->instr[i_visu][k].i_room)
 			if (ft_strnequ(lem->rooms[j].id, str + i - count, count))
-				set_ants_and_instr(lem, j, i_visu, k);
+				lem->instr[i_visu][k].i_room = j;
 		i += (str[i] == '\n') ? -1 : 0;
 	}
 	return (3);
