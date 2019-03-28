@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 10:30:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:42:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,14 @@ int         get_options(int *ac, char ***av)
                 add_option(&options, 'l');
             else if (ft_strequ(**av, "ant-number"))
                 add_option(&options, 'a');
+            else if (ft_strequ(**av, "ants-per-room"))
+                add_option(&options, 'r');
             else if (ft_strequ(**av, "full-info"))
             {
                 add_option(&options, 'p');
                 add_option(&options, 'l');
                 add_option(&options, 'a');
+                add_option(&options, 'r');
             }
             else
                 return (-1);
@@ -93,5 +96,19 @@ void    print_ant_nb(t_lem lem)
 {
     ft_putstr("ant number: ");
     ft_putnbr(lem.nb_ants);
+    ft_putchar('\n');
+}
+
+void    print_ants_per_room(t_lem lem)
+{
+    int     i;
+
+    i = -1;
+    ft_putstr("ants per room:");
+    while (lem.paths[++i].index_first != -1)
+    {
+        ft_putchar(' ');
+        ft_putnbr(lem.paths[i].nb_ants);
+    }
     ft_putchar('\n');
 }

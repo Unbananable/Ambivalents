@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 11:58:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:05:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	initialize(t_lem *lem)
 		lem->rooms[i].w = 0;
 		lem->rooms[i].ant_id = NULL;
 		lem->rooms[i].id = NULL;
-		lem->rooms[i].is_full = 0;
 	}
 	if (!(lem->split_rooms = (int *)malloc(sizeof(int) * lem->nb_rooms * 2)))
 		error(lem);
@@ -67,7 +66,7 @@ static void	initialize(t_lem *lem)
 		}
 		else
 			ft_bzero(lem->d_links[i], (lem->nb_rooms * 2) * sizeof(int));
-	lem->ants_per_room = NULL;
+	lem->paths = NULL;
 }
 
 int			main(int ac, char **av)
@@ -126,6 +125,12 @@ int			main(int ac, char **av)
 		if (!(options & (1 << ('s' - 'a'))))
 			ft_putchar('#');
 		print_paths(lem);
+	}
+	if ((options & (1 << ('r' - 'a'))))
+	{
+		if (!(options & (1 << ('s' - 'a'))))
+			ft_putchar('#');
+		print_ants_per_room(lem);
 	}
 	end(&lem);
 //printf("7/7\n");

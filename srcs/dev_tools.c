@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 16:44:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 16:44:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	display_rooms(t_lem lem)
 {
 	int		i;
 
+printf("/// ROOMS WITH ANTS\n");
 	printf("[ ");
 	i = -1;
 	while (++i < lem.nb_rooms)
 	{
-		printf("(%s, %d)", lem.rooms[i].id, lem.rooms[i].is_full);
-		if (i != lem.nb_rooms - 1)
-			printf(", ");
+		if (lem.rooms[i].ant_id)
+		printf("(%s : %s), ", lem.rooms[i].id, lem.rooms[i].ant_id);
 	}
 	printf(" ]\n");
 }
@@ -36,7 +36,7 @@ void	display_adj_matrix(t_lem lem)
 	i = -1;
 	while (++i < lem.nb_rooms && (j = -1))
 	{
-		printf("%s\t(%d / %d) : ", lem.rooms[i].id, lem.rooms[i].is_full, lem.rooms[i].w);
+		printf("%s\t(%d) : ", lem.rooms[i].id, lem.rooms[i].w);
 		while (++j < lem.nb_rooms)
 			printf("%d ", lem.links[i][j]);
 		printf("\n");
@@ -84,4 +84,26 @@ printf(">> WEIGTHS\n");
 	i = 1;
 	while (++i < lem.nb_rooms)
 		printf("room %s:\t%d\n", lem.rooms[i].id, lem.rooms[i].w);
+}
+
+void	display_paths(t_path *paths)
+{
+	int		i;
+
+	i = -1;
+	if (!paths)
+	{
+		printf(">> NO PATHS\n");
+		return ;
+	}
+	printf(">> PATHS\n");
+	while (paths[++i].index_first != -1)
+	{
+		printf("%d\t", i);
+		printf("%s\t", paths[i].id_first);
+		printf("%d\t", paths[i].index_first);
+		printf("%d\t", paths[i].w);
+		printf("%d\t", paths[i].nb_ants);
+		printf("%d\n", paths[i].nb_remaining);
+	}
 }

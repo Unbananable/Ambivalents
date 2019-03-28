@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_steps.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 16:19:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 13:54:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		set_rooms(t_lem *lem, char *str, int current_room)
 		if (ft_strequ(lem->rooms[i].id, lem->rooms[current_room].id))
 			error(lem);
 //printf("\t\t5/5\n");
-	lem->rooms[current_room].is_full = 0;
+	/*lem->rooms[current_room].is_full = 0;*/
 	lem->rooms[current_room].w = 0;
 	return(1);
 }
