@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 11:52:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:04:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static void	initialize_sdl(t_lem *lem)
 	if (!(lem->visual.rend = SDL_CreateRenderer(lem->visual.win, -1,
 			SDL_RENDERER_ACCELERATED)))
 		error(lem);
-	if (!(lem->visual.font = TTF_OpenFont("fonts/SignPainter.ttf", 50)))
+	if (!(lem->visual.font = TTF_OpenFont("fonts/Lato-Regular.ttf", 50)))
 		error(lem);
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
 		error(lem);
-	if (!(ant_surf = IMG_Load("imgs/ant.png")))
+	if (!(ant_surf = IMG_Load("imgs/anleclab_ant.jpg")))
 		error(lem);
 	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend,
 			ant_surf);
@@ -124,7 +124,7 @@ int			main(int ac, char **av)
 	draw_start_ants(&lem);
 	render_menu(&lem);
 	SDL_RenderPresent(lem.visual.rend);
-	event_manager(lem);
+	event_manager(&lem);
 	end(&lem);
 	return (0);
 }

@@ -6,13 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 17:20:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:18:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
-
-#include <stdio.h>
 
 void		draw_start_ants(t_lem *lem)
 {
@@ -34,8 +32,8 @@ void		draw_start_ants(t_lem *lem)
 			}
 		}
 	}
-	start_ant_pos.h = 20;
-	start_ant_pos.w = 20;
+	start_ant_pos.h = 25;
+	start_ant_pos.w = 25;
 	start_ant_pos.x = lem->rooms[0].x;
 	start_ant_pos.y = lem->rooms[0].y;
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
@@ -50,8 +48,8 @@ static void	draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
 	SDL_Texture	*id_text;
 
 	ant_pos.x += 20;
-	ant_pos.h = 10;
-	ant_pos.w = 10;
+	ant_pos.h = 15;
+	ant_pos.w = 15;
 	if (!(id = ft_itoa(ant_id)))
 		error(lem);
 	if (!(id_surf = TTF_RenderText_Shaded(lem->visual.font, id,
@@ -95,7 +93,19 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 		anim_step = DIV_ANIM;
 	lem->visual.step += (key == SDLK_LEFT && anim_step == DIV_ANIM) ? -1 : 0;
 	lem->visual.step += (key == SDLK_RIGHT && anim_step == DIV_ANIM) ? 1 : 0;
-	lem->visual.step = (key == SDLK_SPACE) ? -1 : lem->visual.step;
+	if (key == SDLK_SPACE)
+	{
+		lem->visual.step = -1;
+		anim_step = DIV_ANIM;
+		i = -1;
+		while (++i < lem->nb_ants)
+		{
+			lem->ants[i].x = lem->rooms[0].x;
+			lem->ants[i].y = lem->rooms[0].y;
+			lem->ants[i].last_x = lem->rooms[0].x;
+			lem->ants[i].last_y = lem->rooms[0].y;
+		}
+	}
 	if (lem->visual.step < -1 || lem->visual.step >= lem->nb_instr)
 	{
 		lem->visual.step = (lem->visual.step < 0) ? -1 : lem->nb_instr - 1;
@@ -103,11 +113,10 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	}
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.anthill_text, NULL, NULL))
 		error(lem);
-//			printf("\tvisual.step: %d, anim_step: %d\n", lem->visual.step, anim_step);
 	if (lem->visual.step != -1)
 	{
-		ant_pos.h = 20;
-		ant_pos.w = 20;
+		ant_pos.h = 25;
+		ant_pos.w = 25;
 		i = -1;
 		while (lem->instr[lem->visual.step][++i].ant_id)
 		{
@@ -117,10 +126,11 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 				= lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x;
 			lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y
 				= lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y;
-			lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x = lem->rooms[lem->instr[lem->visual.step][i].i_room].x;
-			lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y = lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
+			lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x
+				= lem->rooms[lem->instr[lem->visual.step][i].i_room].x;
+			lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y
+				= lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
 			}
-//			printf("visual.step: %d, ant_id: %d, anim_step: %d, (x/y): (%d / %d), last(x/y): (%d / %d)\n", lem->visual.step, lem->instr[lem->visual.step][i].ant_id, anim_step,  lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x, lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y, lem->ants[lem->instr[lem->visual.step][i].ant_id-1].last_x, lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y);
 			draw_ant_and_id(lem, i, ant_pos, anim_step);
 		}
 		--anim_step;

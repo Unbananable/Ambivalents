@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 16:41:44 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 18:56:06 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	draw_tunnels(t_lem *lem)
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] == 1)
 				if (thickLineRGBA(lem->visual.rend, lem->rooms[i].x,
-						lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 5,
-						rand() % 255, rand() % 255, rand() % 255, 255))
+						lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 10,
+						255, 255, 255, rand() % 220 + 35))
 					error(lem);
 	}
 }
@@ -44,10 +44,10 @@ static void	draw_room_names(t_lem *lem)
 						lem->rooms[i].id, lem->visual.colors[BLACK],
 						lem->visual.colors[WHITE])))
 			error(lem);
-		text_pos.x = lem->rooms[i].x;
-		text_pos.y = lem->rooms[i].y;
-		text_pos.h = 20;
-		text_pos.w = 20;
+		text_pos.x = lem->rooms[i].x - 20;
+		text_pos.y = lem->rooms[i].y - 20;
+		text_pos.h = 25;
+		text_pos.w = 25;
 		text_text = SDL_CreateTextureFromSurface(lem->visual.rend, text_surf);
 		SDL_FreeSurface(text_surf);
 		if (!text_text)
@@ -65,7 +65,7 @@ static void	draw_rooms(t_lem *lem)
 	int			i;
 	SDL_Rect	room_pos;
 
-	if (!(room_surf = IMG_Load("imgs/room_ant.jpg")))
+	if (!(room_surf = IMG_Load("imgs/benji.jpg")))
 		error(lem);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
 	SDL_FreeSurface(room_surf);
