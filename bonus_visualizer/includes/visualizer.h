@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 17:00:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:08:11 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 # define START 0
 # define END 1
+
+# define DIV_ANIM 50
+# define NO_ANIM -2
 
 # define SET_NB_ANTS 0
 # define SET_ROOMS 1
@@ -43,9 +46,9 @@
 # define WHITE 0
 # define BLACK 1
 
-# define BG_R 250
-# define BG_G 150
-# define BG_B 90
+# define BG_R 60
+# define BG_G 30
+# define BG_B 0
 # define BG_A 255
 
 typedef struct	s_room
@@ -62,6 +65,14 @@ typedef struct	s_link
 	int		st;
 	int		nd;
 }				t_link;
+
+typedef struct	s_ant
+{
+	int		x;
+	int		y;
+	int		last_x;
+	int		last_y;
+}				t_ant;
 
 typedef struct	s_instr
 {
@@ -96,6 +107,7 @@ typedef struct	s_lem
 	int				y_offset;
 	int				scale;
 	t_instr			**instr;
+	t_ant			*ants;
 	t_visual		visual;
 	int				parse_step;
 }				t_lem;
@@ -114,7 +126,7 @@ void			set_scale(t_lem *lem);
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
-void			event_manager(t_lem lem);
+void			event_manager(t_lem *lem);
 void			render_menu(t_lem *lem);
 
 void			error(t_lem *lem);

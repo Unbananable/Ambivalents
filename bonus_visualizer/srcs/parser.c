@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 15:25:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/27 20:58:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ static void	set_ants_or_instr(t_lem *lem, int *i, int mode)
 	{
 		if ((lem->parse_step = set_nb_ants(lem, lem->input + *i)) == ERROR)
 			error(lem);
+		if (!(lem->ants = (t_ant *)malloc(sizeof(t_ant) * (lem->nb_ants + 1))))
+			error(lem);
+		ft_bzero(lem->ants, sizeof(t_ant) * (lem->nb_ants + 1));
 	}
 	else
 	{
