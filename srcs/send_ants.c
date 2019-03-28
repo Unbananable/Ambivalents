@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/27 19:18:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 11:58:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,29 +156,29 @@ void		send_ants(t_lem *lem)
 //printf("\t L1: 2/3\n");
 //printf("\t LOOP2\n");
 		i = -1;
-		while (w_list[++i] && ants_left
-				&& (i == 0 || ants_left >= lem->rooms[w_list[i]].w
-				- lem->rooms[w_list[0]].w + i))
-		{
+		while (w_list[++i] && ants_left)
+			if (lem->ants_per_room[i])
+			{
 //printf("\t  L2: 1/8\n");
-			lem->rooms[w_list[i]].ant_id = ft_itoa(lem->nb_ants - ants_left + 1);
+				lem->rooms[w_list[i]].ant_id = ft_itoa(lem->nb_ants - ants_left + 1);
 //printf("\t  L2: 2/8\n");
-			lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
-					+ ft_strlen(lem->rooms[w_list[i]].ant_id)
-					+ ft_strlen(lem->rooms[w_list[i]].id) + 3);
+				lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
+						+ ft_strlen(lem->rooms[w_list[i]].ant_id)
+						+ ft_strlen(lem->rooms[w_list[i]].id) + 3);
 //printf("\t  L2: 3/8\n");
-			ft_strcat(lem->instr, "L");
+				ft_strcat(lem->instr, "L");
 //printf("\t  L2: 4/8\n");
-			ft_strcat(lem->instr, lem->rooms[w_list[i]].ant_id);
+				ft_strcat(lem->instr, lem->rooms[w_list[i]].ant_id);
 //printf("\t  L2: 5/8\n");
-			ft_strcat(lem->instr, "-");
+				ft_strcat(lem->instr, "-");
 //printf("\t  L2: 6/8\n");
-			ft_strcat(lem->instr, lem->rooms[w_list[i]].id);
+				ft_strcat(lem->instr, lem->rooms[w_list[i]].id);
 //printf("\t  L2: 7/8\n");
-			ft_strcat(lem->instr, " ");
+				ft_strcat(lem->instr, " ");
 //printf("\t  L2: 8/8\n");
-			ants_left--;
-		}
+				ants_left--;
+				lem->ants_per_room[i]--;
+			}
 //printf("\t /LOOP2\n");
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 //printf("\t L1: 3/3\n");

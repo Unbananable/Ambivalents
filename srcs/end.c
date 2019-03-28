@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:30:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 11:58:49 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void    end(t_lem *lem)
     }
     free(lem->links);
 	free(lem->instr);
+    free(lem->ants_per_room);
 }
 
 void    error(t_lem *lem)

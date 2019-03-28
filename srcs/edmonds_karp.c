@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 10:53:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 11:58:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,14 +266,13 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 
 void    edmonds_karp(t_lem *lem)
 {
-    int     prev_nb_instr;
-	int		current_nb_instr;
 	int		stop;
 	int		*paths_len;
+	int		*current_ants_per_room;
 	/*int		**tmp_flow;*/
 
 //printf("\t/// IN EDMONDS_KARP ///\n");
-	prev_nb_instr = 2147483647;
+	current_ants_per_room = NULL;
 	stop = 0;
 //printf("\t1/4\n");
 
@@ -302,24 +301,28 @@ void    edmonds_karp(t_lem *lem)
 //while (paths_len[++a])
 //printf(" %d", paths_len[a]);
 //printf(" ]\n");
-//printf("\t  x prev_nb_instr = %d\n", prev_nb_instr);
-		current_nb_instr = number_of_instr(lem, paths_len); // Calculer le nouveau nombre d'instructions necessaires
-//printf("\t  x current_nb_instr = %d\n", current_nb_instr);
+		if (!(current_ants_per_room = ants_per_room(lem, paths_len))) // Calculer le nouveau nombre d'instructions necessaires
+		{
+			free(paths_len);
+			error(lem);
+		}
 		free(paths_len);
 //printf("\t L1: 4/5\n");
-		if (current_nb_instr < prev_nb_instr) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
+		if (!lem->ants_per_room || current_ants_per_room[0] < lem->ants_per_room[0]) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
 		{
 //printf("\t  => updating matrix\n");
 			/*delete_matrix(lem, &(lem->d_links));*/
 			/*lem->d_links = copy_matrix(lem, tmp_flow);*/
-			prev_nb_instr = current_nb_instr;
+			free(lem->ants_per_room);
+			lem->ants_per_room = current_ants_per_room;
+			current_ants_per_room = NULL;
 		}
 		else // Sinon on arrete le processus
-		{
+//{
 //printf("\t  =>stop\n");
 			/*delete_matrix(lem, &tmp_flow);*/
 			stop = -1;
-		}
+//}
 //printf("\t L1: 5/5\n");
 //printf("\t/LOOP1\n");
 	}

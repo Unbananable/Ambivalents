@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 10:13:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 11:58:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_lem
 	int		**links;
 	int		**d_links;
 	char	*instr;
+	int		*ants_per_room;
 }				t_lem;
 
 int				get_options(int *ac, char ***av);
@@ -73,7 +74,7 @@ int     		fill_adjacency_matrix(t_lem *lem, char *str);
 
 void    		edmonds_karp(t_lem *lem);
 void			make_d_links(t_lem *lem);
-int				number_of_instr(t_lem *lem, int	*plen_list);
+int				*ants_per_room(t_lem *lem, int *plen_list);
 
 int	    		**copy_matrix(t_lem *lem, int **matrix);
 void			delete_matrix(t_lem *lem, int ***matrix);

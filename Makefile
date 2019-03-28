@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/27 20:03:39 by anleclab         ###   ########.fr        #
+#    Updated: 2019/03/28 11:59:12 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = main.c \
 	  send_ants.c \
 	  dev_tools.c \
 	  init_d_links.c \
-	  number_of_instr.c \
+	  ants_per_room.c \
 	  matrix_tools.c \
 	  options.c
 SRCSFD = srcs/
