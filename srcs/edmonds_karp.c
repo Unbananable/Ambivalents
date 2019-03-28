@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 10:53:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:53:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 	int		j;
 	int		tmp;
 
-printf("\t\t/// IN GET_PATH_LEN_LIST ///\n");
+//printf("\t\t/// IN GET_PATH_LEN_LIST ///\n");
 //printf("\t\t1/6\n");
 	nb_paths = 0;
 	i = 1;
