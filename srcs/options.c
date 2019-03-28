@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 20:47:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:30:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ static void add_option(int *options, char c)
 {
     if (c < 'a' || c > 'z')
         return ;
-    c -= 'a';
-    if (*options & (1 << c))
-        return ;
-    else
-        *options += 1 << c;
+    *options += (*options & (1 << (c - 'a'))) ? 0 : 1 << (c - 'a');
 }
 
 int         get_options(int *ac, char ***av)
@@ -43,6 +39,14 @@ int         get_options(int *ac, char ***av)
                 add_option(&options, 'p');
             else if (ft_strequ(**av, "line-count"))
                 add_option(&options, 'l');
+            else if (ft_strequ(**av, "ant-number"))
+                add_option(&options, 'a');
+            else if (ft_strequ(**av, "full-info"))
+            {
+                add_option(&options, 'p');
+                add_option(&options, 'l');
+                add_option(&options, 'a');
+            }
             else
                 return (-1);
         }
@@ -79,8 +83,15 @@ void    print_paths(t_lem lem)
             ft_putchar(' ');
             ft_putstr(lem.rooms[i].id);
             ft_putstr(" (");
-            ft_putnbr(lem.split_rooms[2 * i + 1] / 2);
+            ft_putnbr(lem.split_rooms[2 * i + 1] / 2 + 1);
             ft_putstr(")");
         }
+    ft_putchar('\n');
+}
+
+void    print_ant_nb(t_lem lem)
+{
+    ft_putstr("ant number: ");
+    ft_putnbr(lem.nb_ants);
     ft_putchar('\n');
 }

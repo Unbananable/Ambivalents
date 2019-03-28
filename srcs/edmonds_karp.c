@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/27 18:47:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:49:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 	int		j;
 	int		tmp;
 
-//printf("\t\t/// IN GET_PATH_LEN_LIST ///\n");
+printf("\t\t/// IN GET_PATH_LEN_LIST ///\n");
 //printf("\t\t1/6\n");
 	nb_paths = 0;
 	i = 1;
@@ -238,6 +238,11 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 //printf("\t\t4/6\n");
 	res[nb_paths] = 0;
 //printf("\t\t5/6\n");
+int a = -1;
+printf("\t\tx res (pre sort) = [");
+while (res[++a])
+printf(" %d", res[a]);
+printf(" ]\n");
 	i = -1;
 	while (++i < nb_paths)
 	{
@@ -245,11 +250,16 @@ static int	*get_path_len_list(t_lem *lem, int **matrix)
 		while (res[++j + 1])
 			if (res[j] > res[j + 1])
 			{
-				tmp = res[j];
+				tmp = res[j + 1];
 				res[j + 1] = res[j];
 				res[j] = tmp;
 			}
 	}
+a = -1;
+printf("\t\tx res (post sort) = [");
+while (res[++a])
+printf(" %d", res[a]);
+printf(" ]\n");
 //printf("\t\t6/6\n");
 	return (res);
 }
@@ -260,7 +270,7 @@ void    edmonds_karp(t_lem *lem)
 	int		current_nb_instr;
 	int		stop;
 	int		*paths_len;
-	int		**tmp_flow;
+	/*int		**tmp_flow;*/
 
 //printf("\t/// IN EDMONDS_KARP ///\n");
 	prev_nb_instr = 2147483647;
@@ -271,7 +281,7 @@ void    edmonds_karp(t_lem *lem)
 	// - verifier qu'on a bien considere les links orientes dans le meme sens
 	make_d_links(lem);
 //printf("\t2/4\n");
-	tmp_flow = copy_matrix(lem, lem->d_links); // On opere sur une copie de la matrice pour pouvoir revenir en arriere si le nombre d'instructions n'est pas ameliore
+	/*tmp_flow = copy_matrix(lem, lem->d_links);*/ // On opere sur une copie de la matrice pour pouvoir revenir en arriere si le nombre d'instructions n'est pas ameliore
 //printf("\t3/4\n");
 
 	/* TANT QUE CELA AMELIORE LE NOMBRE D'INSTRUCTIONS, TROUVER DE NOUVEAUX CHEMINS AVEC UN BFS */
@@ -281,30 +291,33 @@ void    edmonds_karp(t_lem *lem)
 	{
 //printf("\tLOOP1\n");
 //printf("\t L1: 1/5\n");
-		bfs(lem, tmp_flow); // Ajouter un nouveau chemin le plus court
+		bfs(lem, lem->d_links/*tmp_flow*/); // Ajouter un nouveau chemin le plus court
 //printf("\t L1: 2/5\n");
 //display_d_links(*lem, tmp_flow);
 //display_d_weights(*lem);
-		paths_len = get_path_len_list(lem, tmp_flow); // Faire la liste des indices des premieres rooms des chemins, trie par longueur
+		paths_len = get_path_len_list(lem, lem->d_links/*tmp_flow*/); // Faire la liste des indices des premieres rooms des chemins, trie par longueur
 //printf("\t L1: 3/5\n");
 //printf("\t  x paths_len = [");
 //int a = -1;
 //while (paths_len[++a])
 //printf(" %d", paths_len[a]);
 //printf(" ]\n");
+printf("\t  x prev_nb_instr = %d\n", prev_nb_instr);
 		current_nb_instr = number_of_instr(lem, paths_len); // Calculer le nouveau nombre d'instructions necessaires
+printf("\t  x current_nb_instr = %d\n", current_nb_instr);
 		free(paths_len);
 //printf("\t L1: 4/5\n");
-		if (stop < 6 && current_nb_instr <= prev_nb_instr) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
+		if (current_nb_instr < prev_nb_instr) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
 		{
-			delete_matrix(lem, &(lem->d_links));
-			lem->d_links = copy_matrix(lem, tmp_flow);
+printf("\t  => updating matrix\n");
+			/*delete_matrix(lem, &(lem->d_links));*/
+			/*lem->d_links = copy_matrix(lem, tmp_flow);*/
 			prev_nb_instr = current_nb_instr;
-			stop++;
 		}
 		else // Sinon on arrete le processus
 		{
-			delete_matrix(lem, &tmp_flow);
+printf("\t  =>stop\n");
+			/*delete_matrix(lem, &tmp_flow);*/
 			stop = -1;
 		}
 //printf("\t L1: 5/5\n");
