@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/11 16:19:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 13:40:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		set_rooms(t_lem *lem, char *str, int current_room)
 		i++;
 //printf("\t\t2/5\n");
 	if ((i_end_id = is_room(str, i - 1)) == -1 && current_room != lem->nb_rooms - 1)
-		return (-1);
+		return (ERROR);
 //printf("\t\t3/5\n");
 	if(!(lem->rooms[current_room].id = ft_strsub(str, 0, i_end_id + 1)))
 {//printf("\t\terror (input = %.10s)\n", str);
