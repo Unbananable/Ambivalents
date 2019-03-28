@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 10:51:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:53:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +238,11 @@ printf("\t\t/// IN GET_PATH_LEN_LIST ///\n");
 //printf("\t\t4/6\n");
 	res[nb_paths] = 0;
 //printf("\t\t5/6\n");
-int a = -1;
-printf("\t\tx res (pre sort) = [");
-while (res[++a])
-printf(" %d", res[a]);
-printf(" ]\n");
+//int a = -1;
+//printf("\t\tx res (pre sort) = [");
+//while (res[++a])
+//printf(" %d", res[a]);
+//printf(" ]\n");
 	i = -1;
 	while (++i < nb_paths)
 	{
@@ -255,11 +255,11 @@ printf(" ]\n");
 				res[j] = tmp;
 			}
 	}
-a = -1;
-printf("\t\tx res (post sort) = [");
-while (res[++a])
-printf(" %d", res[a]);
-printf(" ]\n");
+//a = -1;
+//printf("\t\tx res (post sort) = [");
+//while (res[++a])
+//printf(" %d", res[a]);
+//printf(" ]\n");
 //printf("\t\t6/6\n");
 	return (res);
 }
