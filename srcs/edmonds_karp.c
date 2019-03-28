@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 10:49:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 10:51:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,21 +302,21 @@ void    edmonds_karp(t_lem *lem)
 //while (paths_len[++a])
 //printf(" %d", paths_len[a]);
 //printf(" ]\n");
-printf("\t  x prev_nb_instr = %d\n", prev_nb_instr);
+//printf("\t  x prev_nb_instr = %d\n", prev_nb_instr);
 		current_nb_instr = number_of_instr(lem, paths_len); // Calculer le nouveau nombre d'instructions necessaires
-printf("\t  x current_nb_instr = %d\n", current_nb_instr);
+//printf("\t  x current_nb_instr = %d\n", current_nb_instr);
 		free(paths_len);
 //printf("\t L1: 4/5\n");
 		if (current_nb_instr < prev_nb_instr) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
 		{
-printf("\t  => updating matrix\n");
+//printf("\t  => updating matrix\n");
 			/*delete_matrix(lem, &(lem->d_links));*/
 			/*lem->d_links = copy_matrix(lem, tmp_flow);*/
 			prev_nb_instr = current_nb_instr;
 		}
 		else // Sinon on arrete le processus
 		{
-printf("\t  =>stop\n");
+//printf("\t  =>stop\n");
 			/*delete_matrix(lem, &tmp_flow);*/
 			stop = -1;
 		}
