@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:13 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 11:53:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:22:21 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static void	animation_launcher(t_lem *lem)
 {
 	int		i;
 
-	i = lem->visual.step - 1;
-	while (++i < lem->nb_instr)
+	i = lem->visual.step;
+	while (++i < lem->nb_instr * (DIV_ANIM + 1))
 	{
-		sleep(1);
+		usleep(DIV_ANIM * 10000);
 		draw_ants(lem, SDLK_RIGHT);
 	}
 	lem->visual.step = lem->nb_instr - 1;

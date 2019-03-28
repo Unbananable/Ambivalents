@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 11:51:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 17:20:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define START 0
 # define END 1
+
+# define DIV_ANIM 10
 
 # define SET_NB_ANTS 0
 # define SET_ROOMS 1
