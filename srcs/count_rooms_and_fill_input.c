@@ -6,13 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 13:41:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:06:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-#include <stdio.h>
 
 static void	add_buffer(t_lem *lem, char *buff, int rd_size)
 {
@@ -78,7 +76,7 @@ int			count_rooms_and_fill_input(t_lem *lem)
 				else if (is_room(lem->input, i - 1))
 					count++;
 				else
-					stop = 1;				
+					stop = 1;
 			}
 	}
 //printf("\t/LOOP1\n");

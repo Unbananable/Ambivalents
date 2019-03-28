@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 17:34:14 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 14:34:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:05:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	free_res(t_lem *lem, int i, int **res)
 	error(lem);
 }
 
-int		**copy_matrix(t_lem *lem, int **matrix)
+int			**copy_matrix(t_lem *lem, int **matrix)
 {
 	int		i;
 	int		**res;
@@ -38,7 +38,7 @@ int		**copy_matrix(t_lem *lem, int **matrix)
 	return (res);
 }
 
-void	delete_matrix(t_lem *lem, int ***matrix)
+void		delete_matrix(t_lem *lem, int ***matrix)
 {
 	int		i;
 

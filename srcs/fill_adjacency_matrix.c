@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 14:28:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:04:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int			fill_adjacency_matrix(t_lem *lem, char *str)
 		return (-1);
 	lem->links[link.st][link.nd] = 1;
 	lem->links[link.nd][link.st] = 1;
-	return(2);
+	return (2);
 }

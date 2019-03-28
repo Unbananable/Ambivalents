@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 14:05:54 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:04:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			print_paths(t_lem lem);
 void    		print_ant_nb(t_lem lem);
 
 void			error(t_lem *lem);
-void    		end(t_lem *lem);
+void			end(t_lem *lem);
 
 int				count_rooms_and_fill_input(t_lem *lem);
 void			send_ants(t_lem *lem);
@@ -70,13 +70,13 @@ void			send_ants(t_lem *lem);
 void			parser(t_lem *lem);
 int				set_nb_ants(t_lem *lem, char *str);
 int				set_rooms(t_lem *lem, char *str, int current_room);
-int     		fill_adjacency_matrix(t_lem *lem, char *str);
+int				fill_adjacency_matrix(t_lem *lem, char *str);
 
-void    		edmonds_karp(t_lem *lem);
+void			edmonds_karp(t_lem *lem);
 void			make_d_links(t_lem *lem);
 int				*ants_per_room(t_lem *lem, int *plen_list);
 
-int	    		**copy_matrix(t_lem *lem, int **matrix);
+int				**copy_matrix(t_lem *lem, int **matrix);
 void			delete_matrix(t_lem *lem, int ***matrix);
 
 /* DEV */
