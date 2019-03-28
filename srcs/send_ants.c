@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 11:58:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/03/28 13:17:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void		send_ants(t_lem *lem)
 //printf("\t LOOP2\n");
 		i = -1;
 		while (w_list[++i] && ants_left)
-			if (lem->ants_per_room[i])
+			if (lem->ants_per_room[i] > 0)
 			{
 //printf("\t  L2: 1/8\n");
 				lem->rooms[w_list[i]].ant_id = ft_itoa(lem->nb_ants - ants_left + 1);
