@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:23:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 10:52:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 12:35:03 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	scale(t_lem *lem)
 	i = -1;
 	while (++i < lem->nb_ants)
 	{
-		lem->ants[i].x = (lem->ants[i].x - lem->x_min) * lem->scale + lem->x_offset;
-		lem->ants[i].y = (lem->ants[i].y - lem->y_min) * lem->scale + lem->y_offset;
+		lem->ants[i].x = (lem->ants[i].x - lem->x_min) * lem->scale
+			+ lem->x_offset;
+		lem->ants[i].y = (lem->ants[i].y - lem->y_min) * lem->scale
+			+ lem->y_offset;
 	}
 }
 
