@@ -3,75 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 14:04:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:06:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	detect_command(t_lem *lem, int *i, int parse_step)
+/*
+** Ignores comments starting with #, and adds the information about the start
+** and end room at the START (0) and END (1) indexes if the lines are comptible.
+*/
+static void	detect_command(t_lem *lem, char **str, int parse_step)
 {
-	if (ft_strnequ(lem->input + *i, "##start\n", 8))
+	if (ft_strnequ(*str, "##start\n", 8))
 	{
-		*i += 8;
+		*str += 8;
 		if (parse_step != SET_ROOMS || lem->rooms[START].id
-				|| (set_rooms(lem, lem->input + *i, START)) == ERROR)
+				|| (set_rooms(lem, *str, START)) == ERROR)
 			error(lem);
 	}
-	else if (ft_strnequ(lem->input + *i, "##end\n", 6))
+	else if (ft_strnequ(*str, "##end\n", 6))
 	{
-		*i += 6;
+		*str += 6;
 		if (parse_step != SET_ROOMS || lem->rooms[END].id
-				|| (set_rooms(lem, lem->input + *i, END)) == -1)
+				|| (set_rooms(lem, *str, END)) == -1)
 			error(lem);
 	}
 }
 
-static void	manage_rooms(t_lem *lem, int i, int *parse_step)
+/*
+** Stores the information about the room, and increments the parsing step
+** if the information about the last room has been stored
+*/
+static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 {
-	static int	current_room = END + 1;
+	static int	current_room;
 
-	if ((*parse_step = set_rooms(lem, lem->input + i, current_room)) == ERROR)
+	if (set_rooms(lem, str, END + 1 + current_room) == ERROR)
 		error(lem);
-	if (++current_room == lem->nb_rooms)
+	if (++current_room + END + 1 == lem->nb_rooms)
 		*parse_step = SET_LINKS;
 }
 
-static void	parse_line_by_line(t_lem *lem, int *i, int *parse_step)
+/*
+** Depending on the current parsing step and the characteristics of the line,
+** stores the information given in the current line. If the information is
+** incorrect, it either returns an error or ignores it and the rest of the
+** input if it was supposed to record information about the links.
+*/
+static void	parse_line(t_lem *lem, char *str, int *parse_step)
 {
-	if (lem->input[*i] == '#')
-		detect_command(lem, i, *parse_step);
+	if (*str == '#')
+		detect_command(lem, &str, *parse_step);
 	else if (*parse_step == SET_NB_ANTS)
 	{
-		if ((*parse_step = set_nb_ants(lem, lem->input + *i)) == ERROR)
+		if ((*parse_step = set_nb_ants(lem, str)) == ERROR)
 			error(lem);
 	}
-	else if (*parse_step == SET_ROOMS && lem->input[*i] != 'L')
-		manage_rooms(lem, *i, parse_step);
+	else if (*parse_step == SET_ROOMS && *str != 'L')
+		manage_rooms(lem, str, parse_step);
 	else if (*parse_step != SET_LINKS)
 		error(lem);
-	else if (*parse_step == SET_LINKS && lem->input[*i] != 'L')
-		*parse_step = fill_adjacency_matrix(lem, lem->input + *i);
+	else if (*parse_step == SET_LINKS && *str != 'L')
+		*parse_step = fill_adjacency_matrix(lem, str);
 	else
 		*parse_step = ERROR;
 	if (*parse_step == ERROR)
-		lem->input[--(*i)] = 0;
-	while (lem->input[*i] && lem->input[*i] != '\n')
-		(*i)++;
-	if (lem->input[*i])
-		(*i)++;
+		*str = 0;
 }
 
 void		parser(t_lem *lem)
 {
-	int		i;
+	char	*cache;
 	int		parse_step;
 
-	i = 0;
+	cache = lem->input;
 	parse_step = SET_NB_ANTS;
-	while (lem->input[i])
-		parse_line_by_line(lem, &i, &parse_step);
+	while (*cache)
+	{
+		parse_line(lem, cache, &parse_step);
+		while (*cache && *cache != '\n')
+			cache++;
+		if (*cache)
+			cache++;
+	}
+	if (!lem->rooms[START].id || !lem->rooms[END].id)
+		error(lem);
 }

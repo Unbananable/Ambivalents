@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 10:36:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:56:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_room
 {
 	char	*id;
 	int		w;
-	char	*ant_id;
+//	char	*ant_id;
 }				t_room;
 
 typedef struct	s_link
@@ -44,13 +44,12 @@ typedef struct	s_link
 
 typedef struct	s_path
 {
-	char	*id_first;
-	int		index_first;
-	int		w;
-	int		nb_ants;
-	int		nb_remaining;
+//	char	*id_first;
+//	int		index_first;
+//	int		w;
+//	int		nb_ants;
+//	int		nb_remaining;
 }				t_path;
-
 
 typedef struct	s_lem
 {
@@ -58,44 +57,51 @@ typedef struct	s_lem
 	int		nb_rooms;
 	int		nb_ants;
 	t_room	*rooms;
-	int		*split_rooms;
+//	int		*split_rooms; // Get rid?
 	int		**links;
-	int		**d_links;
+	int		**o_links;
 	char	*instr;
 	t_path	*paths;
 }				t_lem;
 
 int				get_options(int *ac, char ***av);
-void			print_line_count(t_lem lem);
-void			print_paths(t_lem lem);
-void    		print_ant_nb(t_lem lem);
-void    		print_ants_per_room(t_lem lem);
+
+int				count_rooms_and_fill_input(t_lem *lem);
+
+void			parser(t_lem *lem);
+int				set_rooms(t_lem *lem, char *str, int current_room);
+int				set_nb_ants(t_lem *lem, char *str);
+int				fill_adjacency_matrix(t_lem *lem, char *str);
+
+void			send_all_ants(t_lem *lem);
+
+void			find_paths(t_lem *lem);
+void			initialize_d_links(t_lem *lem);
+
+int     		in(int index);
+int     		out(int index);
 
 void			error(t_lem *lem);
 void			end(t_lem *lem);
 
-int				count_rooms_and_fill_input(t_lem *lem);
-void			send_all_ants(t_lem *lem);
-void			send_ants(t_lem *lem);
+//void			print_line_count(t_lem lem);
+//void			print_paths(t_lem lem);
+//void    		print_ant_nb(t_lem lem);
+//void    		print_ants_per_room(t_lem lem);
 
-void			parser(t_lem *lem);
-int				set_nb_ants(t_lem *lem, char *str);
-int				set_rooms(t_lem *lem, char *str, int current_room);
-int				fill_adjacency_matrix(t_lem *lem, char *str);
+//void			send_ants(t_lem *lem);
 
-void			edmonds_karp(t_lem *lem);
-void			make_d_links(t_lem *lem);
-void			set_ants_per_room(t_lem *lem, t_path *paths);
+//void			set_ants_per_room(t_lem *lem, t_path *paths);
 
-int				**copy_matrix(t_lem *lem, int **matrix);
-void			delete_matrix(t_lem *lem, int ***matrix);
+//int				**copy_matrix(t_lem *lem, int **matrix);
+//void			delete_matrix(t_lem *lem, int ***matrix);
 
 /* DEV */
-void			display_rooms(t_lem lem);
-void			display_adj_matrix(t_lem lem);
-void			display_d_weights(t_lem lem);
-void			display_weights(t_lem lem);
-void			display_d_links(t_lem lem, int **matrix);
-void			display_paths(t_path *paths);
+//void			display_rooms(t_lem lem);
+//void			display_adj_matrix(t_lem lem);
+//void			display_d_weights(t_lem lem);
+//void			display_weights(t_lem lem);
+//void			display_d_links(t_lem lem, int **matrix);
+//void			display_paths(t_path *paths);
 
 #endif
