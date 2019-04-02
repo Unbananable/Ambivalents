@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/27 14:25:21 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/02 10:06:23 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
 
 clean:
 	@rm -rf $(OBJSFD)
-	@echo "\t[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
+	@echo "\t[ $(RED)✗$(NONE) ] bonus_visualizer/$(OBJSFD) directory"
 
 fclean: clean
 	@/bin/rm -f $(NAME)

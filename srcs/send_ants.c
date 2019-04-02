@@ -6,13 +6,40 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 17:10:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:11:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 #include <stdio.h>
+
+void		send_all_ants(t_lem *lem)
+{
+	int		i;
+	int		end_strlen;
+	char	*ant_id;
+
+	end_strlen = ft_strlen(lem->rooms[END].id);
+	i = -1;
+	while (++i < lem->nb_ants)
+	{
+		if (!(ant_id = ft_itoa(i)))
+			error(lem);
+		lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
+				+ ft_strlen(ant_id)
+				+ end_strlen + 3);
+		ft_strcat(lem->instr, "L");
+		ft_strcat(lem->instr, ant_id);
+		ft_strcat(lem->instr, "-");
+		ft_strcat(lem->instr, lem->rooms[END].id);
+		if (i != lem->nb_ants - 1)
+			ft_strcat(lem->instr, " ");
+		else
+			ft_strcat(lem->instr, "\0");
+		free(ant_id);
+	}
+}
 
 static int	get_prev_room(t_lem *lem, int current_room)
 {
@@ -115,14 +142,16 @@ void		send_ants(t_lem *lem)
 //printf("\t L1: 2/3\n");
 		i = -1;
 		while (lem->paths[++i].index_first != -1 && ants_left)
-//{
+{
 //printf("\t LOOP2\n");
 //if (ants_left == 1)
 //return ;
 			if (lem->paths[i].nb_remaining > 0)
 			{
 //printf("\t  L2: 1/8\n");
-				lem->rooms[lem->paths[i].index_first].ant_id = ft_itoa(lem->nb_ants - ants_left + 1);
+//printf("\t   x lem->paths[%d].index_first = %d\n", i, lem->paths[i].index_first);
+				if (!(lem->rooms[lem->paths[i].index_first].ant_id = ft_itoa(lem->nb_ants - ants_left + 1)))
+					error(lem);
 //printf("\t   x %s.ant_id = %s\n", lem->rooms[lem->paths[i].index_first].id, lem->rooms[lem->paths[i].index_first].ant_id);
 //printf("\t  L2: 2/8\n");
 				lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
@@ -144,7 +173,7 @@ void		send_ants(t_lem *lem)
 			}
 //printf("\t   x ants_left = %d\n", ants_left);
 //printf("\t /LOOP2\n");
-//}
+}
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 //printf("\t L1: 3/3\n");
 	}

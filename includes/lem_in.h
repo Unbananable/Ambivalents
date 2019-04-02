@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 17:13:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 10:36:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			error(t_lem *lem);
 void			end(t_lem *lem);
 
 int				count_rooms_and_fill_input(t_lem *lem);
+void			send_all_ants(t_lem *lem);
 void			send_ants(t_lem *lem);
 
 void			parser(t_lem *lem);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_steps.c                                     :+:      :+:    :+:   */
+/*   fill_adjacency_matrix.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 15:04:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 10:24:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int			fill_adjacency_matrix(t_lem *lem, char *str)
 
 	init_links(&link, &search);
 	i = -1;
-	search.st = -1;
-	search.nd = -1;
 	while (str[++i] && str[i] != '\n')
 	{
+		search.st = -1;
+		search.nd = -1;
 		if (setup_search(lem, &search, i, str))
 			if (search.st != -1 && search.nd != -1)
 			{

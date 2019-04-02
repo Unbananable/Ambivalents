@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 15:51:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:10:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,12 @@ static t_path	*set_path_len_list(t_lem *lem)
 	if (!(paths = (t_path *)malloc(sizeof(t_path) * (nb_paths + 1))))
 		return (NULL);
 	j = -1;
-	i = 2;
+	i = 1;
 //printf("\t\t3/6\n");
 	while (++i < lem->nb_rooms)
 		if (lem->links[i][START] && lem->split_rooms[2 * i + 1])
 		{
+//printf("\t\t => setting path starting at %s: index %d, w = %d\n", lem->rooms[i].id, i, lem->split_rooms[2 * i + 1]/ 2);
 			paths[++j].id_first = lem->rooms[i].id;
 			paths[j].index_first = i;
 			paths[j].w = lem->split_rooms[2 * i + 1] / 2;
@@ -279,21 +280,18 @@ void    edmonds_karp(t_lem *lem)
 //printf("\t1/4\n");
 
 	/* INITIALISER D_LINKS ET SPLIT_ROOMS */
-	// - verifier qu'on a bien considere les links orientes dans le meme sens
 	make_d_links(lem);
 //printf("\t2/4\n");
-	/*tmp_flow = copy_matrix(lem, lem->d_links);*/ // On opere sur une copie de la matrice pour pouvoir revenir en arriere si le nombre d'instructions n'est pas ameliore
 //printf("\t3/4\n");
 
 	/* TANT QUE CELA AMELIORE LE NOMBRE D'INSTRUCTIONS, TROUVER DE NOUVEAUX CHEMINS AVEC UN BFS */
-//display_d_links(*lem, tmp_flow);
 //display_d_weights(*lem);
-	while (stop >= 0)
+	while (!stop)
 	{
 //printf("\tLOOP1\n");
 //printf("\t L1: 1/5\n");
-		if (bfs(lem, lem->d_links/*tmp_flow*/) == -1) // Ajouter un nouveau chemin le plus court
-			stop = -1;
+		if (bfs(lem, lem->d_links) == -1) // Ajouter un nouveau chemin le plus court
+			stop = 1;
 		else
 		{
 //printf("\t L1: 2/5\n");
@@ -317,8 +315,7 @@ void    edmonds_karp(t_lem *lem)
 			else // Sinon on arrete le processus
 //{
 //printf("\t  =>stop\n");
-			/*delete_matrix(lem, &tmp_flow);*/
-				stop = -1;
+				stop = 1;
 //}
 		}
 //printf("\t L1: 5/5\n");

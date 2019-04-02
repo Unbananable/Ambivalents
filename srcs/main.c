@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:20:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 15:05:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 10:51:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,23 @@ int			main(int ac, char **av)
 //printf("3/7\n");
 	parser(&lem);
 //printf("4/7\n");
-//printf("nb_ants = %d\n\n", lem.nb_ants);
+//printf("nb_ants = %d\n", lem.nb_ants);
 //display_rooms(lem);
 //display_adj_matrix(lem);
 //display_d_links(lem);
 
 	/* CALCUL DU CHEMIN */
-	edmonds_karp(&lem);
+	if (lem.links[END][START])
+		send_all_ants(&lem);
+	else
+	{
+		edmonds_karp(&lem);
+		if (!lem.paths)
+			error(&lem);
 //printf("5/7\n");
 //display_weights(lem);
-	send_ants(&lem);
+		send_ants(&lem);
+	}
 //printf("6/7\n");
 
 	/* AFFICHAGE */
