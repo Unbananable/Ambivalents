@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/02 12:52:59 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/02 19:59:08 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRC = main.c \
 	  set_instructions.c \
 	  event_manager.c \
 	  scale.c \
-	  draw_start_ants.c
+	  draw_start_ants.c \
+	  draw_start_end_ant_nb.c \
+	  render_menu.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

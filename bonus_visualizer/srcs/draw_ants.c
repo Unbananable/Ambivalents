@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 15:36:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 20:04:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static void	init_ants_pos(t_lem *lem, int *anim_step)
 	}
 }
 
-static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos, SDL_Keycode key)
+static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos,
+		SDL_Keycode key)
 {
 	int		i;
 
@@ -79,15 +80,29 @@ static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos, S
 	i = -1;
 	while (lem->instr[lem->visual.step][++i].ant_id)
 	{
-		printf("anim_step: %d\n", *anim_step);
 		if (*anim_step == DIV_ANIM)
 		{
+/*			if (lem->visual.step == 0)
+			{
+printf("lem->instr[lem->visual.step][i].ant_id: %d\n", lem->instr[lem->visual.step][i].ant_id);
+			lem->ants[lem->instr[lem->visual.step][i].ant_id
+				- 1].last_x = lem->rooms[0].x;
+			lem->ants[lem->instr[lem->visual.step][i].ant_id
+				- 1].last_y = lem->rooms[0].y;
+			lem->ants[lem->instr[lem->visual.step][i].ant_id
+				- 1].x = lem->rooms[0].x;
+			lem->ants[lem->instr[lem->visual.step][i].ant_id
+				- 1].y = lem->rooms[0].x;
+			}
+			else
+			{*/
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].last_x = lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].x;
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].last_y = lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].y;
+//			}
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].x = lem->rooms[lem->instr[lem->visual.step][i].i_room].x;
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
@@ -99,6 +114,8 @@ static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos, S
 	{
 		if (*anim_step < 50)
 			*anim_step += 1;
+		else
+			*anim_step = 0;
 	}
 	else
 		*anim_step -= 1;*/
@@ -113,8 +130,14 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 
 	if (anim_step == -1)
 		anim_step = DIV_ANIM;
-	lem->visual.step += (key == SDLK_LEFT && anim_step == DIV_ANIM) ? -1 : 0;
+//	lem->visual.step += (key == SDLK_LEFT && anim_step == DIV_ANIM && anim_step > 0) ? -1 : 0;
 	lem->visual.step += (key == SDLK_RIGHT && anim_step == DIV_ANIM) ? 1 : 0;
+/*	printf("visual.step: %d\n", lem->visual.step);
+	printf("anim_step: %d\n", anim_step);
+	printf("ant L1 (x/y): (%d / %d)\n", lem->ants[0].x, lem->ants[0].y);
+	printf("ant L1 last(x/y): (%d / %d)\n", lem->ants[0].last_x, lem->ants[0].last_y);
+	printf("ant L5 (x/y): (%d / %d)\n", lem->ants[4].x, lem->ants[4].y);
+	printf("ant L5 last(x/y): (%d / %d)\n", lem->ants[4].last_x, lem->ants[4].last_y);*/
 	if (key == SDLK_SPACE)
 		init_ants_pos(lem, &anim_step);
 	if (lem->visual.step < -1 || lem->visual.step >= lem->nb_instr)
@@ -127,6 +150,7 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	if (lem->visual.step != -1)
 		update_pos_and_draw(lem, &anim_step, &ant_pos, key);
 	draw_start_ants(lem);
+	draw_start_end_ant_nb(lem, lem->visual.step, anim_step + 1);
 	render_menu(lem);
 	SDL_RenderPresent(lem->visual.rend);
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 14:54:28 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:03:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void		make_d_links(t_lem *lem)
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-		lem->d_links[2 * i][2 * i + 1] = 1;
+		if (i != END && i != START)
+			lem->d_links[2 * i][2 * i + 1] = 1;
 		j = i - 1;
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] && (i == START || j == END

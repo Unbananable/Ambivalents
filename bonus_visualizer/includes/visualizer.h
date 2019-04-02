@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 20:08:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:18:17 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <SDL2_gfxPrimitives.h>
 # include "libft.h"
 # include <unistd.h>
+
+# include <stdio.h>
 
 # define BUFF_SIZE 4096
 
@@ -58,6 +60,7 @@ typedef struct	s_room
 	int		w;
 	int		x;
 	int		y;
+	int		ant_nb;
 }				t_room;
 
 typedef struct	s_link
@@ -126,6 +129,7 @@ void			set_scale(t_lem *lem);
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
+void			draw_start_end_ant_nb(t_lem *lem, int step, int anim_step);
 void			event_manager(t_lem *lem);
 void			render_menu(t_lem *lem);
 

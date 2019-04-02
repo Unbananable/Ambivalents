@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 15:19:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:06:49 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	draw_background(t_lem *lem)
 	SDL_Texture *room_text;
 	SDL_Rect	room_pos;
 
-	if (!(room_surf = IMG_Load("imgs/sloth.jpg")))
+	if (!(room_surf = IMG_Load("imgs/cristina.jpg")))
 		error(lem);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
 	SDL_FreeSurface(room_surf);

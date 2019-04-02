@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 19:04:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:30:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ static void	initialize_lem(t_lem *lem)
 		lem->rooms[i].id = NULL;
 	if (!(lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms)))
 		error(lem);
+	lem->rooms[START].ant_nb = lem->nb_ants;
+	lem->rooms[END].ant_nb = 0;
 	i = -1;
 	while (++i < lem->nb_rooms)
 		if (!(lem->links[i] = (int *)malloc(sizeof(int) * lem->nb_rooms)))
@@ -122,6 +124,7 @@ int			main(int ac, char **av)
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
 	draw_start_ants(&lem);
+	draw_start_end_ant_nb(&lem, -1, DIV_ANIM);
 	render_menu(&lem);
 	SDL_RenderPresent(lem.visual.rend);
 	event_manager(&lem);

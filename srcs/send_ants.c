@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 11:48:27 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 11:11:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:05:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	get_prev_room(t_lem *lem, int current_room)
 //printf("\t\t\tLOOP1\n");
 	while (++i < lem->nb_rooms)
 //{printf("\t\t\t L1: 1/2\n");
-		if (lem->links[current_room][i] && (lem->split_rooms[2 * i] == lem->split_rooms[2 * current_room + 1] + 1 || i == 0))
+		/*if (lem->links[current_room][i] && (lem->split_rooms[2 * i] == lem->split_rooms[2 * current_room + 1] + 1 || i == 0))*/
+		if (lem->d_links[2 * i][2 * current_room + 1])
 //{printf("\t\t\t ->return prev room (%s)\n", lem->rooms[i].id);
 			return (i);
 //printf("\t\t\t L1: 2/2");
@@ -81,7 +82,8 @@ static void	make_ants_move(t_lem *lem)
 	while (++start_room < lem->nb_rooms)
 	{
 //printf("\t\t L1: 1/2\n");
-		if (lem->links[start_room][END] && lem->split_rooms[start_room * 2])
+		/*if (lem->links[start_room][END] && lem->split_rooms[start_room * 2])*/
+		if (lem->d_links[2 * start_room][2 * END + 1])
 		{
 			current_room = start_room;
 			next_room = END;
@@ -142,7 +144,7 @@ void		send_ants(t_lem *lem)
 //printf("\t L1: 2/3\n");
 		i = -1;
 		while (lem->paths[++i].index_first != -1 && ants_left)
-{
+//{
 //printf("\t LOOP2\n");
 //if (ants_left == 1)
 //return ;
@@ -173,7 +175,7 @@ void		send_ants(t_lem *lem)
 			}
 //printf("\t   x ants_left = %d\n", ants_left);
 //printf("\t /LOOP2\n");
-}
+//}
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 //printf("\t L1: 3/3\n");
 	}
