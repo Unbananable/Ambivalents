@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:13 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 20:26:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 14:36:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,39 @@ void		render_menu(t_lem *lem)
 	add_sentence_to_menu(lem, "--------", pos);
 }
 
+static void	key_down_event(t_lem *lem, SDL_Event *event, int *i)
+{
+	if (event->key.keysym.sym == SDLK_RIGHT
+			|| event->key.keysym.sym == SDLK_LEFT
+			|| event->key.keysym.sym == SDLK_SPACE)
+	{
+		draw_ants(lem, event->key.keysym.sym);
+		if (*i != NO_ANIM)
+			*i = lem->visual.step;
+	}
+	else if (event->key.keysym.sym == SDLK_a)
+	{
+		if (lem->visual.step == lem->nb_instr - 1)
+			draw_ants(lem, SDLK_SPACE);
+		if (*i == NO_ANIM)
+			*i = lem->visual.step;
+		else
+			*i = NO_ANIM;
+	}
+}
+
+static void	process_anim(t_lem *lem, int *i)
+{
+	draw_ants(lem, SDLK_RIGHT);
+	(*i)++;
+	if (*i >= lem->nb_instr * (DIV_ANIM + 1))
+	{
+		lem->visual.step = lem->nb_instr - 1;
+		draw_ants(lem, SDLK_RIGHT);
+		*i = NO_ANIM;
+	}
+}
+
 void		event_manager(t_lem *lem)
 {
 	int			quit;
@@ -73,34 +106,9 @@ void		event_manager(t_lem *lem)
 						&& event.key.keysym.sym == SDLK_ESCAPE))
 				quit = 1;
 			else if (event.type == SDL_KEYDOWN)
-			{
-				if (event.key.keysym.sym == SDLK_RIGHT
-						|| event.key.keysym.sym == SDLK_LEFT
-						|| event.key.keysym.sym == SDLK_SPACE)
-				{
-					draw_ants(lem, event.key.keysym.sym);
-					if (i != NO_ANIM)
-						i = lem->visual.step;
-				}
-				else if (event.key.keysym.sym == SDLK_a)
-				{
-					if (i == NO_ANIM)
-						i = lem->visual.step;
-					else
-						i = NO_ANIM;
-				}
-			}
+				key_down_event(lem, &event, &i);
 			if (i != NO_ANIM && i < lem->nb_instr * (DIV_ANIM + 1))
-			{
-				draw_ants(lem, SDLK_RIGHT);
-				i++;
-				if (i >= lem->nb_instr * (DIV_ANIM + 1))
-				{
-					lem->visual.step = lem->nb_instr - 1;
-					draw_ants(lem, SDLK_RIGHT);
-					i = NO_ANIM;
-				}
-			}
+				process_anim(lem, &i);
 		}
 	}
 }
