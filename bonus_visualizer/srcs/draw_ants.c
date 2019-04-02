@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 12:54:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:36:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	init_ants_pos(t_lem *lem, int *anim_step)
 	}
 }
 
-static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos)
+static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos, SDL_Keycode key)
 {
 	int		i;
 
@@ -79,6 +79,7 @@ static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos)
 	i = -1;
 	while (lem->instr[lem->visual.step][++i].ant_id)
 	{
+		printf("anim_step: %d\n", *anim_step);
 		if (*anim_step == DIV_ANIM)
 		{
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
@@ -94,7 +95,15 @@ static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos)
 		}
 		draw_ant_and_id(lem, i, *ant_pos, *anim_step);
 	}
+/*	if (key == SDLK_LEFT)
+	{
+		if (*anim_step < 50)
+			*anim_step += 1;
+	}
+	else
+		*anim_step -= 1;*/
 	--(*anim_step);
+	key += 0;
 }
 
 void		draw_ants(t_lem *lem, SDL_Keycode key)
@@ -116,7 +125,7 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.anthill_text, NULL, NULL))
 		error(lem);
 	if (lem->visual.step != -1)
-		update_pos_and_draw(lem, &anim_step, &ant_pos);
+		update_pos_and_draw(lem, &anim_step, &ant_pos, key);
 	draw_start_ants(lem);
 	render_menu(lem);
 	SDL_RenderPresent(lem->visual.rend);

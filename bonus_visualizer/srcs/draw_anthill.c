@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 18:56:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:19:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,27 @@ static void	draw_room_names(t_lem *lem)
 	}
 }
 
+static void	draw_background(t_lem *lem)
+{
+	SDL_Surface *room_surf;
+	SDL_Texture *room_text;
+	SDL_Rect	room_pos;
+
+	if (!(room_surf = IMG_Load("imgs/sloth.jpg")))
+		error(lem);
+	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
+	SDL_FreeSurface(room_surf);
+	if (!room_text)
+		error(lem);
+	room_pos.h = HEIGHT;
+	room_pos.w = WIDTH;
+	room_pos.x = 0;
+	room_pos.y = 0;
+	if (SDL_RenderCopy(lem->visual.rend, room_text, NULL, &room_pos))
+		error(lem);
+	SDL_DestroyTexture(room_text);
+}
+
 static void	draw_rooms(t_lem *lem)
 {
 	SDL_Surface *room_surf;
@@ -91,6 +112,7 @@ void		draw_anthill(t_lem *lem)
 	if (SDL_SetRenderDrawColor(lem->visual.rend, BG_R, BG_G, BG_B, BG_A)
 			|| SDL_RenderClear(lem->visual.rend))
 		error(lem);
+	draw_background(lem);
 	draw_tunnels(lem);
 	draw_rooms(lem);
 	draw_room_names(lem);
