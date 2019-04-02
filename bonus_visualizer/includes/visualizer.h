@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 20:08:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:38:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <SDL2_gfxPrimitives.h>
 # include "libft.h"
 # include <unistd.h>
+
+# include <stdio.h>
 
 # define BUFF_SIZE 4096
 

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 18:56:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:51:52 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	draw_room_names(t_lem *lem)
 		if (!(text_surf = TTF_RenderText_Shaded(lem->visual.font,
 						lem->rooms[i].id, lem->visual.colors[BLACK],
 						lem->visual.colors[WHITE])))
-			error(lem);
 		text_pos.x = lem->rooms[i].x - 20;
 		text_pos.y = lem->rooms[i].y - 20;
 		text_pos.h = 25;

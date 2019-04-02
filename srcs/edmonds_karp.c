@@ -6,13 +6,13 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 10:53:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 11:10:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:26:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	nb_links_from(t_lem *lem, int **matrix, int index)
+static int	nb_links_from(t_lem *lem, int index)
 {
 	int		res;
 	int		i;
@@ -20,12 +20,11 @@ static int	nb_links_from(t_lem *lem, int **matrix, int index)
 	res = 0;
 	i = -1;
 	while (++i < lem->nb_rooms * 2)
-		if (!lem->split_rooms[i])
-			res += matrix[index][i];
+		res += lem->d_links[index][i];
 	return (res);
 }
 
-static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int current_w)
+static int	bfs_recursive(t_lem *lem, int *current_w_list, int current_w)
 {
 	int		*next_w_list;
 	int		i;
@@ -48,7 +47,7 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 	i = -1;
 	nb_links = 0;
 	while (current_w_list[++i] != -1)
-		nb_links += nb_links_from(lem, matrix, current_w_list[i]);
+		nb_links += nb_links_from(lem, current_w_list[i]);
 //printf("\t\t\t2/9\n");
 //printf("\t\t\t x nb_links = %d\n", nb_links);
 	next_w_list = NULL;
@@ -58,7 +57,6 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 		if (!(next_w_list = (int *)malloc(sizeof(int) * (nb_links + 1))))
 		{
 			free(current_w_list);
-			delete_matrix(lem, &matrix);
 			error(lem);
 		}
 //printf("\t\t\t4/9\n");
@@ -70,13 +68,13 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 			j = -1;
 			while (++j < lem->nb_rooms * 2)
 //{printf("\t\t\t L1: LOOP2\n");
-				if (matrix[current_w_list[i]][j] == 1 && !lem->split_rooms[j])
+				if (lem->d_links[current_w_list[i]][j] == 1)
 				{
 					/* Condition d'arret : la room est liee a START : on reset le poids des rooms que l'on a assigne durant cette occurence, on free e tableau, et on retourne l'index de la room dans current_w_list qui est en lien avec le plus petit chemin */
 					if (j == 2 * START)
 					{
-						matrix[current_w_list[i]][2 * START] = 0;
-						matrix[2 * START][current_w_list[i]] = 1;
+						lem->d_links[current_w_list[i]][2 * START] = 0;
+						lem->d_links[2 * START][current_w_list[i]] = 1;
 //printf("\t\t\t      L2: x next_w_list(w) = [");
 						while (count >= 0)
 //{printf(" %d(%d->0)", next_w_list[count], lem->split_rooms[next_w_list[count]]);
@@ -104,7 +102,7 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 		}
 //printf("\t\t\t5/9\n");
 		next_w_list[++count] = -1;
-		j = bfs_recursive(lem, matrix, next_w_list, current_w + 1);
+		j = bfs_recursive(lem, next_w_list, current_w + 1);
 //printf("\t\t\t6/9\n");
 	}
 	else // Si il n'y a plus de rooms dispo : il n'y a pas de chemin supplementaire entre start et end
@@ -115,10 +113,10 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 	{
 		i = -1;
 		while (++i != -1 && current_w_list[i] != -1)
-			if (matrix[current_w_list[i]][j])
+			if (lem->d_links[current_w_list[i]][j])
 			{
-				matrix[current_w_list[i]][j] = 0;
-				matrix[j][current_w_list[i]] = 1;
+				lem->d_links[current_w_list[i]][j] = 0;
+				lem->d_links[j][current_w_list[i]] = 1;
 				j = current_w_list[i];
 				i = -1;
 			}
@@ -142,30 +140,29 @@ static int	bfs_recursive(t_lem *lem, int **matrix, int *current_w_list, int curr
 	return (j);
 }
 
-static int	bfs(t_lem *lem, int **tmp_flow)
+static int	bfs(t_lem *lem)
 {
 	int		*start_list;
 	int 	count;
 	int		i;
 	int		path_index;
 
-//printf("\t\t/// IN BFS ///\n");
+//static int iter;
+//iter++;
+//printf("\t\t/// IN BFS %d ///\n", iter);
 //printf("\t\t1/6\n");
-//int nb_links = nb_links_from(lem, tmp_flow, 2 * END + 1);
+//int nb_links = nb_links_from(lem, lem->d_links, 2 * END + 1);
 //printf("\t\t x nb_links = %d\n", nb_links);
 	/* On fait la premiere iteration pour set les poids des rooms liees a START a 1 et faire une liste de leurs indices */
 	// - il est probablement possible de le faire en une seule fonction recursive avec une condition si la liste est NULL pour le debut
-	if (!(start_list = (int *)malloc(sizeof(int) * (nb_links_from(lem, tmp_flow, 2 * END + 1) + 1))))
-	{
-		delete_matrix(lem, &tmp_flow);
+	if (!(start_list = (int *)malloc(sizeof(int) * (nb_links_from(lem, 2 * END + 1) + 1))))
 		error(lem);
-	}
 //printf("\t\t2/6\n");
 	count = -1;
 	i = 1;
 	while (++i < lem->nb_rooms * 2)
 	{
-		if (tmp_flow[2 * END + 1][i] == 1)
+		if (lem->d_links[2 * END + 1][i] == 1)
 		{
 			start_list[++count] = i;
 			lem->split_rooms[i] = 1;
@@ -178,8 +175,8 @@ static int	bfs(t_lem *lem, int **tmp_flow)
 //printf(" %d(%.1s)", start_list[a], lem->rooms[start_list[a] / 2].id);
 //printf(" ]\n");
 //printf("\t\t3/6\n");
-	/* bfs_recursive retourne l'index dans la liste du chemin choisi : NOT WORKING : on lui laisse son poids et on reset les autres a 0 + NOT DONE : on inverse le sens des liens */
-	path_index = bfs_recursive(lem, tmp_flow, start_list, 2);
+	/* bfs_recursive retourne l'index dans la liste du chemin choisi */
+	path_index = bfs_recursive(lem, start_list, 2);
 //printf("\t\t x path_index = %d\n", path_index);
 //printf("\t\t4/6\n");
 	i = -1;
@@ -194,18 +191,32 @@ static int	bfs(t_lem *lem, int **tmp_flow)
 //}
 //printf(" ]\n");
 //printf("path_index: %d\n", path_index);
-//int a=-1;
+//a=-1;
 //while(++a < path_index)
-//	printf("tmp_flow[3][a]: %d\n", tmp_flow[2 * END + 1][a]);
+//printf("lem->d_links[3][a]: %d\n", lem->d_links[2 * END + 1][a]);
 	if (path_index != -1)
 	{
-		tmp_flow[2 * END + 1][path_index] = 0;
-		tmp_flow[path_index][2 * END + 1] = 1;
+		lem->d_links[2 * END + 1][path_index] = 0;
+		lem->d_links[path_index][2 * END + 1] = 1;
 	}
 //printf("\t\t5/6\n");
 	free(start_list);
 //printf("\t\t6/6\n");
 	return (path_index);
+//iter++;
+}
+
+static int		get_weight(t_lem *lem, int current_index)
+{
+	int		next_index;
+
+	if (current_index == END)
+		return (0);
+	next_index = -1;
+	while (++next_index < lem->nb_rooms)
+		if (lem->d_links[2 * current_index][2 * next_index + 1])
+			return (1 + get_weight(lem, next_index));
+	return (-1);
 }
 
 static t_path	*set_path_len_list(t_lem *lem)
@@ -221,7 +232,7 @@ static t_path	*set_path_len_list(t_lem *lem)
 	nb_paths = 0;
 	i = 1;
 	while (++i < lem->nb_rooms)
-		if (lem->links[i][START] && lem->split_rooms[2 * i + 1])
+		if (lem->d_links[2 * START][2 * i + 1])
 			nb_paths++;
 //printf("\t\t x nb_paths = %d\n", nb_paths);
 //printf("\t\t2/6\n");
@@ -231,12 +242,12 @@ static t_path	*set_path_len_list(t_lem *lem)
 	i = 1;
 //printf("\t\t3/6\n");
 	while (++i < lem->nb_rooms)
-		if (lem->links[i][START] && lem->split_rooms[2 * i + 1])
+		if (lem->d_links[2 * START][2 * i + 1])
 		{
 //printf("\t\t => setting path starting at %s: index %d, w = %d\n", lem->rooms[i].id, i, lem->split_rooms[2 * i + 1]/ 2);
 			paths[++j].id_first = lem->rooms[i].id;
 			paths[j].index_first = i;
-			paths[j].w = lem->split_rooms[2 * i + 1] / 2;
+			paths[j].w = get_weight(lem, i);
 		}
 //printf("\t\t4/6\n");
 	paths[nb_paths].id_first = NULL;
@@ -286,16 +297,17 @@ void    edmonds_karp(t_lem *lem)
 
 	/* TANT QUE CELA AMELIORE LE NOMBRE D'INSTRUCTIONS, TROUVER DE NOUVEAUX CHEMINS AVEC UN BFS */
 //display_d_weights(*lem);
+//display_d_links(*lem, lem->d_links);
 	while (!stop)
 	{
 //printf("\tLOOP1\n");
 //printf("\t L1: 1/5\n");
-		if (bfs(lem, lem->d_links) == -1) // Ajouter un nouveau chemin le plus court
+		if (bfs(lem) == -1) // Ajouter un nouveau chemin le plus court
 			stop = 1;
 		else
 		{
 //printf("\t L1: 2/5\n");
-//display_d_links(*lem, tmp_flow);
+//display_d_links(*lem, lem->d_links);
 //display_d_weights(*lem);
 			if (!(current_paths = set_path_len_list(lem)))
 				error(lem); // Faire la liste des indices des premieres rooms des chemins, trie par longueur
@@ -305,9 +317,7 @@ void    edmonds_karp(t_lem *lem)
 //display_paths(current_paths);
 			if (!lem->paths || current_paths[0].nb_ants + current_paths[0].w < lem->paths[0].nb_ants + lem->paths[0].w) // Si le nouveau nombre d'instruction et plus petit, on update la matrice et on recommence
 			{
-//printf("\t  => updating matrix\n");
-			/*delete_matrix(lem, &(lem->d_links));*/
-			/*lem->d_links = copy_matrix(lem, tmp_flow);*/
+//printf("\t  => updating lem->d_links\n");
 				free(lem->paths);
 				lem->paths = current_paths;
 				current_paths = NULL;

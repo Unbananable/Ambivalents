@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:56:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 17:15:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:24:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void		print_paths(t_lem lem)
 
 	ft_putstr("paths:");
 	i = -1;
-	while (++i < lem.nb_rooms)
-		if (lem.links[START][i] && lem.split_rooms[2 * i + 1])
+	while (lem.paths[++i].id_first)
 		{
 			ft_putchar(' ');
-			ft_putstr(lem.rooms[i].id);
+			ft_putstr(lem.paths[i].id_first);
 			ft_putstr(" (");
-			ft_putnbr(lem.split_rooms[2 * i + 1] / 2 + 1);
+			ft_putnbr(lem.paths[i].w);
 			ft_putstr(")");
 		}
 	ft_putchar('\n');
