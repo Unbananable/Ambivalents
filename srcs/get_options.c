@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options.c                                          :+:      :+:    :+:   */
+/*   get_options.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 17:22:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:13:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ static int	apply_option(char *av, int *options)
         add_option(options, 'r');
     }
     else
-        return (-1);
+        return (ERROR);
     return (0);
 }
 
+/*
+** Checks program parameters againts a number of available commands. The
+** different options are stored as a activated bit in an int.
+*/
 int			get_options(int *ac, char ***av)
 {
 	int		options;
@@ -58,7 +62,7 @@ int			get_options(int *ac, char ***av)
 		{
             **av += 2;
 			if (apply_option(**av, &options))
-				return (-1);
+				return (ERROR);
 		}
 		(*ac)--;
 		(*av)++;

@@ -6,12 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 10:57:59 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:26:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 void	display_rooms(t_lem lem)
 {
@@ -64,16 +63,6 @@ void	display_d_links(t_lem lem, int **matrix)
 				printf("  ");
 		printf("\n");
 	}
-}
-
-void	display_d_weights(t_lem lem)
-{
-	int		i;
-
-printf(">> D_WEIGTHS\n");
-	i = -1;
-	while (++i < lem.nb_rooms * 2)
-		printf("room %.1s:\t%d\n", lem.rooms[i / 2].id, lem.split_rooms[i]);
 }
 
 void	display_weights(t_lem lem)

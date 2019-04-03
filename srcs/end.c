@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 17:14:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 09:40:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	end(t_lem *lem)
 	{
 		i = -1;
 		while (++i < lem->nb_rooms)
+		{
 			free(lem->rooms[i].id);
+			free(lem->rooms[i].ant_id);
+		}
 	}
 	free(lem->rooms);
-	free(lem->split_rooms);
 	if (lem->links)
 	{
 		i = -1;
@@ -32,6 +34,13 @@ void	end(t_lem *lem)
 			free(lem->links[i]);
 	}
 	free(lem->links);
+	if (lem->o_links)
+	{
+		i = -1;
+		while (++i < 2 * lem->nb_rooms)
+			free(lem->o_links[i]);
+	}
+	free(lem->o_links);
 	free(lem->instr);
     free(lem->paths);
 }

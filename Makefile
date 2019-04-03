@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/03/28 14:57:25 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/03 10:50:30 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,19 +15,19 @@ NAME = lem-in
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC = main.c \
+	  get_options.c \
 	  count_rooms_and_fill_input.c \
-	  parser.c \
-	  fill_adjacency_matrix.c \
 	  end.c \
-	  edmonds_karp.c \
+	  parser.c \
+	  tools_parser.c \
+	  fill_adjacency_matrix.c \
+	  send_all_ants.c \
+	  find_paths.c \
+	  initialize_o_links.c \
+	  set_ants_per_room.c \
 	  send_ants.c \
-	  dev_tools.c \
-	  init_d_links.c \
-	  ants_per_room.c \
-	  matrix_tools.c \
-	  options.c \
-	  set_rooms_and_ants.c \
-	  print_tools.c
+	  tools_options.c \
+	  tools_o_links.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
