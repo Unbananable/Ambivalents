@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/15 13:38:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 14:11:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ int					ft_fclose(t_file *stream);
 int					ft_fgetc(t_file *stream);
 char				*ft_char_realloc(char *ptr, size_t size);
 int					ft_intlen(int nb);
+int					ft_round_double(double n);
 
 #endif

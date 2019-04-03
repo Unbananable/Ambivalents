@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 12:36:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 14:28:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ static void	draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
 
 static void	draw_ant_and_id(t_lem *lem, int i, SDL_Rect ant_pos, int anim_step)
 {
-	ant_pos.x = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x
-		+ ((lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_x
+	ant_pos.x = ft_round_double((double)(lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x
+		+ ((double)lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_x
 					- lem->ants[lem->instr[lem->visual.step][i].ant_id
-					- 1].x)) / DIV_ANIM * anim_step;
-	ant_pos.y = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y
-		+ ((lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y
+					- 1].x) * ((double)anim_step / DIV_ANIM)));
+	ant_pos.y = ft_round_double((double)(lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y
+		+ ((double)lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y
 					- lem->ants[lem->instr[lem->visual.step][i].ant_id
-					- 1].y)) / DIV_ANIM * anim_step;
-	printf("ant_pos (x/y): (%d / %d)\n", ant_pos.x, ant_pos.y);
+					- 1].y) * ((double)anim_step / DIV_ANIM)));
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
 				&ant_pos))
 		error(lem);
