@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/28 15:06:41 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
+/*   Updated: 2019/04/02 16:14:43 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static void	add_buffer(t_lem *lem, char *buff, int rd_size)
 {
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
-			* (ft_strlen(lem->input) + rd_size)))) // Pas besoin de +1 je penses mais je laisse ça là en cas de segfault hein (y)
-{printf("\t->SORTIE (erreur : add_buffer)\n");
+			* (ft_strlen(lem->input) + rd_size))))
 		error(lem);
-}
-	lem->input = ft_strncat(lem->input, buff, rd_size); //strncat est plus lourd que strcat.. a-t-on vraiment besoin de la "sécurité" de strncat ? a retirer en cas de manque de perfs, et voir.
+	lem->input = ft_strncat(lem->input, buff, rd_size);
 }
 
+/* 
+** Checks if the line preceding the '\n' in the input is a room with its
+** coordinates by checking each character from the end to the start.
+*/
 static int	is_room(char *str, int i)
 {
 	if (str[i] < '0' || str[i] > '9')
@@ -45,6 +47,9 @@ static int	is_room(char *str, int i)
 	return (1);
 }
 
+/* 
+** Stores the input in a string and counts the number of rooms.
+*/
 int			count_rooms_and_fill_input(t_lem *lem)
 {
 	int		i;
@@ -53,25 +58,22 @@ int			count_rooms_and_fill_input(t_lem *lem)
 	int		rd_size;
 	char	buff[BUFF_SIZE + 1];
 
-//printf("\t/// IN COUNT_ROOMS_AND_FILL_INPUT ///\n");
-//printf("\t1/2\n");
 	rd_size = 0;
 	count = 0;
 	stop = -1;
 	lem->input = NULL;
-//printf("\tLOOP1\n");
 	while ((rd_size = read(0, buff, BUFF_SIZE)) > 0)
 	{
 		buff[rd_size] = 0;
 		i = ft_strlen(lem->input) - 1;
 		add_buffer(lem, buff, rd_size);
-		while ((stop == 0 || stop == -1) && lem->input[++i])
+		while (stop < 1 && lem->input[++i])
 			if (lem->input[i] == '#')
 				while (lem->input[i] && lem->input[i] != '\n')
 					i++;
 			else if (lem->input[i] == '\n')
 			{
-				if (stop == -1)
+				if (stop == -1) // Skip the line containing the number of ants
 					stop = 0;
 				else if (is_room(lem->input, i - 1))
 					count++;
@@ -79,11 +81,7 @@ int			count_rooms_and_fill_input(t_lem *lem)
 					stop = 1;
 			}
 	}
-//printf("\t/LOOP1\n");
 	if (rd_size < 0)
-//{printf("\t->SORTIE (erreur lecture)\n");
 		return (0);
-//}
-//printf("\t2/2\n");
-	return (count); // returns -1 si y a des fourmis mais 0 salles (ou parametres fourmis non valide), renvoie 0 si le nombre de salle est zero ou si read a rencontré une erreur, renvoie le nombre de salles sinon
+	return (count); 
 }

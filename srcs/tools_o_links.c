@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_char_realloc.c                                  :+:      :+:    :+:   */
+/*   tools_o_links.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/07 14:22:18 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 16:01:47 by anleclab         ###   ########.fr       */
+/*   Created: 2019/04/02 18:42:54 by anleclab          #+#    #+#             */
+/*   Updated: 2019/04/03 10:50:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "lem_in.h"
 
-char	*ft_char_realloc(char *ptr, size_t size)
+/*
+** Returns the index of the 'in' subroom of the room with the index in parameter.
+*/
+int     in(int index)
 {
-	char	*p;
+    return (2 * index);
+}
 
-	if (ptr && size == 0)
-	{
-		if (!(p = (char *)malloc(sizeof(char))))
-			return (NULL);
-		*p = 0;
-	}
-	else
-	{
-		if (!(p = ft_strnew(size)))
-			return (NULL);
-		p = ft_strncpy(p, ptr, size);
-	}
-	ft_strdel(&ptr);
-	return (p);
+/*
+** Returns the index of the 'out' subroom of the room with the index in parameter.
+*/
+int     out(int index)
+{
+    return (2 * index + 1);
 }
