@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:06:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:06:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 ** incorrect, it either returns an error or ignores it and the rest of the
 ** input if it was supposed to record information about the links.
 */
-static void	parse_line(t_lem *lem, char *str, int *parse_step)
+static void	parse_line(t_lem *lem, char **str, int *parse_step)
 {
-	if (*str == '#')
-		detect_command(lem, &str, *parse_step);
+	if (**str == '#')
+		detect_command(lem, str, *parse_step);
 	else if (*parse_step == SET_NB_ANTS)
 	{
-		if ((*parse_step = set_nb_ants(lem, str)) == ERROR)
+		if ((*parse_step = set_nb_ants(lem, *str)) == ERROR)
 			error(lem);
 	}
-	else if (*parse_step == SET_ROOMS && *str != 'L')
-		manage_rooms(lem, str, parse_step);
+	else if (*parse_step == SET_ROOMS && **str != 'L')
+		manage_rooms(lem, *str, parse_step);
 	else if (*parse_step != SET_LINKS)
 		error(lem);
-	else if (*parse_step == SET_LINKS && *str != 'L')
-		*parse_step = fill_adjacency_matrix(lem, str);
+	else if (*parse_step == SET_LINKS && **str != 'L')
+		*parse_step = fill_adjacency_matrix(lem, *str);
 	else
 		*parse_step = ERROR;
 	if (*parse_step == ERROR)
-		*str = 0;
+		**str = 0;
 }
 
 void		parser(t_lem *lem)
@@ -84,7 +84,7 @@ void		parser(t_lem *lem)
 	parse_step = SET_NB_ANTS;
 	while (*cache)
 	{
-		parse_line(lem, cache, &parse_step);
+		parse_line(lem, &cache, &parse_step);
 		while (*cache && *cache != '\n')
 			cache++;
 		if (*cache)

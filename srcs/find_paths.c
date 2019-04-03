@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 10:31:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:52:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ static t_path	*set_path_len_list(t_lem *lem)
 	return (paths);
 }
 
+static int	nb_links_from(t_lem *lem, int index)
+{
+	int		res;
+	int		i;
+
+	res = 0;
+	i = -1;
+	while (++i < lem->nb_rooms * 2)
+		res += lem->o_links[index][i];
+	return (res);
+}
+
 /*
 ** Recursively returns the index of the index of the room with the cuurent weight
 ** which is included in the shortest path from start to end. In the return
@@ -138,18 +150,6 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 	}
 	free(next_w_list);
 	return (j);
-}
-
-static int	nb_links_from(t_lem *lem, int index)
-{
-	int		res;
-	int		i;
-
-	res = 0;
-	i = -1;
-	while (++i < lem->nb_rooms * 2)
-		res += lem->o_links[index][i];
-	return (res);
 }
 
 /*

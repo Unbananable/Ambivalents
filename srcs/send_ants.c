@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 10:50:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:17:59 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ static int	get_prev_room(t_lem *lem, int current_room)
 ** Stores the instructions for the ants already in the rooms and going to the
 ** next room of the path they're on.
 */
-static void	make_ants_move(t_lem *lem)
+static int	make_ants_move(t_lem *lem)
 {
 	int		current_room;
 	int		next_room;
 	int		start_room;
+	int		ret;
 
+	ret = 0;
 	start_room = -1;
 	while (++start_room < lem->nb_rooms)
 	{
@@ -47,6 +49,7 @@ static void	make_ants_move(t_lem *lem)
 			{
 				if (lem->rooms[current_room].ant_id)
 				{
+					ret = 1;
 					if (!(lem->instr = ft_char_realloc(lem->instr, ft_strlen(lem->instr)
 							+ ft_strlen(lem->rooms[current_room].ant_id)
 							+ ft_strlen(lem->rooms[next_room].id) + 3)))
@@ -67,6 +70,7 @@ static void	make_ants_move(t_lem *lem)
 			}
 		}
 	}
+	return (ret);
 }
 
 /*
@@ -77,12 +81,13 @@ void		send_ants(t_lem *lem)
 {
 	int		i;
 	int		ants_left;
-	int		nb_paths;
+	int		first_line;
 
 	ants_left = lem->nb_ants;
-	while (ants_left) // Improve by getting rid of ants_left, only using nb_remaining for the ants leaving the start and adding a return value to make_ants_move while there are still ants in the rooms
+	first_line = 1;
+	while (first_line || make_ants_move(lem))
 	{
-		make_ants_move(lem);
+		first_line = 0;
 		i = -1;
 		while (lem->paths[++i].index_first != -1 && ants_left)
 			if (lem->paths[i].nb_remaining > 0)
@@ -100,14 +105,6 @@ void		send_ants(t_lem *lem)
 				ants_left--;
 				lem->paths[i].nb_remaining--;
 			}
-		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
-	}
-	nb_paths = -1;
-	while (lem->paths[++nb_paths].index_first != -1)
-		;
-	while (++i <= lem->paths[nb_paths - 1].w + 1)
-	{
-		make_ants_move(lem);
 		lem->instr[ft_strlen(lem->instr) - 1] = '\n';
 	}
 	lem->instr[ft_strlen(lem->instr) - 1] = '\0';
