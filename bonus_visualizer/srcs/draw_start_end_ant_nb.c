@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:00:57 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 19:42:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:03:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void		draw_start_end_ant_nb(t_lem *lem, int step, int anim_step)
 		error(lem);
 	}
 	text_pos.x = lem->rooms[START].x + 20;
-	text_pos.y = lem->rooms[START].y + 20;
-	text_pos.h = 25;
-	text_pos.w = 25;
+	text_pos.y = lem->rooms[START].y + 10;
+	text_pos.h = 30;
+	text_pos.w = 30;
 	text_text = SDL_CreateTextureFromSurface(lem->visual.rend, text_surf);
 	if (!text_text)
 		error(lem);

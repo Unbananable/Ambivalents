@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 19:18:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:06:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 
 # define ERROR -1
 
-# define HEIGHT 1000
-# define WIDTH 1000
+# define HEIGHT 1200
+# define WIDTH 1200
 # define MARGIN 35
 
 # define WHITE 0

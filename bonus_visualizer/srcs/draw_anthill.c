@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:06:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:21:17 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	draw_tunnels(t_lem *lem)
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] == 1)
 				if (thickLineRGBA(lem->visual.rend, lem->rooms[i].x,
-						lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 10,
+						lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 15,
 						255, 255, 255, rand() % 220 + 35))
 					error(lem);
 	}
@@ -64,7 +64,7 @@ static void	draw_background(t_lem *lem)
 	SDL_Texture *room_text;
 	SDL_Rect	room_pos;
 
-	if (!(room_surf = IMG_Load("imgs/cristina.jpg")))
+	if (!(room_surf = IMG_Load("imgs/sloth.jpg")))
 		error(lem);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
 	SDL_FreeSurface(room_surf);
@@ -86,14 +86,14 @@ static void	draw_rooms(t_lem *lem)
 	int			i;
 	SDL_Rect	room_pos;
 
-	if (!(room_surf = IMG_Load("imgs/benji.jpg")))
+	if (!(room_surf = IMG_Load("imgs/dtrigalo.jpg")))
 		error(lem);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
 	SDL_FreeSurface(room_surf);
 	if (!room_text)
 		error(lem);
-	room_pos.h = 50;
-	room_pos.w = 50;
+	room_pos.h = 40;
+	room_pos.w = 60;
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{

@@ -6,14 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/02 19:59:08 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/03 12:05:48 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-
 SRC = main.c \
 	  parser.c \
 	  set_rooms_and_ants.c \
@@ -61,6 +60,7 @@ check_libft:
 	@make -C ../libft
 
 project:
+	@echo ""
 	@echo "Checking project..."
 
 $(OBJSFD):

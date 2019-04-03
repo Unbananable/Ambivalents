@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 20:04:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 12:36:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ static void	draw_ant_and_id(t_lem *lem, int i, SDL_Rect ant_pos, int anim_step)
 	ant_pos.x = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x
 		+ ((lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_x
 					- lem->ants[lem->instr[lem->visual.step][i].ant_id
-					- 1].x) / DIV_ANIM) * anim_step;
+					- 1].x)) / DIV_ANIM * anim_step;
 	ant_pos.y = lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].y
 		+ ((lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_y
 					- lem->ants[lem->instr[lem->visual.step][i].ant_id
-					- 1].y) / DIV_ANIM) * anim_step;
+					- 1].y)) / DIV_ANIM * anim_step;
+	printf("ant_pos (x/y): (%d / %d)\n", ant_pos.x, ant_pos.y);
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.ant_text, NULL,
 				&ant_pos))
 		error(lem);

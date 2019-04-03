@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 19:30:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:55:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	initialize_sdl(t_lem *lem)
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
 		error(lem);
-	if (!(ant_surf = IMG_Load("imgs/anleclab_ant.jpg")))
+	if (!(ant_surf = IMG_Load("imgs/anleclab.jpg")))
 		error(lem);
 	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend,
 			ant_surf);

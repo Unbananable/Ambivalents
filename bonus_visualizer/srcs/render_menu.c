@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 19:52:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 20:05:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:33:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		render_menu(t_lem *lem)
 	char		*ants;
 
 	pos.x = 10;
-	pos.y = 10;
+	pos.y = HEIGHT - 200;
 	pos.h = 20;
 	pos.w = 250;
 	add_syntaxed_sentence(lem, "    /_\\ Command Menu /_\\    ", &pos, 0);
