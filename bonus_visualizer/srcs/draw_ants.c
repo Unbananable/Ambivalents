@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 14:28:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:23:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ static void	draw_ant_id(t_lem *lem, int ant_id, SDL_Rect ant_pos)
 	SDL_DestroyTexture(id_text);
 }
 
-static void	draw_ant_and_id(t_lem *lem, int i, SDL_Rect ant_pos, int anim_step)
+static void	draw_ant_and_id(t_lem *lem, int i, int anim_step)
 {
+	SDL_Rect	ant_pos;
+
+	ant_pos.h = 25;
+	ant_pos.w = 25;
 	ant_pos.x = ft_round_double((double)(lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].x
 		+ ((double)lem->ants[lem->instr[lem->visual.step][i].ant_id - 1].last_x
 					- lem->ants[lem->instr[lem->visual.step][i].ant_id
@@ -70,15 +74,14 @@ static void	init_ants_pos(t_lem *lem, int *anim_step)
 	}
 }
 
-static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Rect *ant_pos,
-		SDL_Keycode key)
+static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Keycode key)
 {
-	int		i;
+	int			i;
 
-	ant_pos->h = 25;
-	ant_pos->w = 25;
+/*	if (!lem->instr[lem->visual.step])
+		return ;*/
 	i = -1;
-	while (lem->instr[lem->visual.step][++i].ant_id)
+	while (/*lem->visual.step > -1 && */lem->instr[lem->visual.step][++i].ant_id)
 	{
 		if (*anim_step == DIV_ANIM)
 		{
@@ -108,7 +111,7 @@ printf("lem->instr[lem->visual.step][i].ant_id: %d\n", lem->instr[lem->visual.st
 			lem->ants[lem->instr[lem->visual.step][i].ant_id
 				- 1].y = lem->rooms[lem->instr[lem->visual.step][i].i_room].y;
 		}
-		draw_ant_and_id(lem, i, *ant_pos, *anim_step);
+		draw_ant_and_id(lem, i, *anim_step);
 	}
 /*	if (key == SDLK_LEFT)
 	{
@@ -126,7 +129,6 @@ printf("lem->instr[lem->visual.step][i].ant_id: %d\n", lem->instr[lem->visual.st
 void		draw_ants(t_lem *lem, SDL_Keycode key)
 {
 	static int	anim_step = DIV_ANIM;
-	SDL_Rect	ant_pos;
 
 	if (anim_step == -1)
 		anim_step = DIV_ANIM;
@@ -148,7 +150,7 @@ void		draw_ants(t_lem *lem, SDL_Keycode key)
 	if (SDL_RenderCopy(lem->visual.rend, lem->visual.anthill_text, NULL, NULL))
 		error(lem);
 	if (lem->visual.step != -1)
-		update_pos_and_draw(lem, &anim_step, &ant_pos, key);
+		update_pos_and_draw(lem, &anim_step, key);
 	draw_start_ants(lem);
 	draw_start_end_ant_nb(lem, lem->visual.step, anim_step + 1);
 	render_menu(lem);

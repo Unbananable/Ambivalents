@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 21:10:14 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/03 22:12:49 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	  parser.c \
 	  set_rooms_and_ants.c \

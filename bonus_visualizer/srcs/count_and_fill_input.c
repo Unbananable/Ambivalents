@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 20:03:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:13:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int			count_and_fill_input(t_lem *lem)
 	while ((flag == 0 || flag == -1) && lem->input[++i])
 		count_rooms(lem, &i, &flag, &count);
 	count_instr(lem, i, &flag);
-	//	}
 	count = (rd_size < 0) ? 0 : count;
 	return (count);
 	}

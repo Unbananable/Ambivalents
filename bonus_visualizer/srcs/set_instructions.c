@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 18:23:10 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/03/28 10:35:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:23:06 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	init_instr(t_lem *lem, char *str, int i_visu)
 	while (str[++i] && str[i] != '\n')
 		count += (str[i] == 'L') ? 1 : 0;
 	if (!(lem->instr[i_visu] = (t_instr *)malloc(sizeof(t_instr)
-					* (count++ + 1))))
+					* (++count))))
 		error(lem);
 	while (count--)
 	{

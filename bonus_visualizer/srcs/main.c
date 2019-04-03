@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 21:39:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:21:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ static void	initialize_instr_and_visual(t_lem *lem)
 	if (!(lem->instr = (t_instr **)malloc(sizeof(t_instr *) * lem->nb_instr)))
 		error(lem);
 	lem->instr[0] = NULL;
-	lem->visual.win = NULL;
-	lem->visual.rend = NULL;
-	lem->visual.anthill_text = NULL;
-	lem->visual.font = NULL;
+	lem->instr[lem->nb_instr - 1] = NULL;
+	ft_bzero(&(lem->visual), sizeof(t_visual));
 	if (!(lem->visual.colors = (SDL_Color *)malloc(sizeof(SDL_Color) * 2)))
 		error(lem);
 	lem->visual.colors[WHITE].r = 255;
@@ -122,6 +120,7 @@ int			main(int ac, char **av)
 	int			quit;
 	int			option;
 
+	ft_bzero(&lem, sizeof(t_lem));
 	if ((option = get_option(&lem, ac, av)) == -1)
 		usage();
 	quit = 0;
@@ -129,6 +128,7 @@ int			main(int ac, char **av)
 		usage();
 	initialize_lem(&lem);
 	parser(&lem);
+//	while(1);
 	if (SDL_SetRenderDrawColor(lem.visual.rend, BG_R, BG_G, BG_B, BG_A)
 			|| SDL_RenderClear(lem.visual.rend))
 		error(&lem);

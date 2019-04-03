@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 12:52:02 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 12:52:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 23:22:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void		draw_start_ants(t_lem *lem)
 	SDL_Rect	start_ant_pos;
 	int			i;
 
+/*	if (!lem->instr[lem->visual.step])
+		return ;*/
 	i = -1;
-	if (lem->visual.step != -1)
+	if (/*lem->visual.step != -1 &&*/ lem->visual.step < lem->nb_instr)
 	{
 		while (lem->instr[lem->visual.step][++i].ant_id)
 		{
