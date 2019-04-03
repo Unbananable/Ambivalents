@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/03/26 17:48:44 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 21:46:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		error(t_lem *lem)
 {
-	ft_putstr_fd("ERROR\n", 2);
+	ft_putstr_fd("Le programme s'est clos de facon impromptue.\n", 2);
 	end(lem);
 	exit(0);
 }
@@ -32,31 +32,37 @@ static void	terminate_sdl(t_lem *lem)
 	SDL_Quit();
 }
 
+static void	free_starred(t_lem *lem)
+{
+	free(lem->input);
+	free(lem->rooms);
+	free(lem->links);
+	free(lem->instr);
+	free(lem->option);
+}
+
 void		end(t_lem *lem)
 {
 	int		i;
 
-	free(lem->input);
 	if (lem->rooms)
 	{
 		i = -1;
 		while (++i < lem->nb_rooms)
 			free(lem->rooms[i].id);
 	}
-	free(lem->rooms);
-	if (lem->links)
+	if (lem->links && lem->links[0])
 	{
 		i = -1;
 		while (++i < lem->nb_rooms)
 			free(lem->links[i]);
 	}
-	free(lem->links);
-	if (lem->instr)
+	if (lem->instr && lem->instr[0])
 	{
 		i = -1;
 		while (++i < lem->nb_instr)
 			free(lem->instr[i]);
 	}
-	free(lem->instr);
+	free_starred(lem);
 	terminate_sdl(lem);
 }

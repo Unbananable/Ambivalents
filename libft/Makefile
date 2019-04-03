@@ -6,12 +6,12 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 14:11:11 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/03 16:47:13 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g3
 INC = -I./inc
 SRC_DIR = src
 SRC_NAMES = ft_round_double.c \

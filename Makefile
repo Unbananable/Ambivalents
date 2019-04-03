@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 10:50:30 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/03 17:44:37 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,4 +94,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: brewing all check_libft project clean fclean re
+.PHONY: brewing all check_libft project clean fclean re visualizer

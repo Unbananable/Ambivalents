@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 12:05:48 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/03 21:10:14 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = main.c \
 	  scale.c \
 	  draw_start_ants.c \
 	  draw_start_end_ant_nb.c \
-	  render_menu.c
+	  render_menu.c \
+	  option.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
@@ -51,7 +52,7 @@ NONE = \033[0m
 all: check_libft project $(NAME) $(HDRS)
 	@echo "Succes !!"
 
-$(NAME): $(OBJSFD) $(OBJS) $(HDRS)
+$(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
 	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
 
@@ -68,6 +69,7 @@ $(OBJSFD):
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) $(SDL_IMAGE_HDR) $(SDL_TTF_HDR) $(SDL_GFX_HDR) -c $< -o $@
+	@echo "\t[ $(GREEN)✔$(NONE) ] $@ object"
 
 clean:
 	@rm -rf $(OBJSFD)
@@ -79,4 +81,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all project clean fclean re
+.PHONY: all project clean fclean re check_libft

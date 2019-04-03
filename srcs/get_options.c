@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 16:13:45 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:02:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,32 @@ static void	add_option(int *options, char c)
 
 static int	apply_option(char *av, int *options)
 {
-    if (ft_strequ(av, "silent"))
-        add_option(options, 's');
-    else if (ft_strequ(av, "show-paths"))
-        add_option(options, 'p');
-    else if (ft_strequ(av, "line-count"))
-        add_option(options, 'l');
-    else if (ft_strequ(av, "ant-number"))
-        add_option(options, 'a');
-    else if (ft_strequ(av, "ants-per-room"))
-        add_option(options, 'r');
-    else if (ft_strequ(av, "full-info"))
-    {
-        add_option(options, 'p');
-        add_option(options, 'l');
-        add_option(options, 'a');
-        add_option(options, 'r');
-    }
-    else
-        return (ERROR);
-    return (0);
+	if (ft_strequ(av, "silent"))
+		add_option(options, 's');
+	else if (ft_strequ(av, "show-paths"))
+		add_option(options, 'p');
+	else if (ft_strequ(av, "line-count"))
+		add_option(options, 'l');
+	else if (ft_strequ(av, "ant-number"))
+		add_option(options, 'a');
+	else if (ft_strequ(av, "ants-per-room"))
+		add_option(options, 'r');
+	else if (ft_strequ(av, "full-info"))
+	{
+		add_option(options, 'p');
+		add_option(options, 'l');
+		add_option(options, 'a');
+		add_option(options, 'r');
+	}
+	else
+		return (ERROR);
+	return (0);
 }
 
 /*
-** Checks program parameters againts a number of available commands. The
-** different options are stored as a activated bit in an int.
-*/
+ ** Checks program parameters againts a number of available commands. The
+ ** different options are stored as an activated bit in an int.
+ */
 int			get_options(int *ac, char ***av)
 {
 	int		options;
@@ -60,7 +60,7 @@ int			get_options(int *ac, char ***av)
 			return (-1);
 		else
 		{
-            **av += 2;
+			**av += 2;
 			if (apply_option(**av, &options))
 				return (ERROR);
 		}

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 12:06:32 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 21:41:13 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 # include <SDL_image.h>
 # include <SDL_ttf.h>
 # include <SDL2_gfxPrimitives.h>
+# include <limits.h>
 # include "libft.h"
-# include <unistd.h>
-
-# include <stdio.h>
 
 # define BUFF_SIZE 4096
 
 # define START 0
 # define END 1
 
+# define FANCY 102
 # define DIV_ANIM 50
 # define NO_ANIM -2
 
@@ -41,9 +40,9 @@
 
 # define ERROR -1
 
-# define HEIGHT 1200
-# define WIDTH 1200
-# define MARGIN 35
+# define HEIGHT 1080
+# define WIDTH 1440
+# define MARGIN 100
 
 # define WHITE 0
 # define BLACK 1
@@ -113,6 +112,7 @@ typedef struct	s_lem
 	t_ant			*ants;
 	t_visual		visual;
 	int				parse_step;
+	char			*option;
 }				t_lem;
 
 int				count_and_fill_input(t_lem *lem);
@@ -130,6 +130,7 @@ void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
 void			draw_start_end_ant_nb(t_lem *lem, int step, int anim_step);
+int				get_option(t_lem *lem, int ac, char **av);
 void			event_manager(t_lem *lem);
 void			render_menu(t_lem *lem);
 

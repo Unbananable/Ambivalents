@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:56:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/03 10:47:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:01:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void		print_paths(t_lem lem)
 	ft_putstr("paths:");
 	i = -1;
 	while (lem.paths[++i].id_first)
-		{
-			ft_putchar(' ');
-			ft_putstr(lem.paths[i].id_first);
-			ft_putstr(" (");
-			ft_putnbr(lem.paths[i].w);
-			ft_putstr(")");
-		}
+	{
+		ft_putchar(' ');
+		ft_putstr(lem.paths[i].id_first);
+		ft_putstr(" (");
+		ft_putnbr(lem.paths[i].w);
+		ft_putstr(")");
+	}
 	ft_putchar('\n');
 }
 
@@ -51,16 +51,16 @@ void		print_ant_nb(t_lem lem)
 	ft_putchar('\n');
 }
 
-void    print_ants_per_room(t_lem lem)
+void		print_ants_per_room(t_lem lem)
 {
-    int     i;
+	int		i;
 
-    i = -1;
-    ft_putstr("ants per room:");
-    while (lem.paths[++i].index_first != -1)
-    {
-        ft_putchar(' ');
-        ft_putnbr(lem.paths[i].nb_ants);
-    }
-    ft_putchar('\n');
+	i = -1;
+	ft_putstr("ants per room:");
+	while (lem.paths[++i].index_first != -1)
+	{
+		ft_putchar(' ');
+		ft_putnbr(lem.paths[i].nb_ants);
+	}
+	ft_putchar('\n');
 }

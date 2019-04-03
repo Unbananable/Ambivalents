@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 11:55:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/03 21:39:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,19 @@ static void	usage(void)
 	ft_putstr_fd("(Nota Bene: visualizer reads the standard input, use ", 2);
 	ft_putstr_fd("./lem_in < file | ./visualizer to read the output of ", 2);
 	ft_putstr_fd("lem-in with a file)\n", 2);
+	ft_putstr_fd("options: [--fancy | --corrector=<YearPseudo>]\n", 2);
 	exit(0);
 }
 
 static void	initialize_instr_and_visual(t_lem *lem)
 {
-	lem->x_max = -2147483648;
-	lem->x_min = 2147483647;
-	lem->y_max = -2147483648;
-	lem->y_min = 2147483647;
+	lem->x_max = INT_MIN;
+	lem->x_min = INT_MAX;
+	lem->y_max = INT_MIN;
+	lem->y_min = INT_MAX;
 	if (!(lem->instr = (t_instr **)malloc(sizeof(t_instr *) * lem->nb_instr)))
 		error(lem);
+	lem->instr[0] = NULL;
 	lem->visual.win = NULL;
 	lem->visual.rend = NULL;
 	lem->visual.anthill_text = NULL;
@@ -66,8 +68,18 @@ static void	initialize_sdl(t_lem *lem)
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))
 		error(lem);
-	if (!(ant_surf = IMG_Load("imgs/anleclab.jpg")))
+	if (lem->option[0] == FANCY)
+		ant_surf = IMG_Load("imgs/anleclab.jpg");
+	else if (lem->option[0] != '\0')
+		ant_surf = IMG_Load(lem->option);
+	else
+		ant_surf = IMG_Load("imgs/one_ant.png");
+	if (!ant_surf)
+	{
+		ft_putstr_fd("Tip: The option parameter might be not well written.", 2);
+		ft_putstr_fd("Use the year of your picture and your pseudonym.\n", 2);
 		error(lem);
+	}
 	lem->visual.ant_text = SDL_CreateTextureFromSurface(lem->visual.rend,
 			ant_surf);
 	SDL_FreeSurface(ant_surf);
@@ -79,6 +91,7 @@ static void	initialize_lem(t_lem *lem)
 {
 	int		i;
 
+	initialize_instr_and_visual(lem);
 	if (!(lem->rooms = (t_room *)malloc(sizeof(t_room) * lem->nb_rooms)))
 		error(lem);
 	i = -1;
@@ -100,7 +113,6 @@ static void	initialize_lem(t_lem *lem)
 			ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
 	if (!lem->links[0])
 		error(lem);
-	initialize_instr_and_visual(lem);
 	initialize_sdl(lem);
 }
 
@@ -108,10 +120,10 @@ int			main(int ac, char **av)
 {
 	t_lem		lem;
 	int			quit;
+	int			option;
 
-	if (ac != 1)
+	if ((option = get_option(&lem, ac, av)) == -1)
 		usage();
-	av += 0;
 	quit = 0;
 	if (!(lem.nb_rooms = count_and_fill_input(&lem)))
 		usage();
