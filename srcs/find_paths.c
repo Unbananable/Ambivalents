@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 10:52:51 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 14:24:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	nb_links_from(t_lem *lem, int index)
 	res = 0;
 	i = -1;
 	while (++i < lem->nb_rooms * 2)
-		res += lem->o_links[index][i];
+		res += (lem->rooms[i / 2].w < 2) ? lem->o_links[index][i] : 0;
 	return (res);
 }
 
@@ -106,7 +106,7 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 	while (current_w_list[++i] != -1)
 		nb_links += nb_links_from(lem, current_w_list[i]);
 	next_w_list = NULL;
-	if (nb_links != 0) 
+	if (nb_links != 0)
 	{
 		if (!(next_w_list = (int *)malloc(sizeof(int) * (nb_links + 1))))
 		{
@@ -119,7 +119,7 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 		{
 			j = -1;
 			while (++j < lem->nb_rooms * 2)
-				if (lem->o_links[current_w_list[i]][j] == 1)
+				if (lem->o_links[current_w_list[i]][j] == 1 && lem->rooms[j / 2].w < 2)
 				{
 					if (j == in(START))
 					{
@@ -129,12 +129,13 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 						return (current_w_list[i]);
 					}
 					next_w_list[++count] = j;
+					lem->rooms[j / 2].w++;
 				}
 		}
 		next_w_list[++count] = -1;
 		j = bfs_recursive(lem, next_w_list);
 	}
-	else 
+	else
 		j = -1;
 	if (j != -1)
 	{
@@ -170,7 +171,10 @@ static int	bfs(t_lem *lem)
 	i = 1;
 	while (++i < lem->nb_rooms * 2)
 		if (lem->o_links[out(END)][i] == 1)
+		{
 			start_list[++count] = i;
+			lem->rooms[i / 2].w++;
+		}
 	start_list[++count] = -1;
 	path_index = bfs_recursive(lem, start_list);
 	if (path_index != -1)
@@ -180,6 +184,18 @@ static int	bfs(t_lem *lem)
 	}
 	free(start_list);
 	return (path_index);
+}
+
+/*
+** Resets the weight of the rooms to 0.
+*/
+static void	clear_weights(t_lem *lem)
+{
+	int		i;
+
+	i = -1;
+	while (++i < lem->nb_rooms)
+		lem->rooms[i].w = 0;
 }
 
 /*
@@ -195,6 +211,7 @@ void    find_paths(t_lem *lem)
 	initialize_o_links(lem);
 	while (!stop)
 	{
+		clear_weights(lem);
 		if (bfs(lem) == -1)
 			stop = 1;
 		else
