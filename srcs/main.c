@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:56:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:46:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	initialize(t_lem *lem)
 			lem->rooms[i].id = NULL;
 		}
 	}
-	lem->split_rooms = (int *)malloc(sizeof(int) * lem->nb_rooms * 2);
-	ft_bzero(lem->split_rooms, sizeof(int) * lem->nb_rooms * 2);
 	lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms);
 	if (lem->links)
 	{
@@ -71,11 +69,11 @@ static void	initialize(t_lem *lem)
 	}
 	lem->instr = ft_strdup("\n");
 	lem->paths = NULL;
-	if (!lem->rooms || !lem->split_rooms || !lem->links || !lem->o_links
+	if (!lem->rooms || !lem->links || !lem->o_links
 			|| !lem->instr)
 		error(lem);
 }
-/*
+
 void		print_options(t_lem lem, int options)
 {
 	if (!(options & (1 << ('s' - 'a'))))
@@ -112,7 +110,7 @@ void		print_options(t_lem lem, int options)
 		print_ants_per_room(lem);
 	}
 }
-*/
+
 int			main(int ac, char **av)
 {
 	t_lem	lem;

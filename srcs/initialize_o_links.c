@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_d_links.c                               :+:      :+:    :+:   */
+/*   initialize_o_links.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:53:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:19:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	set_weights(t_lem *lem)
 ** The oriented matrix is not symetrical as the original links are oriented
 ** from the room closest to the end roomto the room furthest from the end room.
 */
-void		initialize_d_links(t_lem *lem)
+void		initialize_o_links(t_lem *lem)
 {
 	int		i;
 	int		j;

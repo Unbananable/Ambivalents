@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/02 18:56:13 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/03 10:50:30 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,11 @@ SRC = main.c \
 	  fill_adjacency_matrix.c \
 	  send_all_ants.c \
 	  find_paths.c \
-	  initialize_d_links.c \
-	  \
-	  dev_tools.c \
-	  ants_per_room.c \
-	  matrix_tools.c \
-	  set_rooms_and_ants.c \
-	  print_tools.c
+	  initialize_o_links.c \
+	  set_ants_per_room.c \
+	  send_ants.c \
+	  tools_options.c \
+	  tools_o_links.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
