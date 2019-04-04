@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:18:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 23:23:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:40:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	update_pos_and_draw(t_lem *lem, int *anim_step, SDL_Keycode key)
 /*	if (!lem->instr[lem->visual.step])
 		return ;*/
 	i = -1;
-	while (/*lem->visual.step > -1 && */lem->instr[lem->visual.step][++i].ant_id)
+	while (lem->visual.step > -1 && lem->instr[lem->visual.step][++i].ant_id)
 	{
 		if (*anim_step == DIV_ANIM)
 		{
