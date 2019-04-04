@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:05:33 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/03 21:46:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:14:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			get_option(t_lem *lem, int ac, char **av)
 			lem->option[0] = 'f';
 			return (0);
 		}
-		else if (ft_strnequ(av[1], "--corrector-", 12))
+		else if (ft_strnequ(av[1], "--corrector=", 12))
 		{
 			if (!(res = ft_strdup("/sgoinfre/photos_students/")))
 				error(lem);
