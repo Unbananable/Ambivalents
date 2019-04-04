@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:27:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 21:41:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/04 19:13:06 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 
 # define ANTS 0
 # define INSTR 1
+
+# define ON 1
+# define OFF 0
 
 # define ERROR -1
 
@@ -129,7 +132,7 @@ void			set_scale(t_lem *lem);
 void			draw_anthill(t_lem *lem);
 void			draw_ants(t_lem *lem, SDL_Keycode key);
 void			draw_start_ants(t_lem *lem);
-void			draw_start_end_ant_nb(t_lem *lem, int step, int anim_step);
+void			draw_start_end_ant_nb(t_lem *lem, int step, int anim_step, SDL_Keycode);
 int				get_option(t_lem *lem, int ac, char **av);
 void			event_manager(t_lem *lem);
 void			render_menu(t_lem *lem);

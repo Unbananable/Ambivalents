@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:30:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 23:21:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/04 19:12:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,19 @@ int			main(int ac, char **av)
 	draw_anthill(&lem);
 	if (SDL_RenderCopy(lem.visual.rend, lem.visual.anthill_text, NULL, NULL))
 		error(&lem);
+
+// isoler cette fonction de draw ant et call ici
+	int i = -1;
+		while (++i < lem.nb_ants)
+		{
+			lem.ants[i].x = lem.rooms[0].x;
+			lem.ants[i].y = lem.rooms[0].y;
+			lem.ants[i].last_x = lem.rooms[0].x;
+			lem.ants[i].last_y = lem.rooms[0].y;
+		}
+
 	draw_start_ants(&lem);
-	draw_start_end_ant_nb(&lem, -1, DIV_ANIM);
+	draw_start_end_ant_nb(&lem, -1, DIV_ANIM, SDLK_RIGHT);
 	render_menu(&lem);
 	SDL_RenderPresent(lem.visual.rend);
 	event_manager(&lem);
