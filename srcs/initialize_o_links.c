@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 10:19:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/03 18:51:29 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ static void	set_weights(t_lem *lem)
 	int		weight;
 
 	i = count_links(lem);
-	if (!(current_w_list = (int *)malloc(sizeof(int) * i)))
+	if (!(current_w_list = (int *)malloc(sizeof(int) * (i + 1))))
 		error(lem);
-	if (!(next_w_list = (int *)malloc(sizeof(int) * i)))
+	if (!(next_w_list = (int *)malloc(sizeof(int) * (i + 1))))
 		error(lem);
-	ft_bzero(next_w_list, sizeof(int) * i);
-	ft_bzero(current_w_list, sizeof(int) * i);
+	ft_bzero(next_w_list, sizeof(int) * (i + 1));
+	ft_bzero(current_w_list, sizeof(int) * (i + 1));
 	i = -1;
 	count = -1;
 	while (++i < lem->nb_rooms)
@@ -124,9 +124,14 @@ void		initialize_o_links(t_lem *lem)
 		j = i - 1;
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] && (i == START || j == END
-						|| (lem->rooms[i].w >= lem->rooms[j].w
+						|| (lem->rooms[i].w > lem->rooms[j].w
 						&& j > END && i > END)))
 				lem->o_links[out(j)][in(i)] = 1;
+			else if (lem->links[i][j] && lem->rooms[i].w == lem->rooms[j].w)
+			{
+				lem->o_links[out(j)][in(i)] = 1;
+				lem->o_links[out(i)][in(j)] = 1;
+			}
 			else if (lem->links[i][j])
 				lem->o_links[out(i)][in(j)] = 1;
 	}
