@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:57:21 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/10 17:57:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:15:07 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void		initialize_instr_and_visual(t_lem *lem)
 static void	set_ant_surf(t_lem *lem, SDL_Surface **ant_surf)
 {
 	if (lem->option[0] == FANCY)
-		*ant_surf = IMG_Load("imgs/spiderman.jpeg");
+		*ant_surf = IMG_Load("bonus_visualizer/imgs/spiderman.jpeg");
 	else if (lem->option[0] != '\0')
 		*ant_surf = IMG_Load(lem->option);
 	else
-		*ant_surf = IMG_Load("imgs/one_ant.png");
+		*ant_surf = IMG_Load("bonus_visualizer/imgs/one_ant.png");
 	if (!(*ant_surf))
 	{
 		ft_putstr_fd("Tip: The option parameter might be not well written.", 2);
@@ -68,7 +68,7 @@ void		initialize_sdl(t_lem *lem)
 	if (!(lem->visual.rend = SDL_CreateRenderer(lem->visual.win, -1,
 			SDL_RENDERER_ACCELERATED)))
 		error(lem);
-	if (!(lem->visual.font = TTF_OpenFont("fonts/Lato-Regular.ttf", 50)))
+	if (!(lem->visual.font = TTF_OpenFont("bonus_visualizer/fonts/Lato-Regular.ttf", 50)))
 		error(lem);
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))

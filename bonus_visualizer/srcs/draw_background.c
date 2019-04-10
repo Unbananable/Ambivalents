@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:50:14 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/10 15:50:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:14:45 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	draw_background(t_lem *lem)
 	SDL_Rect	room_pos;
 
 	if (lem->option[0] == FANCY)
-		room_surf = IMG_Load("imgs/big_city.png");
+		room_surf = IMG_Load("bonus_visualizer/imgs/big_city.png");
 	else if (lem->option[0] != '\0')
 		room_surf = IMG_Load(lem->option);
 	else
-		room_surf = IMG_Load("imgs/anthill.png");
+		room_surf = IMG_Load("bonus_visualizer/imgs/anthill.png");
 	if (!room_surf)
 		error(lem);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);

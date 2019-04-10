@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 15:52:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:14:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	draw_room_names(t_lem *lem)
 static void	set_room_surf(t_lem *lem, SDL_Surface **room_surf)
 {
 	if (lem->option[0] == FANCY)
-		*room_surf = IMG_Load("imgs/building.jpg");
+		*room_surf = IMG_Load("bonus_visualizer/imgs/building.jpg");
 	else if (lem->option[0] != '\0')
-		*room_surf = IMG_Load("imgs/room_corr.png");
+		*room_surf = IMG_Load("bonus_visualizer/imgs/room_corr.png");
 	else
-		*room_surf = IMG_Load("imgs/room_ant.png");
+		*room_surf = IMG_Load("bonus_visualizer/imgs/room_ant.png");
 	if (!(*room_surf))
 		error(lem);
 }
