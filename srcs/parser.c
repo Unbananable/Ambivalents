@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 11:06:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:02:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 /*
 ** Ignores comments starting with #, and adds the information about the start
-** and end room at the START (0) and END (1) indexes if the lines are comptible.
+** and end room at the START (0) and END (1) indexes if the lines are
+** comptible.
 */
+
 static void	detect_command(t_lem *lem, char **str, int parse_step)
 {
 	if (ft_strnequ(*str, "##start\n", 8))
@@ -38,6 +40,7 @@ static void	detect_command(t_lem *lem, char **str, int parse_step)
 ** Stores the information about the room, and increments the parsing step
 ** if the information about the last room has been stored
 */
+
 static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 {
 	static int	current_room;
@@ -54,6 +57,7 @@ static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 ** incorrect, it either returns an error or ignores it and the rest of the
 ** input if it was supposed to record information about the links.
 */
+
 static void	parse_line(t_lem *lem, char **str, int *parse_step)
 {
 	if (**str == '#')

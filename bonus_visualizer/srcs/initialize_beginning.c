@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:57:21 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/10 18:15:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:22:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ void		initialize_sdl(t_lem *lem)
 	if (!(lem->visual.rend = SDL_CreateRenderer(lem->visual.win, -1,
 			SDL_RENDERER_ACCELERATED)))
 		error(lem);
-	if (!(lem->visual.font = TTF_OpenFont("bonus_visualizer/fonts/Lato-Regular.ttf", 50)))
+	lem->visual.font = TTF_OpenFont("bonus_visualizer/fonts/Lato-Regular.ttf",
+			50);
+	if (!lem->visual.font)
 		error(lem);
 	if (!(lem->visual.anthill_text = SDL_CreateTexture(lem->visual.rend,
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT)))

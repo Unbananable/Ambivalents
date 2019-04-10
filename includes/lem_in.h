@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/03 11:26:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:55:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct	s_link
 typedef struct	s_path
 {
 	char	*id_first;
-	int		index_first;
+	int		i_first;
 	int		w;
 	int		nb_ants;
 	int		nb_remaining;

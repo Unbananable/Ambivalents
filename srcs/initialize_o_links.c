@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/04 16:39:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:04:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 ** The oriented matrix is not symetrical as the original links are oriented
 ** from the room closest to the end roomto the room furthest from the end room.
 */
+
 void		initialize_o_links(t_lem *lem)
 {
 	int		i;

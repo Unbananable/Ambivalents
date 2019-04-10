@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/04 15:50:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:51:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	initialize(t_lem *lem)
 	{
 		i = -1;
 		while (++i < lem->nb_rooms * 2)
-			if (!(lem->o_links[i] = (int *)malloc(sizeof(int) * (lem->nb_rooms * 2))))
+			if (!(lem->o_links[i] = (int *)malloc(sizeof(int)
+							* (lem->nb_rooms * 2))))
 			{
 				while (--i >= 0)
 					free(lem->o_links[i]);
@@ -119,7 +120,7 @@ int			main(int ac, char **av)
 	if ((options = get_options(&ac, &av)) == -1)
 		usage();
 	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
-		error(&lem); 
+		error(&lem);
 	initialize(&lem);
 	parser(&lem);
 	if (lem.links[END][START])

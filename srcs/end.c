@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 09:40:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:46:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	end(t_lem *lem)
 	}
 	free(lem->o_links);
 	free(lem->instr);
-    free(lem->paths);
+	free(lem->paths);
 }
 
 void	error(t_lem *lem)
 {
 	end(lem);
-	ft_putstr_fd("ERROR\n", 2);
+	ft_putstr_fd("The program has ended.\n", 2);
 	exit(0);
 }

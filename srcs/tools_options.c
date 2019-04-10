@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:56:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/03 15:01:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:58:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		print_ants_per_room(t_lem lem)
 
 	i = -1;
 	ft_putstr("ants per room:");
-	while (lem.paths[++i].index_first != -1)
+	while (lem.paths[++i].i_first != -1)
 	{
 		ft_putchar(' ');
 		ft_putnbr(lem.paths[i].nb_ants);

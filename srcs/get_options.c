@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 15:02:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:04:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ static int	apply_option(char *av, int *options)
 }
 
 /*
- ** Checks program parameters againts a number of available commands. The
- ** different options are stored as an activated bit in an int.
- */
+** Checks program parameters againts a number of available commands. The
+** different options are stored as an activated bit in an int.
+*/
+
 int			get_options(int *ac, char ***av)
 {
 	int		options;

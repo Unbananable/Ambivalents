@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 16:14:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:03:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 static void	add_buffer(t_lem *lem, char *buff, int rd_size)
 {
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
-			* (ft_strlen(lem->input) + rd_size))))
+					* (ft_strlen(lem->input) + rd_size))))
 		error(lem);
 	lem->input = ft_strncat(lem->input, buff, rd_size);
 }
 
-/* 
+/*
 ** Checks if the line preceding the '\n' in the input is a room with its
 ** coordinates by checking each character from the end to the start.
 */
+
 static int	is_room(char *str, int i)
 {
 	if (str[i] < '0' || str[i] > '9')
@@ -47,9 +48,10 @@ static int	is_room(char *str, int i)
 	return (1);
 }
 
-/* 
+/*
 ** Stores the input in a string and counts the number of rooms.
 */
+
 int			count_rooms_and_fill_input(t_lem *lem)
 {
 	int		i;
@@ -83,5 +85,5 @@ int			count_rooms_and_fill_input(t_lem *lem)
 	}
 	if (rd_size < 0)
 		return (0);
-	return (count); 
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:15:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:16:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 18:40:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void		send_all_ants(t_lem *lem)
 			ft_strcat(lem->instr, " "); // TO DO: Improve performance by using an index instead of strcat which goes back to the start everytime
 		else
 			ft_strcat(lem->instr, "\0"); // TO DO: Improve performance by using an index instead of strcat which goes back to the start everytime
-		free(ant_id);
+		ft_strdel(&ant_id);
 	}
 }

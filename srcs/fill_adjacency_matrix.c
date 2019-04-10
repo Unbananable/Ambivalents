@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/02 18:05:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/10 19:10:35 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,25 @@ static void	init_links(t_link *link1, t_link *link2)
 	link2->nd = -1;
 }
 
+static int	check_and_replace(t_link *link, t_link *tmp)
+{
+	if (tmp->st != -1 && tmp->nd != -1)
+	{
+		if (link->st != -1)
+			return (ERROR);
+		link->st = tmp->st;
+		link->nd = tmp->nd;
+	}
+	return (0);
+}
+
 /*
 ** For each '-' in the line, checks if the first (st) and second (nd) term
 ** are valid rooms. If there is no valid combination or more than one, returns
 ** error. Otherwise, stores the information in the adjacency matrix and returns
 ** the current parser step.
 */
+
 int			fill_adjacency_matrix(t_lem *lem, char *str)
 {
 	int		i;
@@ -63,13 +76,8 @@ int			fill_adjacency_matrix(t_lem *lem, char *str)
 		if (str[i] == '-')
 		{
 			find_link(lem, &tmp, i, str);
-			if (tmp.st != -1 && tmp.nd != -1)
-			{
-				if (link.st != -1)
-					return (ERROR);
-				link.st = tmp.st;
-				link.nd = tmp.nd;
-			}
+			if ((check_and_replace(&link, &tmp)) == ERROR)
+				return (ERROR);
 		}
 	}
 	if (link.st == -1 || link.nd == -1)
