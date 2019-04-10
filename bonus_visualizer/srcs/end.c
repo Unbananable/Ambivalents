@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 21:46:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:50:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		error(t_lem *lem)
 {
-	ft_putstr_fd("Le programme s'est clos de facon impromptue.\n", 2);
+	ft_putstr_fd("The program has ended.\n", 2);
 	end(lem);
 	exit(0);
 }

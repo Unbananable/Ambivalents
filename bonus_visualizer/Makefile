@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 22:12:49 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/10 17:29:02 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = main.c \
 	  parser.c \
 	  set_rooms_and_ants.c \
@@ -27,7 +27,9 @@ SRC = main.c \
 	  draw_start_ants.c \
 	  draw_start_end_ant_nb.c \
 	  render_menu.c \
-	  option.c
+	  option.c \
+	  draw_background.c \
+	  initialize_beginning.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

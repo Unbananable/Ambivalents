@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 16:25:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 20:06:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 15:52:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	draw_tunnels(t_lem *lem)
 		while (++j < lem->nb_rooms)
 			if (lem->links[i][j] == 1)
 				if (thickLineRGBA(lem->visual.rend, lem->rooms[i].x,
-							lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 15,
-							255, 255, 255, rand() % 150 + 105))
+						lem->rooms[i].y, lem->rooms[j].x, lem->rooms[j].y, 15,
+						255, 255, 255, rand() % 150 + 105))
 					error(lem);
 	}
 }
@@ -58,31 +58,16 @@ static void	draw_room_names(t_lem *lem)
 	}
 }
 
-static void	draw_background(t_lem *lem)
+static void	set_room_surf(t_lem *lem, SDL_Surface **room_surf)
 {
-	SDL_Surface *room_surf;
-	SDL_Texture *room_text;
-	SDL_Rect	room_pos;
-
 	if (lem->option[0] == FANCY)
-		room_surf = IMG_Load("imgs/cristina.jpg");
+		*room_surf = IMG_Load("imgs/building.jpg");
 	else if (lem->option[0] != '\0')
-		room_surf = IMG_Load(lem->option);
+		*room_surf = IMG_Load("imgs/room_corr.png");
 	else
-		room_surf = IMG_Load("imgs/anthill.png");
-	if (!room_surf)
+		*room_surf = IMG_Load("imgs/room_ant.png");
+	if (!(*room_surf))
 		error(lem);
-	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
-	SDL_FreeSurface(room_surf);
-	if (!room_text)
-		error(lem);
-	room_pos.h = HEIGHT;
-	room_pos.w = WIDTH;
-	room_pos.x = 0;
-	room_pos.y = 0;
-	if (SDL_RenderCopy(lem->visual.rend, room_text, NULL, &room_pos))
-		error(lem);
-	SDL_DestroyTexture(room_text);
 }
 
 static void	draw_rooms(t_lem *lem)
@@ -92,14 +77,7 @@ static void	draw_rooms(t_lem *lem)
 	int			i;
 	SDL_Rect	room_pos;
 
-	if (lem->option[0] == FANCY)
-		room_surf = IMG_Load("imgs/dtrigalo.jpg");
-	else if (lem->option[0] != '\0')
-		room_surf = IMG_Load("imgs/room_corr.png");
-	else
-		room_surf = IMG_Load("imgs/room_ant.png");
-	if (!room_surf)
-		error(lem);
+	set_room_surf(lem, &room_surf);
 	room_text = SDL_CreateTextureFromSurface(lem->visual.rend, room_surf);
 	SDL_FreeSurface(room_surf);
 	if (!room_text)

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:13 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/02 20:05:35 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 16:04:56 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	key_down_event(t_lem *lem, SDL_Event *event, int *i)
 {
 	if (event->key.keysym.sym == SDLK_RIGHT
-			/*|| event->key.keysym.sym == SDLK_LEFT*/
 			|| event->key.keysym.sym == SDLK_SPACE)
 	{
 		draw_ants(lem, event->key.keysym.sym);

@@ -6,20 +6,18 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 12:52:02 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/04 12:23:32 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 15:13:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-void		draw_start_ants(t_lem *lem)
+void	draw_start_ants(t_lem *lem)
 {
 	static int	marker = -1;
 	SDL_Rect	start_ant_pos;
 	int			i;
 
-/*	if (!lem->instr[lem->visual.step])
-		return ;*/
 	i = -1;
 	if (lem->visual.step != -1 && lem->visual.step < lem->nb_instr)
 	{

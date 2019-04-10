@@ -6,11 +6,37 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 19:52:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/03 11:33:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 16:17:07 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+
+static void	init_correc_col(SDL_Color *correc_col)
+{
+	correc_col->a = 255;
+	correc_col->r = 0;
+	correc_col->g = 150;
+	correc_col->b = 30;
+}
+
+static void	set_text_surf(t_lem *lem, SDL_Surface **text_surf, char *str)
+{
+	SDL_Color	correc_col;
+
+	if (lem->option[0] == FANCY)
+		*text_surf = TTF_RenderText_Shaded(lem->visual.font, str,
+				lem->visual.colors[BLACK], lem->visual.colors[WHITE]);
+	else if (lem->option[0] != '\0')
+	{
+		init_correc_col(&correc_col);
+		*text_surf = TTF_RenderText_Blended(lem->visual.font, str,
+				correc_col);
+	}
+	else
+		*text_surf = TTF_RenderText_Blended(lem->visual.font, str,
+				lem->visual.colors[WHITE]);
+}
 
 static void	add_sentence_to_menu(t_lem *lem, char *str, SDL_Rect text_pos)
 {
@@ -21,8 +47,8 @@ static void	add_sentence_to_menu(t_lem *lem, char *str, SDL_Rect text_pos)
 	i = -1;
 	while (++i < lem->nb_rooms)
 	{
-		if (!(text_surf = TTF_RenderText_Blended(lem->visual.font,
-						str, lem->visual.colors[WHITE])))
+		set_text_surf(lem, &text_surf, str);
+		if (!text_surf)
 			error(lem);
 		text_text = SDL_CreateTextureFromSurface(lem->visual.rend, text_surf);
 		SDL_FreeSurface(text_surf);
@@ -50,11 +76,11 @@ void		render_menu(t_lem *lem)
 	pos.y = HEIGHT - 200;
 	pos.h = 20;
 	pos.w = 250;
-	add_syntaxed_sentence(lem, "    /_\\ Command Menu /_\\    ", &pos, 0);
+	add_syntaxed_sentence(lem, "    <<| Command Menu |>>    ", &pos, 0);
 	add_syntaxed_sentence(lem, "--------", &pos, 20);
-//	add_syntaxed_sentence(lem, "Step by Step: <- / ->", &pos, 20);
-	add_syntaxed_sentence(lem, "Launch Animation: A", &pos, 20);
-	add_syntaxed_sentence(lem, "    Reset: [SPACE]    ", &pos, 20);
+	add_syntaxed_sentence(lem, "Step by Step: Right Arrow", &pos, 20);
+	add_syntaxed_sentence(lem, "Launch/Pause Animation: A", &pos, 20);
+	add_syntaxed_sentence(lem, "      Reset: [SPACE]      ", &pos, 20);
 	add_syntaxed_sentence(lem, "--------", &pos, 20);
 	add_syntaxed_sentence(lem, "Nombre de fourmis total:", &pos, 20);
 	pos.x = 100;

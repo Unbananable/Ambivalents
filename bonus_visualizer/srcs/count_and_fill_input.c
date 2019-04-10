@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 10:42:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 23:13:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:37:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,14 @@ int			count_and_fill_input(t_lem *lem)
 	while ((rd_size = read(0, buff, BUFF_SIZE)) > 0)
 		add_buffer(lem, buff, rd_size);
 	i = -1;
+	if (!lem->input)
+	{
+		ft_putstr_fd("Nothing to read.\n", 2);
+		error(lem);
+	}
 	while ((flag == 0 || flag == -1) && lem->input[++i])
 		count_rooms(lem, &i, &flag, &count);
 	count_instr(lem, i, &flag);
 	count = (rd_size < 0) ? 0 : count;
 	return (count);
-	}
+}
