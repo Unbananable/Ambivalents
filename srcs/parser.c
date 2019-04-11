@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:02:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/11 13:19:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	parse_line(t_lem *lem, char **str, int *parse_step)
 	else if (*parse_step != SET_LINKS)
 		error(lem);
 	else if (*parse_step == SET_LINKS && **str != 'L')
-		*parse_step = fill_adjacency_matrix(lem, *str);
+		*parse_step = setup_o_links(lem, *str);
 	else
 		*parse_step = ERROR;
 	if (*parse_step == ERROR)
@@ -83,9 +83,17 @@ void		parser(t_lem *lem)
 {
 	char	*cache;
 	int		parse_step;
+	int		i;
 
 	cache = lem->input;
 	parse_step = SET_NB_ANTS;
+	i = -1;
+	while (++i < lem->nb_rooms)
+		if (i != END && i != START)
+		{
+			lem->o_links[out(i)][in(i)] = 1;
+			lem->o_links[in(i)][out(i)] = 1;
+		}
 	while (*cache)
 	{
 		parse_line(lem, &cache, &parse_step);

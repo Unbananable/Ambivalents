@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:10:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/11 12:54:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,6 @@ void	find_paths(t_lem *lem)
 	t_path	*current_paths;
 
 	stop = 0;
-	initialize_o_links(lem);
 	while (!stop)
 	{
 		clear_weights(lem);

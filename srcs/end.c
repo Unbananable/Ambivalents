@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 18:46:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/11 12:58:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ void	end(t_lem *lem)
 		}
 	}
 	free(lem->rooms);
-	if (lem->links)
-	{
-		i = -1;
-		while (++i < lem->nb_rooms)
-			free(lem->links[i]);
-	}
-	free(lem->links);
 	if (lem->o_links)
 	{
 		i = -1;

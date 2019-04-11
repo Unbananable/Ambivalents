@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 18:51:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/11 13:19:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ static void	initialize(t_lem *lem)
 			lem->rooms[i].id = NULL;
 		}
 	}
-	lem->links = (int **)malloc(sizeof(int *) * lem->nb_rooms);
-	if (lem->links)
-	{
-		i = -1;
-		while (++i < lem->nb_rooms)
-			if (!(lem->links[i] = (int *)malloc(sizeof(int) * lem->nb_rooms)))
-			{
-				while (--i >= 0)
-					free(lem->links[i]);
-				free(lem->links);
-				lem->links = NULL;
-			}
-			else
-				ft_bzero(lem->links[i], lem->nb_rooms * sizeof(int));
-	}
 	lem->o_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2));
 	if (lem->o_links)
 	{
@@ -70,7 +55,7 @@ static void	initialize(t_lem *lem)
 	}
 	lem->instr = ft_strdup("\n");
 	lem->paths = NULL;
-	if (!lem->rooms || !lem->links || !lem->o_links
+	if (!lem->rooms || !lem->o_links || !lem->o_links
 			|| !lem->instr)
 		error(lem);
 }
@@ -93,7 +78,7 @@ void		print_options(t_lem lem, int options)
 	{
 		if (!(options & (1 << ('s' - 'a'))))
 			ft_putchar('#');
-		if (lem.links[START][END])
+		if (lem.o_links[out(START)][in(END)])
 			ft_putstr("1\n");
 		else
 			print_line_count(lem);
@@ -123,7 +108,7 @@ int			main(int ac, char **av)
 		error(&lem);
 	initialize(&lem);
 	parser(&lem);
-	if (lem.links[END][START])
+	if (lem.o_links[out(START)][in(END)])
 		send_all_ants(&lem);
 	else
 	{

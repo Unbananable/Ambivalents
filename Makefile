@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/10 18:28:36 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/11 12:21:28 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,9 @@ SRC = main.c \
 	  end.c \
 	  parser.c \
 	  tools_parser.c \
-	  fill_adjacency_matrix.c \
 	  send_all_ants.c \
 	  find_paths.c \
-	  initialize_o_links.c \
+	  setup_o_links.c \
 	  set_ants_per_room.c \
 	  send_ants.c \
 	  tools_options.c \

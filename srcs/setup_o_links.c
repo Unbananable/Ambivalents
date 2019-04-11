@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_adjacency_matrix.c                            :+:      :+:    :+:   */
+/*   setup_o_links.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/08 10:38:30 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:10:35 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
+/*   Updated: 2019/04/11 12:53:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
 
 static void	find_link(t_lem *lem, t_link *search, int i, char *str)
 {
@@ -61,7 +62,7 @@ static int	check_and_replace(t_link *link, t_link *tmp)
 ** the current parser step.
 */
 
-int			fill_adjacency_matrix(t_lem *lem, char *str)
+int			setup_o_links(t_lem *lem, char *str)
 {
 	int		i;
 	t_link	link;
@@ -82,7 +83,7 @@ int			fill_adjacency_matrix(t_lem *lem, char *str)
 	}
 	if (link.st == -1 || link.nd == -1)
 		return (ERROR);
-	lem->links[link.st][link.nd] = 1;
-	lem->links[link.nd][link.st] = 1;
+	lem->o_links[out(link.st)][in(link.nd)] = 1;
+	lem->o_links[out(link.nd)][in(link.st)] = 1;
 	return (SET_LINKS);
 }
