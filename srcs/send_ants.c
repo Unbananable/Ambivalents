@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/12 18:40:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 19:27:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	make_ants_move(t_lem *lem, int *mem)
 		while (cache->room->ant_id)
 		{
 			len_next = (cache->next) ? ft_strlen(cache->next->room->id) : ft_strlen(lem->rooms[END].id);
-			lem->instr_len += ft_strlen(lem->instr) + ft_strlen(cache->room->ant_id) + len_next + 3;
+			lem->instr_len += ft_strlen(cache->room->ant_id) + len_next + 3;
 			if(lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
 				if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 					error(lem);
