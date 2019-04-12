@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/11 12:53:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 12:36:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ typedef struct	s_path
 
 typedef struct	s_lem
 {
-	char	*input;
-	int		nb_rooms;
-	int		nb_ants;
-	t_room	*rooms;
-	int		**links;
-	int		**o_links;
-	char	*instr;
-	t_path	*paths;
+	char			*input;
+	int				nb_rooms;
+	int				nb_ants;
+	t_room			*rooms;
+	int				**links;
+	int				**o_links;
+	char			*instr;
+	t_path			*paths;
+	unsigned long	instr_len;
 }				t_lem;
 
 int				get_options(int *ac, char ***av);
