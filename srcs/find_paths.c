@@ -6,11 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/04/12 18:11:50 by anleclab         ###   ########.fr       */
-=======
-/*   Updated: 2019/04/12 11:41:52 by dtrigalo         ###   ########.fr       */
->>>>>>> 20731213d7c027eb6da35e13b9de5b5b4808cfa0
+/*   Updated: 2019/04/12 18:18:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +86,6 @@ static t_path	*set_path_len_list(t_lem *lem)
 			paths[count].i_first = i;
 			paths[count].rooms = NULL;
 			paths[count].w = get_path(lem, &(paths[count].rooms), i);
-//			paths[count].w = get_weight(lem, i);
 		}
 	paths[nb_paths].id_first = NULL;
 	paths[nb_paths].i_first = -1;
@@ -271,7 +266,4 @@ void	find_paths(t_lem *lem)
 				stop = 1;
 		}
 	}
-//	i = -1;
-//	while (lem->paths[++i].id_first)
-//		lem->paths[i].w = get_path(lem, &(lem->paths[i].rooms), lem->paths[i].i_first);
 }
