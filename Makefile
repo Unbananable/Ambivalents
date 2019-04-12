@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/11 12:21:28 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 16:57:33 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRC = main.c \
 	  get_options.c \
@@ -26,7 +26,8 @@ SRC = main.c \
 	  set_ants_per_room.c \
 	  send_ants.c \
 	  tools_options.c \
-	  tools_o_links.c
+	  tools_o_links.c \
+	  tools_list.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:49:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/03 11:26:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:57:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,32 @@ void	display_paths(t_path *paths)
 		return ;
 	}
 	printf(">> PATHS\n");
-	while (paths[++i].index_first != -1)
+	while (paths[++i].i_first != -1)
 	{
 		printf("%d\t", i);
 		printf("%s\t", paths[i].id_first);
-		printf("%d\t", paths[i].index_first);
+		printf("%d\t", paths[i].i_first);
 		printf("%d\t", paths[i].w);
 		printf("%d\t", paths[i].nb_ants);
 		printf("%d\n", paths[i].nb_remaining);
 	}
+}
+
+void	display_path_complete(t_path path)
+{
+	t_plist	*cache;
+
+	if (!path.rooms)
+	{
+		printf("the path was not initialised\n");
+		return ;
+	}
+	printf("Path %s (len = %d, nb_ant = %d) : ", path.id_first, path.w, path.nb_ants);
+	cache = path.rooms;
+	while (cache)
+	{
+		printf("%s -> ", cache->room->id);
+		cache = cache->next;
+	}
+	printf("(null)\n");
 }
