@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/12 12:36:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:18:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct	s_link
 	int		nd;
 }				t_link;
 
+typedef struct	s_plist
+{
+	t_room			*room;
+	struct s_plist	*next;
+	struct s_plist	*prev;
+}				t_plist;
+
 typedef struct	s_path
 {
 	char	*id_first;
@@ -49,6 +56,7 @@ typedef struct	s_path
 	int		w;
 	int		nb_ants;
 	int		nb_remaining;
+	t_plist	*rooms;
 }				t_path;
 
 typedef struct	s_lem
@@ -78,6 +86,10 @@ void			send_all_ants(t_lem *lem);
 void			find_paths(t_lem *lem);
 void			set_ants_per_room(t_lem *lem, t_path *paths);
 
+t_plist  		*new_link(t_room *current);
+void    		delete_list(t_plist **list);
+t_plist    		*add_link(t_plist *link, t_plist *list);
+
 int     		in(int index);
 int     		out(int index);
 
@@ -97,5 +109,6 @@ void	display_adj_matrix(t_lem lem);
 void	display_d_links(t_lem lem, int **matrix);
 void	display_weights(t_lem lem);
 void	display_paths(t_path *paths);
+void	display_path_complete(t_path paths);
 
 #endif

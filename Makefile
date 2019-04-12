@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 18:26:09 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 18:51:51 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,11 @@ SRC = main.c \
 	  set_ants_per_room.c \
 	  send_ants.c \
 	  tools_options.c \
-	  tools_o_links.c
+	  tools_o_links.c \
+	  tools_list.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
-
-DPCS = $(OBJS:.o=.d)
 
 HDR = lem_in.h
 HDRSFD = includes/
@@ -98,7 +97,5 @@ fclean: clean
 	@make -C ./libft fclean
 
 re: fclean all
-
--include $(DPCS)
 
 .PHONY: make_start brewing all check_libft project clean fclean re visualizer

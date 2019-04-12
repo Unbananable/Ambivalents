@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/12 11:41:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:18:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Recursively returns the distance of the room to the end room following the
 ** path made available by the bfs algorithm.
 */
-
+/*
 static int		get_weight(t_lem *lem, int current_index)
 {
 	int		next_index;
@@ -27,6 +27,32 @@ static int		get_weight(t_lem *lem, int current_index)
 	while (++next_index < lem->nb_rooms)
 		if (lem->o_links[in(current_index)][out(next_index)])
 			return (1 + get_weight(lem, next_index));
+	return (-1);
+}
+*/
+
+static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
+{
+	int		next_index;
+	t_plist	*link;
+	int		rval;
+
+	if (current_index != END && current_index != START)
+	{
+		if (!(link = new_link(lem->rooms + current_index)))
+			return (-1);
+		*rooms = add_link(link, *rooms);
+	}
+	if (current_index == END)
+		return (0);
+	next_index = -1;
+	while (++next_index < lem->nb_rooms)
+		if (lem->o_links[in(current_index)][out(next_index)])
+		{
+			if ((rval = get_path(lem, rooms, next_index)) == -1)
+				return (-1);
+			return (1 + rval);
+		}
 	return (-1);
 }
 
@@ -58,13 +84,14 @@ static t_path	*set_path_len_list(t_lem *lem)
 		{
 			paths[++count].id_first = lem->rooms[i].id;
 			paths[count].i_first = i;
-			paths[count].w = get_weight(lem, i);
+			paths[count].rooms = NULL;
+			paths[count].w = get_path(lem, &(paths[count].rooms), i);
 		}
 	paths[nb_paths].id_first = NULL;
 	paths[nb_paths].i_first = -1;
 	paths[nb_paths].w = 0;
 	count = -1;
-	while (++count < nb_paths) // Improve with a better sort than bubble
+	while (++count < nb_paths) // TO DO: Improve with a better sort than bubble
 	{
 		i = -1;
 		while (paths[++i + 1].i_first != -1)
@@ -216,6 +243,7 @@ void	find_paths(t_lem *lem)
 {
 	int		stop;
 	t_path	*current_paths;
+//	int		i;
 
 	stop = 0;
 	while (!stop)
