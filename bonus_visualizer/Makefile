@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/10 17:59:46 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 16:31:39 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MP -MMD
 SRC = main.c \
 	  parser.c \
 	  set_rooms_and_ants.c \
@@ -34,6 +34,8 @@ SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
+DPCS = $(OBJS:.o=.d)
+
 HDR = visualizer.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
@@ -50,37 +52,42 @@ SDL_BINARY=$(shell sdl2-config --libs) -lSDL2_image -lSDL2_ttf -lSDL2_gfx
 RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
+BOLD_UNDERLINED = \033[1;4m
 
-all: check_libft project $(NAME) $(HDRS)
-	@echo "Succes !!"
+all: make_start check_libft project $(NAME) $(HDRS)
+	@echo "\n\t    \033[1;4;42m!! Success !!$(NONE)\n"
 
 $(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
-	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
-	@echo "\t[ \033[0;32m✔\033[0m ] visualizer executable"
+	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
+	@echo "[ \033[0;32m✔\033[0m ] visualizer executable"
 
 check_libft:
-	@echo "Checking libft..."
+	@echo "\n\t$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
 	@make -C ../libft
 
+make_start:
+	@echo "\n\t\033[1;4;42mBeginning process...$(NONE)"
+
 project:
-	@echo ""
-	@echo "Checking project..."
+	@echo "\n        $(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
 
 $(OBJSFD):
 	@mkdir $@
 
 $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) $(SDL_IMAGE_HDR) $(SDL_TTF_HDR) $(SDL_GFX_HDR) -c $< -o $@
-	@echo "\t[ $(GREEN)✔$(NONE) ] $@ object"
+	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 clean:
 	@rm -rf $(OBJSFD)
-	@echo "\t[ $(RED)✗$(NONE) ] bonus_visualizer/$(OBJSFD) directory"
+	@echo "[ $(RED)✗$(NONE) ] bonus_visualizer/$(OBJSFD) directory"
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@echo "\t[ $(RED)✗$(NONE) ] $(NAME) executable"
+	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
 
 re: fclean all
 
-.PHONY: all project clean fclean re check_libft
+-include $(DPCS)
+
+.PHONY: make_start all project clean fclean re check_libft

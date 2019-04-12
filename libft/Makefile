@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/03 16:47:13 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 15:38:20 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,21 +109,21 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\t[ $(GREEN)✔$(NONE) ] libft/$(NAME) library"
+	@echo "[ $(GREEN)✔$(NONE) ] libft/$(NAME) library"
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
-	@echo "\t[ $(GREEN)✔$(NONE) ] libft/$(OBJ_DIR) directory"
+	@echo "[ $(GREEN)✔$(NONE) ] libft/$(OBJ_DIR) directory"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@gcc $(FLAGS) $(INC) -c $< -o $@
 
 clean:
 	@rm -Rf $(OBJ_DIR)
-	@echo "\t[ $(RED)✗$(NONE) ] libft/$(OBJ_DIR) directory"
+	@echo "[ $(RED)✗$(NONE) ] libft/$(OBJ_DIR) directory"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\t[ $(RED)✗$(NONE) ] libft/$(NAME) library"
+	@echo "[ $(RED)✗$(NONE) ] libft/$(NAME) library"
 
 re: fclean all

@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 11:33:08 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 18:26:09 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
+DPCS = $(OBJS:.o=.d)
+
 HDR = lem_in.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
@@ -43,13 +45,14 @@ LIBFT= libft/libft.a
 RED = \033[0;31m
 GREEN = \033[0;32m
 NONE = \033[0m
+BOLD_UNDERLINED = \033[1;4m
 
-all: check_libft project $(NAME) $(HDRS)
-	@echo "Success !!"
+all: make_start check_libft project $(NAME) $(HDRS)
+	@echo "\n\t    \033[1;4;42m!! Success !!$(NONE)\n"
 
 $(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
-	@gcc $(CFLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
-	@echo "\t[ \033[0;32m✔\033[0m ] lem-in executable"
+	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) -o $@
+	@echo "[ \033[0;32m✔\033[0m ] lem-in executable"
 
 brewing:
 	@brew install sdl2
@@ -59,38 +62,43 @@ brewing:
 	@brew install sdl2_net
 	@brew install sdl2_ttf
 
+make_start:
+	@echo "\n\t\033[1;4;42mBeginning process...$(NONE)"
+
 check_libft:
-	@echo "Checking libft..."
+	@echo "\n\t$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
 	@make -C libft
 
 project:
-	@echo "Checking project..."
+	@echo "\n       $(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
 
 $(OBJSFD):
 	@mkdir $@
-	@echo "\t[ $(GREEN)✔$(NONE) ] objs/ directory"
+	@echo "[ $(GREEN)✔$(NONE) ] objs/ directory"
 
-$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
+$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS) $(LIBFT)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
-	@echo "\t[ $(GREEN)✔$(NONE) ] $@ object"
+	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 visualizer:
-	@echo "Adding visualizer..."
+	@echo "\n      $(BOLD_UNDERLINED)<| Adding visualizer |>$(NONE)"
 	@make -C ./bonus_visualizer
-	@mv bonus_visualizer/visualizer .
+	@cp bonus_visualizer/visualizer .
 
 clean:
 	@/bin/rm -rf $(OBJSFD)
-	@echo "\t[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
+	@echo "[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
 	@make -C ./libft clean
 	@make -C ./bonus_visualizer clean
 
 fclean: clean
 	@/bin/rm -f $(NAME) visualizer
-	@echo "\t[ $(RED)✗$(NONE) ] $(NAME) executable"
-	@echo "\t[ $(RED)✗$(NONE) ] visualizer executable"
+	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
+	@echo "[ $(RED)✗$(NONE) ] visualizer executable"
 	@make -C ./libft fclean
 
 re: fclean all
 
-.PHONY: brewing all check_libft project clean fclean re visualizer
+-include $(DPCS)
+
+.PHONY: make_start brewing all check_libft project clean fclean re visualizer
