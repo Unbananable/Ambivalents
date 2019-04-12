@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/11 12:54:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 11:41:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ static int		bfs_recursive(t_lem *lem, int *current_w_list)
 
 	i = -1;
 	nb_links = 0;
-	while (current_w_list[++i] != -1)
+	while (!nb_links && current_w_list[++i] != -1)
 		nb_links += nb_links_from(lem, current_w_list[i]);
 	next_w_list = NULL;
 	if (nb_links != 0)
 	{
-		if (!(next_w_list = (int *)malloc(sizeof(int) * (nb_links + 1))))
+		if (!(next_w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 1) * (lem->nb_rooms - 1)/*(nb_links + 1)*/)))
 		{
 			free(current_w_list); // TO DO: I think there might be a leak here because all the previous current_w in the recursion are not freed
 			error(lem);
