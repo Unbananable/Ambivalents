@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:04:34 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 11:54:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	make_ants_move(t_lem *lem)
 	start_r = -1;
 	while (++start_r < lem->nb_rooms)
 	{
-		if (lem->o_links[in(start_r)][out(END)])
+		if (lem->o_links[in(start_r)][out(END)] && lem->rooms[start_r].w)
 		{
 			curr_r = start_r;
 			next_r = END;

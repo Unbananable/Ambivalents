@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/11 12:54:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/12 10:58:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,26 +216,51 @@ void	find_paths(t_lem *lem)
 {
 	int		stop;
 	t_path	*current_paths;
+	t_path	*cache;
 
 	stop = 0;
-	while (!stop)
+	cache = NULL;
+	while (stop != 20)
 	{
 		clear_weights(lem);
 		if (bfs(lem) == -1)
-			stop = 1;
+{printf("no more paths\n");
+			stop = 20;
+}
 		else
 		{
 			if (!(current_paths = set_path_len_list(lem)))
 				error(lem);
 			set_ants_per_room(lem, current_paths);
-			if (!lem->paths || current_paths[0].nb_ants + current_paths[0].w
-					< lem->paths[0].nb_ants + lem->paths[0].w)
+			if (lem->paths && current_paths[0].nb_ants + current_paths[0].w
+					> lem->paths[0].nb_ants + lem->paths[0].w)
 			{
-				free(lem->paths);
+printf("new path makes process longer\n");
+				stop++;
+				cache = lem->paths;
 				lem->paths = current_paths;
 			}
 			else
-				stop = 1;
+			{
+				if (lem->paths && current_paths[0].nb_ants + current_paths[0].w
+					== lem->paths[0].nb_ants + lem->paths[0].w)
+{printf("new paths brings no advantage\n");
+					stop++;
+}
+				else
+{printf("new_paths improves process\n");
+					stop = 0;
+}
+				free(lem->paths);
+				lem->paths = current_paths;
+			}
 		}
 	}
+	if (lem->paths[0].nb_ants + lem->paths[0].w > cache[0].nb_ants + cache[0].w)
+	{
+		free(lem->paths);
+		lem->paths = cache;
+	}
+	else
+		free(cache);
 }
