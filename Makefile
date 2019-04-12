@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 18:51:51 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 19:32:54 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ NONE = \033[0m
 BOLD_UNDERLINED = \033[1;4m
 
 all: make_start check_libft project $(NAME) $(HDRS)
-	@echo "\n\t    \033[1;4;42m!! Success !!$(NONE)\n"
+	@echo "\n\033[1;4;42m!! Success !!$(NONE)\n"
 
 $(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) -o $@
@@ -62,14 +62,14 @@ brewing:
 	@brew install sdl2_ttf
 
 make_start:
-	@echo "\n\t\033[1;4;42mBeginning process...$(NONE)"
+	@echo "\n\033[1;4;42mBeginning process...$(NONE)"
 
 check_libft:
-	@echo "\n\t$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
+	@echo "\n$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
 	@make -C libft
 
 project:
-	@echo "\n       $(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
+	@echo "\n$(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
 
 $(OBJSFD):
 	@mkdir $@
@@ -80,7 +80,7 @@ $(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS) $(LIBFT)
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 visualizer:
-	@echo "\n      $(BOLD_UNDERLINED)<| Adding visualizer |>$(NONE)"
+	@echo "\n$(BOLD_UNDERLINED)<| Adding visualizer |>$(NONE)"
 	@make -C ./bonus_visualizer
 	@cp bonus_visualizer/visualizer .
 

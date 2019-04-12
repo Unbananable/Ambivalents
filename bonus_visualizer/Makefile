@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 16:31:39 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/12 19:33:16 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,21 +55,21 @@ NONE = \033[0m
 BOLD_UNDERLINED = \033[1;4m
 
 all: make_start check_libft project $(NAME) $(HDRS)
-	@echo "\n\t    \033[1;4;42m!! Success !!$(NONE)\n"
+	@echo "\n\033[1;4;42m!! Success !!$(NONE)\n"
 
 $(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) $(SDL_BINARY) -o $@
 	@echo "[ \033[0;32m✔\033[0m ] visualizer executable"
 
 check_libft:
-	@echo "\n\t$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
+	@echo "\n$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
 	@make -C ../libft
 
 make_start:
-	@echo "\n\t\033[1;4;42mBeginning process...$(NONE)"
+	@echo "\n\033[1;4;42mBeginning process...$(NONE)"
 
 project:
-	@echo "\n        $(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
+	@echo "\n$(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
 
 $(OBJSFD):
 	@mkdir $@
