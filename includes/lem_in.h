@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/12 18:18:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/16 18:43:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_room
 {
 	char	*id;
 	int		w;
-	char	*ant_id;
+	int		ant_id;
 }				t_room;
 
 typedef struct	s_link
@@ -65,7 +65,6 @@ typedef struct	s_lem
 	int				nb_rooms;
 	int				nb_ants;
 	t_room			*rooms;
-	int				**links;
 	int				**o_links;
 	char			*instr;
 	t_path			*paths;

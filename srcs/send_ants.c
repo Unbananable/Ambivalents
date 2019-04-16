@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/12 19:27:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:03:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ static int	make_ants_move(t_lem *lem, int *mem)
 	t_plist	*cache;
 	int		rval;
 	int		len_next;
+	int	len_ant_id;
+	int	pow;
+	int	len;
+	int	tmp;
+
+
 
 	rval = 0;
 	i = -1;
@@ -27,13 +33,24 @@ static int	make_ants_move(t_lem *lem, int *mem)
 		while (cache->room->ant_id)
 		{
 			len_next = (cache->next) ? ft_strlen(cache->next->room->id) : ft_strlen(lem->rooms[END].id);
-			lem->instr_len += ft_strlen(cache->room->ant_id) + len_next + 3;
+			len_ant_id = ft_intlen(cache->room->ant_id);
+			len = lem->instr_len;
+			lem->instr_len += len_ant_id + len_next + 3;
 			if(lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
 				if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 					error(lem);
-			ft_strcat(lem->instr, "L");
-			ft_strcat(lem->instr, cache->room->ant_id);
-			ft_strcat(lem->instr, "-");
+			lem->instr[len] = 'L';
+			pow = 1;
+			tmp = cache->room->ant_id;
+			while (tmp / pow >= 10)
+				pow *= 10;
+			while (pow)
+			{
+				lem->instr[++len] = tmp / pow + 48;
+				tmp %= pow;
+				pow /= 10;
+			}
+			lem->instr[++len] = '-';
 			if (cache->next)
 				ft_strcat(lem->instr, cache->next->room->id);
 			else
@@ -41,9 +58,7 @@ static int	make_ants_move(t_lem *lem, int *mem)
 			ft_strcat(lem->instr, " ");
 			if (cache->next)
 				cache->next->room->ant_id = cache->room->ant_id;
-			else
-				free(cache->room->ant_id);
-			cache->room->ant_id = NULL;
+			cache->room->ant_id = 0;
 			if (cache->prev)
 				cache = cache->prev;
 			rval = 1;
@@ -56,18 +71,33 @@ static int	make_ants_move(t_lem *lem, int *mem)
 
 static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 {
+	int	len_ant_id;
+	int	ten;
+	int	j;
+	int	len;
+
+	j = 0;
+	ten = 1;
 	if (lem->paths[i].nb_remaining > 0)
 	{
-		if (!(lem->rooms[lem->paths[i].i_first].ant_id = ft_itoa(lem->nb_ants
-					- *ants_left + 1)))
-			error(lem);
-		lem->instr_len += ft_strlen(lem->rooms[lem->paths[i].i_first].ant_id) + ft_strlen(lem->paths[i].id_first) + 3;
-		if (/*ft_strlen(lem->instr) + ft_strlen(lem->rooms[lem->paths[i].i_first].ant_id) + ft_strlen(lem->paths[i].id_first) + 3*/lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
+		len_ant_id = ft_intlen(lem->nb_ants - *ants_left + 1);
+		lem->rooms[lem->paths[i].i_first].ant_id = lem->nb_ants - *ants_left + 1;
+		len = lem->instr_len;
+		lem->instr_len += len_ant_id + ft_strlen(lem->paths[i].id_first) + 3;
+		if (lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
 			if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 				error(lem);
-		ft_strcat(lem->instr, "L");
-		ft_strcat(lem->instr, lem->rooms[lem->paths[i].i_first].ant_id);
-		ft_strcat(lem->instr, "-");
+		lem->instr[len] = 'L';
+		while (++j < len_ant_id)
+			ten *= 10;
+		j = 0;
+		while (++j < len_ant_id)
+		{
+			lem->instr[++len] = (lem->nb_ants - *ants_left + 1) / ten + 48;
+			ten /= 10;
+		}
+		lem->instr[++len] = (lem->nb_ants - *ants_left + 1) % 10 + 48;
+		lem->instr[++len] = '-';
 		ft_strcat(lem->instr, lem->paths[i].id_first);
 		ft_strcat(lem->instr, " ");
 		(*ants_left)--;

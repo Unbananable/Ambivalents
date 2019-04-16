@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/12 12:40:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/16 18:45:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	initialize(t_lem *lem)
 		while (++i < lem->nb_rooms)
 		{
 			lem->rooms[i].w = 0;
-			lem->rooms[i].ant_id = NULL;
+			lem->rooms[i].ant_id = 0;
 			lem->rooms[i].id = NULL;
 		}
 	}
