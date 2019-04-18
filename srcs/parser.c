@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/11 13:19:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:29:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,24 @@
 ** comptible.
 */
 
-static void	detect_command(t_lem *lem, char **str, int parse_step)
+static void	detect_command(t_lem *lem, char **str, int *parse_step)
 {
 	if (ft_strnequ(*str, "##start\n", 8))
 	{
 		*str += 8;
-		if (parse_step != SET_ROOMS || lem->rooms[START].id
+		if (*parse_step != SET_ROOMS || lem->rooms[START].id
 				|| (set_rooms(lem, *str, START)) == ERROR)
 			error(lem);
 	}
 	else if (ft_strnequ(*str, "##end\n", 6))
 	{
 		*str += 6;
-		if (parse_step != SET_ROOMS || lem->rooms[END].id
+		if (*parse_step != SET_ROOMS || lem->rooms[END].id
 				|| (set_rooms(lem, *str, END)) == -1)
 			error(lem);
 	}
+	if (lem->nb_rooms == 2 && lem->rooms[START].id && lem->rooms[END].id)
+		*parse_step = SET_LINKS;
 }
 
 /*
@@ -61,7 +63,7 @@ static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 static void	parse_line(t_lem *lem, char **str, int *parse_step)
 {
 	if (**str == '#')
-		detect_command(lem, str, *parse_step);
+		detect_command(lem, str, parse_step);
 	else if (*parse_step == SET_NB_ANTS)
 	{
 		if ((*parse_step = set_nb_ants(lem, *str)) == ERROR)
