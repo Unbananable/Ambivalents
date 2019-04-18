@@ -6,13 +6,17 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:23:23 by anleclab          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/04/18 16:51:53 by anleclab         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/18 16:50:59 by dtrigalo         ###   ########.fr       */
+>>>>>>> 4737e8845a5700540634469b283ffac5f866b92f
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	write_number_str(t_lem *lem, int nb, unsigned long *start)
+void	add_nbr_str(t_lem *lem, int nb, unsigned long *start)
 {
 	int		pow;
 

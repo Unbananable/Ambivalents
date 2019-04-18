@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:15:35 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 16:32:16 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:48:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		send_all_ants(t_lem *lem)
 				+ len_ant_id + endid_strlen + 3)))
 			error(lem);
 		lem->instr[lem->instr_len] = 'L';
-		write_number_str(lem, ant_id, &(lem->instr_len));
+		add_nbr_str(lem, ant_id, &(lem->instr_len));
 		lem->instr[lem->instr_len++] = '-';
 		ft_strcpy(lem->instr + lem->instr_len, lem->rooms[END].id);
 		lem->instr_len += endid_strlen;

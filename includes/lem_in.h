@@ -6,7 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/04/18 16:49:23 by anleclab         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/18 16:50:39 by dtrigalo         ###   ########.fr       */
+>>>>>>> 4737e8845a5700540634469b283ffac5f866b92f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +73,7 @@ typedef struct	s_lem
 	char			*instr;
 	t_path			*paths;
 	unsigned long	instr_len;
+	int				count;
 }				t_lem;
 
 int				get_options(int *ac, char ***av);
@@ -85,20 +90,21 @@ int				setup_o_links(t_lem *lem, char *str);
 void			send_all_ants(t_lem *lem);
 
 void			find_paths(t_lem *lem);
+int				bfs(t_lem *lem);
 void			set_ants_per_room(t_lem *lem, t_path *paths);
 
 t_plist  		*new_link(t_room *current);
 void    		delete_list(t_plist **list);
 t_plist    		*add_link(t_plist *link, t_plist *list);
 
-int     		in(int index);
-int     		out(int index);
+int				in(int index);
+int				out(int index);
 
 void			error(t_lem *lem);
 void			end(t_lem *lem);
 
 void			send_ants(t_lem *lem);
-void			write_number_str(t_lem *lem, int nb, unsigned long *start);
+void			add_nmbr_str(t_lem *lem, int nb, unsigned long *start);
 void			set_paths_to_start(t_path *paths);
 
 void			print_line_count(t_lem lem);

@@ -6,30 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/12 18:18:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:48:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/*
-** Recursively returns the distance of the room to the end room following the
-** path made available by the bfs algorithm.
-*/
-/*
-static int		get_weight(t_lem *lem, int current_index)
-{
-	int		next_index;
-
-	if (current_index == END)
-		return (0);
-	next_index = -1;
-	while (++next_index < lem->nb_rooms)
-		if (lem->o_links[in(current_index)][out(next_index)])
-			return (1 + get_weight(lem, next_index));
-	return (-1);
-}
-*/
 
 static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
 {
@@ -91,7 +72,7 @@ static t_path	*set_path_len_list(t_lem *lem)
 	paths[nb_paths].i_first = -1;
 	paths[nb_paths].w = 0;
 	count = -1;
-	while (++count < nb_paths) // TO DO: Improve with a better sort than bubble
+	while (++count < nb_paths)
 	{
 		i = -1;
 		while (paths[++i + 1].i_first != -1)
@@ -105,126 +86,11 @@ static t_path	*set_path_len_list(t_lem *lem)
 	return (paths);
 }
 
-static int		nb_links_from(t_lem *lem, int index)
-{
-	int		res;
-	int		i;
-
-	res = 0;
-	i = -1;
-	while (++i < lem->nb_rooms * 2)
-		res += (lem->rooms[i / 2].w < 2) ? lem->o_links[index][i] : 0;
-	return (res);
-}
-
-/*
-** Recursively returns the index of the index of the room with the cuurent
-** weight which is included in the shortest path from start to end. In the
-** return process it also swaps the orientation of the links.
-*/
-
-static int		bfs_recursive(t_lem *lem, int *current_w_list)
-{
-	int		*next_w_list;
-	int		i;
-	int		j;
-	int		count;
-	int		nb_links;
-
-	i = -1;
-	nb_links = 0;
-	while (!nb_links && current_w_list[++i] != -1)
-		nb_links += nb_links_from(lem, current_w_list[i]);
-	next_w_list = NULL;
-	if (nb_links != 0)
-	{
-		if (!(next_w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 1) * (lem->nb_rooms - 1)/*(nb_links + 1)*/)))
-		{
-			free(current_w_list); // TO DO: I think there might be a leak here because all the previous current_w in the recursion are not freed
-			error(lem);
-		}
-		count = -1;
-		i = -1;
-		while (current_w_list[++i] != -1)
-		{
-			j = -1;
-			while (++j < lem->nb_rooms * 2)
-				if (lem->o_links[current_w_list[i]][j] == 1
-						&& lem->rooms[j / 2].w < 2)
-				{
-					if (j == in(START))
-					{
-						lem->o_links[current_w_list[i]][in(START)] = 0;
-						lem->o_links[in(START)][current_w_list[i]] = 1;
-						free(next_w_list);
-						return (current_w_list[i]);
-					}
-					next_w_list[++count] = j;
-					lem->rooms[j / 2].w++;
-				}
-		}
-		next_w_list[++count] = -1;
-		j = bfs_recursive(lem, next_w_list);
-	}
-	else
-		j = -1;
-	if (j != -1)
-	{
-		i = -1;
-		while (++i != -1 && current_w_list[i] != -1)
-			if (lem->o_links[current_w_list[i]][j])
-			{
-				lem->o_links[current_w_list[i]][j] = 0;
-				lem->o_links[j][current_w_list[i]] = 1;
-				j = current_w_list[i];
-				i = -2;
-			}
-	}
-	free(next_w_list);
-	return (j);
-}
-
-/*
-** Returns the index of the shortest path from the end room to the start room.
-** Initializes the recursive bfs algorithm with the list of rooms linked to
-** the end room. It then swaps the orientation of the links which are used in
-** the path.
-*/
-
-static int		bfs(t_lem *lem)
-{
-	int		*start_list;
-	int 	count;
-	int		i;
-	int		path_index;
-
-	if (!(start_list = (int *)malloc(sizeof(int)
-					* (nb_links_from(lem, out(END)) + 1))))
-		error(lem);
-	count = -1;
-	i = 1;
-	while (++i < lem->nb_rooms * 2)
-		if (lem->o_links[out(END)][i] == 1)
-		{
-			start_list[++count] = i;
-			lem->rooms[i / 2].w++;
-		}
-	start_list[++count] = -1;
-	path_index = bfs_recursive(lem, start_list);
-	if (path_index != -1)
-	{
-		lem->o_links[out(END)][path_index] = 0;
-		lem->o_links[path_index][out(END)] = 1;
-	}
-	free(start_list);
-	return (path_index);
-}
-
 /*
 ** Resets the weight of the rooms to 0.
 */
 
-static void	clear_weights(t_lem *lem)
+static void		clear_weights(t_lem *lem)
 {
 	int		i;
 
@@ -239,11 +105,10 @@ static void	clear_weights(t_lem *lem)
 ** quicker flow of ants.
 */
 
-void	find_paths(t_lem *lem)
+void			find_paths(t_lem *lem)
 {
 	int		stop;
 	t_path	*current_paths;
-//	int		i;
 
 	stop = 0;
 	while (!stop)
