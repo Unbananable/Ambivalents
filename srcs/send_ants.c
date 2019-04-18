@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 11:31:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:39:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ static int	make_ants_move(t_lem *lem, int *mem)
 	t_plist	*cache;
 	int		rval;
 	int		len_next;
-	int	len_ant_id;
 	int	pow;
 	int	len;
 	int	tmp;
-
-
 
 	rval = 0;
 	i = -1;
@@ -33,9 +30,8 @@ static int	make_ants_move(t_lem *lem, int *mem)
 		while (cache->room->ant_id)
 		{
 			len_next = (cache->next) ? ft_strlen(cache->next->room->id) : ft_strlen(lem->rooms[END].id);
-			len_ant_id = ft_intlen(cache->room->ant_id);
 			len = lem->instr_len;
-			lem->instr_len += len_ant_id + len_next + 3;
+			lem->instr_len += ft_intlen(cache->room->ant_id) + len_next + 3;
 			if(lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
 				if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 					error(lem);
@@ -52,10 +48,17 @@ static int	make_ants_move(t_lem *lem, int *mem)
 			}
 			lem->instr[++len] = '-';
 			if (cache->next)
-				ft_strcat(lem->instr, cache->next->room->id);
+			{
+				ft_strcpy(lem->instr + ++len, cache->next->room->id);
+				len += ft_strlen(cache->next->room->id);
+			}
 			else
-				ft_strcat(lem->instr, lem->rooms[END].id);
-			ft_strcat(lem->instr, " ");
+			{
+				ft_strcpy(lem->instr + ++len, lem->rooms[END].id);
+				len += ft_strlen(lem->rooms[END].id);
+			}
+//			ft_strcat(lem->instr, " ");
+			lem->instr[len] = ' ';
 			if (cache->next)
 				cache->next->room->ant_id = cache->room->ant_id;
 			cache->room->ant_id = 0;
@@ -71,17 +74,16 @@ static int	make_ants_move(t_lem *lem, int *mem)
 
 static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 {
-	int	len_ant_id;
 	int	tmp;
 	int	len;
 	int	pow;
+	int	j;
 
 	if (lem->paths[i].nb_remaining > 0)
 	{
-		len_ant_id = ft_intlen(lem->nb_ants - *ants_left + 1);
 		lem->rooms[lem->paths[i].i_first].ant_id = lem->nb_ants - *ants_left + 1;
 		len = lem->instr_len;
-		lem->instr_len += len_ant_id + ft_strlen(lem->paths[i].id_first) + 3;
+		lem->instr_len += ft_intlen(lem->nb_ants - *ants_left + 1) + ft_strlen(lem->paths[i].id_first) + 3;
 		if (lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
 			if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 				error(lem);
@@ -97,7 +99,11 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 			pow /= 10;
 		}
 		lem->instr[++len] = '-';
+		j = -1;
+		while (lem->paths[i].id_first[++j])
+			lem->instr[++len] = lem->paths[i].id_first[j];
 		ft_strcat(lem->instr, lem->paths[i].id_first);
+//		lem->instr[++len] = ' ';
 		ft_strcat(lem->instr, " ");
 		(*ants_left)--;
 		lem->paths[i].nb_remaining--;
