@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:56:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 17:57:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:09:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void		print_paths(t_lem lem)
 	int		i;
 	t_plist	*cache;
 
+	if ((i = -1) && lem.o_links[out(START)][in(END)])
+		return ;
 	set_paths_to_start(lem.paths);
-	i = -1;
 	while (lem.paths[++i].id_first)
 	{
 		ft_putstr("#paths ");
