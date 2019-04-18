@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:23:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 14:42:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:51:53 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,21 @@ void	write_number_str(t_lem *lem, int nb, unsigned long *start)
 		lem->instr[++(*start)] = nb / pow + '0';
 		nb %= pow;
 		pow /= 10;
+	}
+}
+
+/*
+** Places the pointer of each path on the room linked to the start room
+*/
+
+void	set_paths_to_start(t_path *paths)
+{
+	int		i;
+
+	i = -1;
+	while (paths[++i].id_first)
+	{
+		while (paths[i].rooms->prev)
+			paths[i].rooms = paths[i].rooms->prev;
 	}
 }

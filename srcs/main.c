@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 15:20:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:40:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ static void	print_options(t_lem lem, int options)
 			print_line_count(lem);
 	}
 	if ((options & (1 << ('p' - 'a'))))
-	{
-		ft_putchar('#');
 		print_paths(lem);
-	}
 	if ((options & (1 << ('r' - 'a'))))
 	{
 		ft_putchar('#');

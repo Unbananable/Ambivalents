@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 14:44:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:53:43 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,6 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 		lem->instr[++len] = ' ';
 		(*ants_left)--;
 		lem->paths[i].nb_remaining--;
-	}
-}
-
-/*
-** Places the pointer of each path on the room linked to the start room
-*/
-
-void		set_paths_to_start(t_path *paths)
-{
-	int		i;
-
-	i = -1;
-	while (paths[++i].id_first)
-	{
-		while (paths[i].rooms->prev)
-			paths[i].rooms = paths[i].rooms->prev;
 	}
 }
 
