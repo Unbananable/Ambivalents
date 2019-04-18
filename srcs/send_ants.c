@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 14:58:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:47:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	add_instr(t_lem *lem, t_plist *curr_room, int *mem)
 {
-	int		len_next;
-	int		len;
+	int				len_next;
+	unsigned long	len;
 
 	len_next = (curr_room->next) ? ft_strlen(curr_room->next->room->id)
 			: ft_strlen(lem->rooms[END].id);
@@ -69,8 +69,8 @@ static int	make_ants_move(t_lem *lem, int *mem)
 
 static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 {
-	int	len;
-	int	j;
+	unsigned long	len;
+	int				j;
 
 	if (lem->paths[i].nb_remaining > 0)
 	{

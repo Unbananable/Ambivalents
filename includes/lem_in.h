@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 15:26:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:50:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ typedef struct	s_lem
 
 int				get_options(int *ac, char ***av);
 
-int				count_rooms_and_fill_input(t_lem *lem);
+void				count_rooms_and_fill_input(t_lem *lem);
+
+void			initialize_o_links(t_lem *lem);
 
 void			parser(t_lem *lem);
 int				set_rooms(t_lem *lem, char *str, int current_room);
@@ -98,7 +100,7 @@ void			error(t_lem *lem);
 void			end(t_lem *lem);
 
 void			send_ants(t_lem *lem);
-void			add_nbr_str(t_lem *lem, int nb, int *start);
+void			add_nbr_str(t_lem *lem, int nb, unsigned long *start);
 
 void			print_line_count(t_lem lem);
 void			print_paths(t_lem lem);

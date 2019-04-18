@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:42:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:04:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:11:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,25 @@ int	in(int index)
 int	out(int index)
 {
 	return (2 * index + 1);
+}
+
+void	initialize_o_links(t_lem *lem)
+{
+	int		i;
+	
+	if (lem->o_links)
+	{
+		i = -1;
+		while (++i < lem->nb_rooms * 2)
+			if (!(lem->o_links[i] = (int *)malloc(sizeof(int)
+							* (lem->nb_rooms * 2))))
+			{
+				while (--i >= 0)
+					free(lem->o_links[i]);
+				free(lem->o_links);
+				lem->o_links = NULL;
+			}
+			else
+				ft_bzero(lem->o_links[i], (lem->nb_rooms * 2) * sizeof(int));
+	}
 }
