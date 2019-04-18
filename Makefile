@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 19:32:54 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/18 14:25:30 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC = main.c \
 	  send_ants.c \
 	  tools_options.c \
 	  tools_o_links.c \
-	  tools_list.c
+	  tools_list.c \
+	  tools_send_ants.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
