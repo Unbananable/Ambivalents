@@ -6,21 +6,45 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 13:55:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:23:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void	write_instr(t_lem *lem, t_plist *curr_room, int *mem)
+{
+	int		len_next;
+	int		len;
+
+	len_next = (curr_room->next) ? ft_strlen(curr_room->next->room->id)
+			: ft_strlen(lem->rooms[END].id);
+	len = lem->instr_len;
+	lem->instr_len += ft_intlen(curr_room->room->ant_id) + len_next + 3;
+	if (lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
+		if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
+			error(lem);
+	lem->instr[len] = 'L';
+	write_number_str(lem, curr_room->room->ant_id, &len);
+	lem->instr[++len] = '-';
+	if (curr_room->next)
+	{
+		ft_strcpy(lem->instr + ++len, curr_room->next->room->id);
+		len += ft_strlen(curr_room->next->room->id);
+	}
+	else
+	{
+		ft_strcpy(lem->instr + ++len, lem->rooms[END].id);
+		len += ft_strlen(lem->rooms[END].id);
+	}
+	lem->instr[len] = ' ';
+}
 
 static int	make_ants_move(t_lem *lem, int *mem)
 {
 	int		i;
 	t_plist	*cache;
 	int		rval;
-	int		len_next;
-	int	pow;
-	int	len;
-	int	tmp;
 
 	rval = 0;
 	i = -1;
@@ -29,36 +53,7 @@ static int	make_ants_move(t_lem *lem, int *mem)
 		cache = lem->paths[i].rooms;
 		while (cache->room->ant_id)
 		{
-			len_next = (cache->next) ? ft_strlen(cache->next->room->id) : ft_strlen(lem->rooms[END].id);
-			len = lem->instr_len;
-			lem->instr_len += ft_intlen(cache->room->ant_id) + len_next + 3;
-			if(lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
-				if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
-					error(lem);
-			lem->instr[len] = 'L';
-			pow = 1;
-			tmp = cache->room->ant_id;
-			while (tmp / pow >= 10)
-				pow *= 10;
-			while (pow)
-			{
-				lem->instr[++len] = tmp / pow + 48;
-				tmp %= pow;
-				pow /= 10;
-			}
-			lem->instr[++len] = '-';
-			if (cache->next)
-			{
-				ft_strcpy(lem->instr + ++len, cache->next->room->id);
-				len += ft_strlen(cache->next->room->id);
-			}
-			else
-			{
-				ft_strcpy(lem->instr + ++len, lem->rooms[END].id);
-				len += ft_strlen(lem->rooms[END].id);
-			}
-//			ft_strcat(lem->instr, " ");
-			lem->instr[len] = ' ';
+			write_instr(lem, cache, mem);
 			if (cache->next)
 				cache->next->room->ant_id = cache->room->ant_id;
 			cache->room->ant_id = 0;
@@ -74,37 +69,28 @@ static int	make_ants_move(t_lem *lem, int *mem)
 
 static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 {
-	int	tmp;
 	int	len;
-	int	pow;
 	int	j;
 
 	if (lem->paths[i].nb_remaining > 0)
 	{
-		lem->rooms[lem->paths[i].i_first].ant_id = lem->nb_ants - *ants_left + 1;
+		lem->rooms[lem->paths[i].i_first].ant_id = lem->nb_ants
+				- *ants_left + 1;
 		len = lem->instr_len;
-		lem->instr_len += ft_intlen(lem->nb_ants - *ants_left + 1) + ft_strlen(lem->paths[i].id_first) + 3;
+		lem->instr_len += ft_intlen(lem->nb_ants - *ants_left + 1)
+				+ ft_strlen(lem->paths[i].id_first) + 3;
 		if (lem->instr_len > (unsigned long)(*mem * BUFF_SIZE))
-			if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
+			if (!(lem->instr = ft_char_realloc(lem->instr,
+					++(*mem) * BUFF_SIZE)))
 				error(lem);
 		lem->instr[len] = 'L';
-		pow = 1;
-		tmp = lem->nb_ants - *ants_left + 1;
-		while (tmp / pow >= 10)
-			pow *= 10;
-		while (pow)
-		{
-			lem->instr[++len] = tmp / pow + 48;
-			tmp %= pow;
-			pow /= 10;
-		}
+		write_number_str(lem, lem->nb_ants - *ants_left + 1, &len);
 		lem->instr[++len] = '-';
 		j = -1;
 		while (lem->paths[i].id_first[++j])
 			lem->instr[++len] = lem->paths[i].id_first[j];
 		ft_strcat(lem->instr, lem->paths[i].id_first);
 		lem->instr[++len] = ' ';
-//		ft_strcat(lem->instr, " ");
 		(*ants_left)--;
 		lem->paths[i].nb_remaining--;
 	}
@@ -114,7 +100,7 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 ** Places the pointer of each path on the room linked to the start room
 */
 
-void	set_paths_to_start(t_path *paths)
+void		set_paths_to_start(t_path *paths)
 {
 	int		i;
 
@@ -126,7 +112,6 @@ void	set_paths_to_start(t_path *paths)
 	}
 }
 
-
 /*
 ** Builds the instructions in lem->instr. For each line, it makes the ants
 ** already in the rooms to the next rooms, and then sends the remaining ants
@@ -136,9 +121,9 @@ void	set_paths_to_start(t_path *paths)
 void		send_ants(t_lem *lem)
 {
 	static int	mem = 0;
-	int		i;
-	int		ants_left;
-	int		first_line;
+	int			i;
+	int			ants_left;
+	int			first_line;
 
 	lem->instr_len = 1;
 	ants_left = lem->nb_ants;
@@ -152,5 +137,5 @@ void		send_ants(t_lem *lem)
 			process_sending(lem, i, &ants_left, &mem);
 		lem->instr[lem->instr_len - 1] = '\n';
 	}
-	lem->instr[ft_strlen(lem->instr) - 1] = '\0';
+	lem->instr[lem->instr_len - 1] = '\0';
 }

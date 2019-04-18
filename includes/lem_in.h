@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/16 18:43:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:25:33 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void			error(t_lem *lem);
 void			end(t_lem *lem);
 
 void			send_ants(t_lem *lem);
+void			write_number_str(t_lem *lem, int nb, int *start);
 
 void			print_line_count(t_lem lem);
 void			print_paths(t_lem lem);
