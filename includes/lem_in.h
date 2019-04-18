@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 16:50:39 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 16:58:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,11 @@ void			end(t_lem *lem);
 
 void			send_ants(t_lem *lem);
 void			add_nbr_str(t_lem *lem, int nb, unsigned long *start);
+void			set_paths_to_start(t_path *paths);
 
 void			print_line_count(t_lem lem);
 void			print_paths(t_lem lem);
 void    		print_ant_nb(t_lem lem);
 void    		print_ants_per_room(t_lem lem);
-
-/// DEV
-void	display_rooms(t_lem lem);
-void	display_adj_matrix(t_lem lem);
-void	display_d_links(t_lem lem, int **matrix);
-void	display_weights(t_lem lem);
-void	display_paths(t_path *paths);
-void	display_path_complete(t_path paths);
 
 #endif
