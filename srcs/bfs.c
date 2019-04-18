@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:39:56 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 16:41:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:39:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,8 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 	if (nb_links_from(lem, 0, current_w_list))
 	{
 		if (!(next_w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 1)
-						* (lem->nb_rooms - 1))))
-		{
-			free(current_w_list);
-			error(lem);
-		}
+				* (lem->nb_rooms - 1))))
+			return(-2);
 		lem->count = -1;
 		i = -1;
 		while (current_w_list[++i] != -1)
@@ -103,7 +100,7 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 				return (j);
 		next_w_list[++(lem->count)] = -1;
 		j = bfs_recursive(lem, next_w_list);
-		if (j != -1)
+		if (j >= 0)
 			set_orientations(lem, current_w_list, &j);
 		free(next_w_list);
 	}
@@ -137,11 +134,13 @@ int			bfs(t_lem *lem)
 		}
 	start_list[++count] = -1;
 	path_index = bfs_recursive(lem, start_list);
-	if (path_index != -1)
+	if (path_index >= 0)
 	{
 		lem->o_links[out(END)][path_index] = 0;
 		lem->o_links[path_index][out(END)] = 1;
 	}
 	free(start_list);
+	if (path_index == -2)
+		error(lem);
 	return (path_index);
 }
