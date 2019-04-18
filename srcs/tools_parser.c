@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:16:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 16:23:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:02:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int			set_rooms(t_lem *lem, char *str, int current_room)
 	while (str[i] && str[i] != '\n')
 		i++;
 	if ((i_end_id = is_room(str, i - 1)) == -1)
-{printf("here\n");
 		return (ERROR);
-}
 	if (!(lem->rooms[current_room].id = ft_strsub(str, 0, i_end_id + 1)))
 		return (ERROR);
 	i = -1;

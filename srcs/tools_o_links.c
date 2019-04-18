@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:42:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 15:11:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:01:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** parameter.
 */
 
-int	in(int index)
+int		in(int index)
 {
 	return (2 * index);
 }
@@ -27,7 +27,7 @@ int	in(int index)
 ** in parameter.
 */
 
-int	out(int index)
+int		out(int index)
 {
 	return (2 * index + 1);
 }
@@ -35,7 +35,7 @@ int	out(int index)
 void	initialize_o_links(t_lem *lem)
 {
 	int		i;
-	
+
 	if (lem->o_links)
 	{
 		i = -1;
