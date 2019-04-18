@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/16 20:03:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 11:31:49 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,10 @@ static int	make_ants_move(t_lem *lem, int *mem)
 static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 {
 	int	len_ant_id;
-	int	ten;
-	int	j;
+	int	tmp;
 	int	len;
+	int	pow;
 
-	j = 0;
-	ten = 1;
 	if (lem->paths[i].nb_remaining > 0)
 	{
 		len_ant_id = ft_intlen(lem->nb_ants - *ants_left + 1);
@@ -88,15 +86,16 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 			if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 				error(lem);
 		lem->instr[len] = 'L';
-		while (++j < len_ant_id)
-			ten *= 10;
-		j = 0;
-		while (++j < len_ant_id)
+		pow = 1;
+		tmp = lem->nb_ants - *ants_left + 1;
+		while (tmp / pow >= 10)
+			pow *= 10;
+		while (pow)
 		{
-			lem->instr[++len] = (lem->nb_ants - *ants_left + 1) / ten + 48;
-			ten /= 10;
+			lem->instr[++len] = tmp / pow + 48;
+			tmp %= pow;
+			pow /= 10;
 		}
-		lem->instr[++len] = (lem->nb_ants - *ants_left + 1) % 10 + 48;
 		lem->instr[++len] = '-';
 		ft_strcat(lem->instr, lem->paths[i].id_first);
 		ft_strcat(lem->instr, " ");
