@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 16:40:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:58:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	print_options(t_lem lem, int options)
 	{
 		ft_putchar('#');
 		if (lem.o_links[out(START)][in(END)])
-			ft_putstr("1\n");
+			ft_putstr("line count: 1\n");
 		else
 			print_line_count(lem);
 	}
