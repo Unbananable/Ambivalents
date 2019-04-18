@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 12:04:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:20:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,46 +38,23 @@ static void	initialize(t_lem *lem)
 		}
 	}
 	lem->o_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2));
-	if (lem->o_links)
-	{
-		i = -1;
-		while (++i < lem->nb_rooms * 2)
-			if (!(lem->o_links[i] = (int *)malloc(sizeof(int)
-							* (lem->nb_rooms * 2))))
-			{
-				while (--i >= 0)
-					free(lem->o_links[i]);
-				free(lem->o_links);
-				lem->o_links = NULL;
-			}
-			else
-				ft_bzero(lem->o_links[i], (lem->nb_rooms * 2) * sizeof(int));
-	}
+	initialize_o_links(lem);
 	lem->instr = ft_strdup("\n");
 	lem->paths = NULL;
-	if (!lem->rooms || !lem->o_links || !lem->o_links
-			|| !lem->instr)
+	if (!lem->rooms || !lem->o_links || !lem->instr)
 		error(lem);
 }
 
-void		print_options(t_lem lem, int options)
+static void	print_options(t_lem lem, int options)
 {
-	if (!(options & (1 << ('s' - 'a'))))
-	{
-		ft_putstr(lem.input);
-		ft_putstr(lem.instr);
-		ft_putchar('\n');
-	}
 	if ((options & (1 << ('a' - 'a'))))
 	{
-		if (!(options & (1 << ('s' - 'a'))))
-			ft_putchar('#');
+		ft_putchar('#');
 		print_ant_nb(lem);
 	}
 	if ((options & (1 << ('l' - 'a'))))
 	{
-		if (!(options & (1 << ('s' - 'a'))))
-			ft_putchar('#');
+		ft_putchar('#');
 		if (lem.o_links[out(START)][in(END)])
 			ft_putstr("1\n");
 		else
@@ -85,16 +62,25 @@ void		print_options(t_lem lem, int options)
 	}
 	if ((options & (1 << ('p' - 'a'))))
 	{
-		if (!(options & (1 << ('s' - 'a'))))
-			ft_putchar('#');
+		ft_putchar('#');
 		print_paths(lem);
 	}
 	if ((options & (1 << ('r' - 'a'))))
 	{
-		if (!(options & (1 << ('s' - 'a'))))
-			ft_putchar('#');
+		ft_putchar('#');
 		print_ants_per_room(lem);
 	}
+}
+
+static void	print_output(t_lem lem, int options)
+{
+	if (!(options & (1 << ('s' - 'a'))))
+	{
+		ft_putstr(lem.input);
+		ft_putstr(lem.instr);
+		ft_putchar('\n');
+	}
+	print_options(lem, options);
 }
 
 int			main(int ac, char **av)
@@ -104,7 +90,10 @@ int			main(int ac, char **av)
 
 	if ((options = get_options(&ac, &av)) == -1)
 		usage();
-	if ((lem.nb_rooms = count_rooms_and_fill_input(&lem)) <= 1)
+	lem.input = NULL;
+	lem.nb_rooms = 0;
+	count_rooms_and_fill_input(&lem);
+	if (lem.nb_rooms <= 1)
 		error(&lem);
 	initialize(&lem);
 	parser(&lem);
@@ -117,7 +106,7 @@ int			main(int ac, char **av)
 			error(&lem);
 		send_ants(&lem);
 	}
-	print_options(lem, options);
+	print_output(lem, options);
 	end(&lem);
 	return (0);
 }

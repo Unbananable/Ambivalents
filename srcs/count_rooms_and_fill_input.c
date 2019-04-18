@@ -6,18 +6,18 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:03:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:25:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	add_buffer(t_lem *lem, char *buff, int rd_size)
+static void	add_buffer(t_lem *lem, char *buff, int rval)
 {
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
-					* (ft_strlen(lem->input) + rd_size))))
+					* (ft_strlen(lem->input) + rval))))
 		error(lem);
-	lem->input = ft_strncat(lem->input, buff, rd_size);
+	lem->input = ft_strncat(lem->input, buff, rval);
 }
 
 /*
@@ -52,38 +52,30 @@ static int	is_room(char *str, int i)
 ** Stores the input in a string and counts the number of rooms.
 */
 
-int			count_rooms_and_fill_input(t_lem *lem)
+void		count_rooms_and_fill_input(t_lem *lem)
 {
 	int		i;
-	int		count;
 	int		stop;
-	int		rd_size;
+	int		rval;
 	char	buff[BUFF_SIZE + 1];
 
-	rd_size = 0;
-	count = 0;
 	stop = -1;
-	lem->input = NULL;
-	while ((rd_size = read(0, buff, BUFF_SIZE)) > 0)
+	while ((rval = read(0, buff, BUFF_SIZE)) > 0)
 	{
-		buff[rd_size] = 0;
+		buff[rval] = 0;
 		i = ft_strlen(lem->input) - 1;
-		add_buffer(lem, buff, rd_size);
+		add_buffer(lem, buff, rval);
 		while (stop < 1 && lem->input[++i])
 			if (lem->input[i] == '#')
 				while (lem->input[i] && lem->input[i] != '\n')
 					i++;
 			else if (lem->input[i] == '\n')
 			{
-				if (stop == -1) // Skip the line containing the number of ants
-					stop = 0;
-				else if (is_room(lem->input, i - 1))
-					count++;
+				if (stop != -1 && is_room(lem->input, i - 1))
+					lem->nb_rooms++;
 				else
-					stop = 1;
+					stop += 1;
 			}
 	}
-	if (rd_size < 0)
-		return (0);
-	return (count);
+	lem->nb_rooms = (rval < 0) ? 0 : lem->nb_rooms;
 }
