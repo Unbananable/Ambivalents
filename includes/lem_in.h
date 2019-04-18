@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 17:12:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:31:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int				out(int index);
 
 void			error(t_lem *lem);
 void			end(t_lem *lem);
+void			pre_init_error(t_lem lem);
 
 void			send_ants(t_lem *lem);
 void			add_nbr_str(t_lem *lem, int nb, unsigned long *start);

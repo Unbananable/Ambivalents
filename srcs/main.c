@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:58:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:31:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			main(int ac, char **av)
 	lem.nb_rooms = 0;
 	count_rooms_and_fill_input(&lem);
 	if (lem.nb_rooms <= 1)
-		error(&lem);
+		pre_init_error(lem);
 	initialize(&lem);
 	parser(&lem);
 	if (lem.o_links[out(START)][in(END)])

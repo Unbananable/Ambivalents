@@ -6,18 +6,19 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 15:27:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:27:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	add_buffer(t_lem *lem, char *buff, int rval)
+static char	*add_buffer(t_lem *lem, char *buff, int rval)
 {
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
 					* (ft_strlen(lem->input) + rval))))
-		error(lem);
+		return (NULL);
 	lem->input = ft_strncat(lem->input, buff, rval);
+	return (lem->input);
 }
 
 /*
@@ -64,7 +65,7 @@ void		count_rooms_and_fill_input(t_lem *lem)
 	{
 		buff[rval] = 0;
 		i = ft_strlen(lem->input) - 1;
-		add_buffer(lem, buff, rval);
+		lem->input = add_buffer(lem, buff, rval);
 		while (stop < 1 && lem->input[++i])
 			if (lem->input[i] == '#')
 				while (lem->input[i] && lem->input[i] != '\n')
