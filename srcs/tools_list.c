@@ -6,13 +6,13 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:58:22 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 16:55:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:05:00 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_plist		*new_link(t_room *current)
+t_plist	*new_link(t_room *current)
 {
 	t_plist	*link;
 
@@ -24,7 +24,7 @@ t_plist		*new_link(t_room *current)
 	return (link);
 }
 
-void		delete_list(t_plist **list)
+void	delete_list(t_plist **list)
 {
 	t_plist	*current;
 	t_plist	*next;
@@ -41,7 +41,7 @@ void		delete_list(t_plist **list)
 	*list = NULL;
 }
 
-t_plist		*add_link(t_plist *link, t_plist *list)
+t_plist	*add_link(t_plist *link, t_plist *list)
 {
 	if (!link)
 		return (list);
