@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:33:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:50:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void			find_paths(t_lem *lem)
 	while (!stop)
 	{
 		clear_weights(lem);
-		if (bfs(lem) == -1)
-			stop = 1;
-		else
+		if ((stop = bfs(lem)) == -2)
+			error(lem);
+		else if (!stop)
 		{
 			if (!(current_paths = set_path_len_list(lem)))
 				error(lem);

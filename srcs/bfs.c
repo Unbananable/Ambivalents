@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:39:56 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 17:39:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:51:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 	{
 		if (!(next_w_list = (int *)malloc(sizeof(int) * (lem->nb_rooms - 1)
 				* (lem->nb_rooms - 1))))
-			return(-2);
+			return (-2);
 		lem->count = -1;
 		i = -1;
 		while (current_w_list[++i] != -1)
@@ -122,7 +122,7 @@ int			bfs(t_lem *lem)
 	int		path_index;
 
 	if (!(start_list = (int *)malloc(sizeof(int)
-					* (nb_links_from(lem, out(END), NULL) + 1))))
+			* (nb_links_from(lem, out(END), NULL) + 1))))
 		error(lem);
 	count = -1;
 	i = 1;
@@ -133,14 +133,12 @@ int			bfs(t_lem *lem)
 			lem->rooms[i / 2].w++;
 		}
 	start_list[++count] = -1;
-	path_index = bfs_recursive(lem, start_list);
-	if (path_index >= 0)
+	if ((path_index = bfs_recursive(lem, start_list)) >= 0)
 	{
 		lem->o_links[out(END)][path_index] = 0;
 		lem->o_links[path_index][out(END)] = 1;
+		path_index = 0;
 	}
 	free(start_list);
-	if (path_index == -2)
-		error(lem);
 	return (path_index);
 }
