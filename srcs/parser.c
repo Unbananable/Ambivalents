@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 16:29:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:46:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static void	parse_line(t_lem *lem, char **str, int *parse_step)
 	else
 		*parse_step = ERROR;
 	if (*parse_step == ERROR)
-		**str = 0;
+	{
+		**str = '\n';
+		*(++(*str)) = 0;
+	}
 }
 
 void		parser(t_lem *lem)
