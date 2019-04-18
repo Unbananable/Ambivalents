@@ -6,13 +6,13 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 14:23:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:58:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	write_instr(t_lem *lem, t_plist *curr_room, int *mem)
+static void	add_instr(t_lem *lem, t_plist *curr_room, int *mem)
 {
 	int		len_next;
 	int		len;
@@ -25,7 +25,7 @@ static void	write_instr(t_lem *lem, t_plist *curr_room, int *mem)
 		if (!(lem->instr = ft_char_realloc(lem->instr, ++(*mem) * BUFF_SIZE)))
 			error(lem);
 	lem->instr[len] = 'L';
-	write_number_str(lem, curr_room->room->ant_id, &len);
+	add_nbr_str(lem, curr_room->room->ant_id, &len);
 	lem->instr[++len] = '-';
 	if (curr_room->next)
 	{
@@ -53,7 +53,7 @@ static int	make_ants_move(t_lem *lem, int *mem)
 		cache = lem->paths[i].rooms;
 		while (cache->room->ant_id)
 		{
-			write_instr(lem, cache, mem);
+			add_instr(lem, cache, mem);
 			if (cache->next)
 				cache->next->room->ant_id = cache->room->ant_id;
 			cache->room->ant_id = 0;
@@ -84,7 +84,7 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 					++(*mem) * BUFF_SIZE)))
 				error(lem);
 		lem->instr[len] = 'L';
-		write_number_str(lem, lem->nb_ants - *ants_left + 1, &len);
+		add_nbr_str(lem, lem->nb_ants - *ants_left + 1, &len);
 		lem->instr[++len] = '-';
 		j = -1;
 		while (lem->paths[i].id_first[++j])

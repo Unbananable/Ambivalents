@@ -6,14 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/18 14:25:30 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/18 15:48:53 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
 CFLAGS = -Wall -Wextra -Werror
-
 SRC = main.c \
 	  get_options.c \
 	  count_rooms_and_fill_input.c \
@@ -28,7 +27,8 @@ SRC = main.c \
 	  tools_options.c \
 	  tools_o_links.c \
 	  tools_list.c \
-	  tools_send_ants.c
+	  tools_send_ants.c \
+	  bfs.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
