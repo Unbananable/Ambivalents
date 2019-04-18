@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:03:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:07:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			count_rooms_and_fill_input(t_lem *lem)
 					i++;
 			else if (lem->input[i] == '\n')
 			{
-				if (stop == -1) // Skip the line containing the number of ants
+				if (stop == -1)
 					stop = 0;
 				else if (is_room(lem->input, i - 1))
 					count++;

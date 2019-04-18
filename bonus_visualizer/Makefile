@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 19:33:16 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/18 14:26:54 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-CFLAGS = -Wall -Wextra -Werror -MP -MMD
+CFLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	  parser.c \
 	  set_rooms_and_ants.c \
@@ -34,8 +34,6 @@ SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-DPCS = $(OBJS:.o=.d)
-
 HDR = visualizer.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
@@ -43,6 +41,8 @@ HDRS = $(addprefix $(HDRSFD),$(HDR))
 HDR_INC = -I./includes
 LIBFT_HDR = -I../libft/inc
 LIB_BINARY = -L../libft -lft
+LIBFT= ../libft/libft.a
+
 SDL_HDR=$(shell sdl2-config --cflags | cut -d' ' -f1)
 SDL_IMAGE_HDR=$(SDL_HDR)_image
 SDL_TTF_HDR=$(SDL_HDR)_ttf
@@ -73,8 +73,9 @@ project:
 
 $(OBJSFD):
 	@mkdir $@
+	@echo "[ $(GREEN)✔$(NONE) ] bonus_visualizer/objs/ directory"
 
-$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS)
+$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS) $(LIBFT)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) $(SDL_HDR) $(SDL_IMAGE_HDR) $(SDL_TTF_HDR) $(SDL_GFX_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
@@ -87,7 +88,5 @@ fclean: clean
 	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
 
 re: fclean all
-
--include $(DPCS)
 
 .PHONY: make_start all project clean fclean re check_libft

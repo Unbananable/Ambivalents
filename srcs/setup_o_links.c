@@ -6,12 +6,11 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/11 12:53:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:10:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 static void	find_link(t_lem *lem, t_link *search, int i, char *str)
 {

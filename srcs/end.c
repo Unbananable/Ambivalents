@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/16 19:00:03 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:06:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	end(t_lem *lem)
 		i = -1;
 		while (lem->paths[++i].id_first)
 			delete_list(&lem->paths[i].rooms);
-		free(lem->paths);	
+		free(lem->paths);
 	}
 }
 
