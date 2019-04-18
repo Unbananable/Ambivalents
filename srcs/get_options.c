@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 19:04:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:09:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	apply_option(char *av, int *options)
 		add_option(options, 'r');
 	else if (ft_strequ(av, "full-info"))
 	{
-		add_option(options, 'p');
 		add_option(options, 'l');
 		add_option(options, 'a');
 		add_option(options, 'r');
