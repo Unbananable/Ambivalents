@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 16:58:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:11:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct	s_lem
 
 int				get_options(int *ac, char ***av);
 
-void				count_rooms_and_fill_input(t_lem *lem);
+void			count_rooms_and_fill_input(t_lem *lem);
 
 void			initialize_o_links(t_lem *lem);
 
@@ -89,9 +89,9 @@ void			find_paths(t_lem *lem);
 int				bfs(t_lem *lem);
 void			set_ants_per_room(t_lem *lem, t_path *paths);
 
-t_plist  		*new_link(t_room *current);
-void    		delete_list(t_plist **list);
-t_plist    		*add_link(t_plist *link, t_plist *list);
+t_plist			*new_link(t_room *current);
+void			delete_list(t_plist **list);
+t_plist			*add_link(t_plist *link, t_plist *list);
 
 int				in(int index);
 int				out(int index);
@@ -105,7 +105,7 @@ void			set_paths_to_start(t_path *paths);
 
 void			print_line_count(t_lem lem);
 void			print_paths(t_lem lem);
-void    		print_ant_nb(t_lem lem);
-void    		print_ants_per_room(t_lem lem);
+void			print_ant_nb(t_lem lem);
+void			print_ants_per_room(t_lem lem);
 
 #endif

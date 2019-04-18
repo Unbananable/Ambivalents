@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 14:48:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:09:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,11 @@ static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
 	return (-1);
 }
 
-/*
-** Returns a list of paths containing the information about the index and id of
-** the first rooms of the paths and their length (weight). Sorts the list by
-** length.
-*/
-
-static t_path	*set_path_len_list(t_lem *lem)
+static void		fill_path(t_lem *lem, t_path *paths, int nb_paths)
 {
-	int		nb_paths;
-	int		i;
-	int		count;
-	t_path	*paths;
-	t_path	tmp;
+	int	count;
+	int	i;
 
-	nb_paths = 0;
-	i = 1;
-	while (++i < lem->nb_rooms)
-		if (lem->o_links[in(START)][out(i)])
-			nb_paths++;
-	if (!(paths = (t_path *)malloc(sizeof(t_path) * (nb_paths + 1))))
-		return (NULL);
 	count = -1;
 	i = 1;
 	while (++i < lem->nb_rooms)
@@ -71,8 +55,30 @@ static t_path	*set_path_len_list(t_lem *lem)
 	paths[nb_paths].id_first = NULL;
 	paths[nb_paths].i_first = -1;
 	paths[nb_paths].w = 0;
-	count = -1;
-	while (++count < nb_paths)
+}
+
+/*
+** Returns a list of paths containing the information about the index and id of
+** the first rooms of the paths and their length (weight). Sorts the list by
+** length.
+*/
+
+static t_path	*set_path_len_list(t_lem *lem)
+{
+	int		nb_paths;
+	int		i;
+	t_path	*paths;
+	t_path	tmp;
+
+	nb_paths = 0;
+	i = 1;
+	while (++i < lem->nb_rooms)
+		if (lem->o_links[in(START)][out(i)])
+			nb_paths++;
+	if (!(paths = (t_path *)malloc(sizeof(t_path) * (nb_paths + 1))))
+		return (NULL);
+	fill_path(lem, paths, nb_paths);
+	while (nb_paths-- > 0)
 	{
 		i = -1;
 		while (paths[++i + 1].i_first != -1)
