@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 10:57:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 16:10:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	initialize(t_lem *lem)
 	lem->o_links = (int **)malloc(sizeof(int *) * (lem->nb_rooms * 2));
 	initialize_o_links(lem);
 	lem->instr = ft_strdup("\n");
+	lem->instr_len = 1;
 	lem->paths = NULL;
 	if (!lem->rooms || !lem->o_links || !lem->instr)
 		error(lem);

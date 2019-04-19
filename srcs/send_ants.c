@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:08:08 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:04:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 16:25:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void	process_sending(t_lem *lem, int i, int *ants_left, int *mem)
 		j = -1;
 		while (lem->paths[i].id_first[++j])
 			lem->instr[++len] = lem->paths[i].id_first[j];
-		ft_strcat(lem->instr, lem->paths[i].id_first);
 		lem->instr[++len] = ' ';
 		(*ants_left)--;
 		lem->paths[i].nb_remaining--;
@@ -109,7 +108,6 @@ void		send_ants(t_lem *lem)
 	int			ants_left;
 	int			first_line;
 
-	lem->instr_len = 1;
 	ants_left = lem->nb_ants;
 	first_line = 1;
 	set_paths_to_start(lem->paths);

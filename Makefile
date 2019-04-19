@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/19 15:48:42 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/19 16:13:55 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ fclean: clean
 	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
 	@echo "[ $(RED)✗$(NONE) ] visualizer executable"
 	@make -C ./libft fclean
+	@make -C ./bonus_visualizer fclean
 
 re: fclean all
 
