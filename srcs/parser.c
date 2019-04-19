@@ -6,11 +6,22 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 15:39:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 19:36:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void	skip_com(char ***str)
+{
+	while (***str == '#' && !ft_strnequ(**str, "##end\n", 6)
+			&& !ft_strnequ(**str, "##start\n", 8))
+	{
+		while (***str && ***str != '\n')
+			(**str)++;
+		(**str)++;
+	}
+}
 
 /*
 ** Ignores comments starting with #, and adds the information about the start
@@ -23,6 +34,8 @@ static void	detect_command(t_lem *lem, char **str, int *parse_step)
 	if (ft_strnequ(*str, "##start\n", 8))
 	{
 		*str += 8;
+		if (**str == '#')
+			skip_com(&str);
 		if (*parse_step != SET_ROOMS || lem->rooms[START].id
 				|| (set_rooms(lem, *str, START)) == ERROR)
 			error(lem);
@@ -30,6 +43,8 @@ static void	detect_command(t_lem *lem, char **str, int *parse_step)
 	else if (ft_strnequ(*str, "##end\n", 6))
 	{
 		*str += 6;
+		if (**str == '#')
+			skip_com(&str);
 		if (*parse_step != SET_ROOMS || lem->rooms[END].id
 				|| (set_rooms(lem, *str, END)) == -1)
 			error(lem);
