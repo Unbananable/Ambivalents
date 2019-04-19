@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 13:25:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:15:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
 		if (!(link = new_link(lem->rooms + current_index)))
 			return (-1);
 		*rooms = add_link(link, *rooms);
-		free(link);
 	}
 	if (current_index == END)
 		return (0);

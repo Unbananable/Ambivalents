@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 18:27:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:21:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 static char	*add_buffer(t_lem *lem, char *buff, int rval)
 {
+	int	i;
+
 	if (!(lem->input = ft_char_realloc(lem->input, sizeof(char)
-					* (ft_strlen(lem->input) + rval))))
+					* (lem->input_len + rval))))
 		return (NULL);
-	lem->input = ft_strncat(lem->input, buff, rval);
+	i = -1;
+	while (buff[++i] && i < rval)
+		lem->input[lem->input_len + i] = buff[i];
+	lem->input[lem->input_len + i] = '\0';
+	lem->input_len += rval;
 	return (lem->input);
 }
 
@@ -61,6 +67,7 @@ void		count_rooms_and_fill_input(t_lem *lem)
 	char	buff[BUFF_SIZE + 1];
 
 	stop = -1;
+	lem->input_len = 0;
 	while ((rval = read(0, buff, BUFF_SIZE)) > 0)
 	{
 		buff[rval] = 0;
