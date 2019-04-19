@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 18:46:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:59:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,9 @@ void		parser(t_lem *lem)
 {
 	char	*cache;
 	int		parse_step;
-	int		i;
 
 	cache = lem->input;
 	parse_step = SET_NB_ANTS;
-	i = -1;
-	while (++i < lem->nb_rooms)
-		if (i != END && i != START)
-		{
-			lem->o_links[out(i)][in(i)] = 1;
-			lem->o_links[in(i)][out(i)] = 1;
-		}
 	while (*cache)
 	{
 		parse_line(lem, &cache, &parse_step);

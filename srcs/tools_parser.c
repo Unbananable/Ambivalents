@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:16:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:05:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:59:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int			set_rooms(t_lem *lem, char *str, int current_room)
 	while (++i < current_room)
 		if (ft_strequ(lem->rooms[i].id, lem->rooms[current_room].id))
 			return (ERROR);
+	lem->o_links[in(current_room)][out(current_room)] = 1;
+	lem->o_links[out(current_room)][in(current_room)] = 1;
 	return (1);
 }
 

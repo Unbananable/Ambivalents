@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:56:17 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:21:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:50:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		count_rooms_and_fill_input(t_lem *lem)
 	while ((rval = read(0, buff, BUFF_SIZE)) > 0)
 	{
 		buff[rval] = 0;
-		i = ft_strlen(lem->input) - 1;
+		i = lem->input_len - 1;
 		lem->input = add_buffer(lem, buff, rval);
 		while (stop < 1 && lem->input[++i])
 			if (lem->input[i] == '#')

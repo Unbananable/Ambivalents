@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:23:23 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:05:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:06:01 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	set_paths_to_start(t_path *paths)
 	int		i;
 
 	i = -1;
+	if (!paths)
+		return ;
 	while (paths[++i].id_first)
 	{
 		while (paths[i].rooms->prev)

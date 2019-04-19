@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 11:07:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:08:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	print_help(void)
 	ft_putstr("\t--line-count: prints the number of lines of instructions ");
 	ft_putstr("necessary for all the ants to get to the end room\n");
 	ft_putstr("\t--ant-number: prints the number of ants\n");
-	ft_putstr("\t--ants-per-room: prints how many ants are sent in each path\n");
+	ft_putstr("\t--ants-per-room: prints how many ants are sent in each ");
+	ft_putstr("path\n");
 	ft_putstr("\t--full-info: activates --line-count --ants-per-room ");
 	ft_putstr("--ant-number\n");
 	ft_putstr("\t--help: you are here\n");

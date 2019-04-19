@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:47:28 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:11:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
 		if (!(link = new_link(lem->rooms + current_index)))
 			return (-1);
 		*rooms = add_link(link, *rooms);
-		free(link);
 	}
 	if (current_index == END)
 		return (0);
@@ -97,28 +96,14 @@ static t_path	*set_path_len_list(t_lem *lem)
 ** Resets the weight of the rooms to 0.
 */
 
-static void		clear_weights(t_lem *lem)
+static int		clear_weights(t_lem *lem)
 {
 	int		i;
 
 	i = -1;
 	while (++i < lem->nb_rooms)
 		lem->rooms[i].w = 0;
-}
-
-static void	free_path(t_path **paths)
-{
-	int		i;
-
-	set_paths_to_start(*paths);
-	if (*paths)
-	{
-		i = -1;
-		while ((*paths)[++i].id_first)
-			delete_list(&(*paths)[i].rooms);
-		free(*paths);
-	}
-	*paths = NULL;
+	return (1);
 }
 
 /*
@@ -133,9 +118,7 @@ void			find_paths(t_lem *lem)
 	t_path	*current_paths;
 
 	stop = 0;
-	while (!stop)
-	{
-		clear_weights(lem);
+	while (!stop && clear_weights(lem))
 		if ((stop = bfs(lem)) == -2)
 			error(lem);
 		else if (!stop)
@@ -155,5 +138,4 @@ void			find_paths(t_lem *lem)
 				stop = 1;
 			}
 		}
-	}
 }

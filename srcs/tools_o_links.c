@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:42:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/18 17:05:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:59:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ void	initialize_o_links(t_lem *lem)
 		i = -1;
 		while (++i < lem->nb_rooms * 2)
 			if (!(lem->o_links[i] = (int *)malloc(sizeof(int)
-							* (lem->nb_rooms * 2))))
+					* (lem->nb_rooms * 2))))
 			{
 				while (--i >= 0)
 					free(lem->o_links[i]);
 				free(lem->o_links);
 				lem->o_links = NULL;
+				return ;
 			}
 			else
 				ft_bzero(lem->o_links[i], (lem->nb_rooms * 2) * sizeof(int));
