@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:17:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:15:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:47:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int		get_path(t_lem *lem, t_plist **rooms, int current_index)
 		if (!(link = new_link(lem->rooms + current_index)))
 			return (-1);
 		*rooms = add_link(link, *rooms);
+		free(link);
 	}
 	if (current_index == END)
 		return (0);
@@ -105,6 +106,21 @@ static void		clear_weights(t_lem *lem)
 		lem->rooms[i].w = 0;
 }
 
+static void	free_path(t_path **paths)
+{
+	int		i;
+
+	set_paths_to_start(*paths);
+	if (*paths)
+	{
+		i = -1;
+		while ((*paths)[++i].id_first)
+			delete_list(&(*paths)[i].rooms);
+		free(*paths);
+	}
+	*paths = NULL;
+}
+
 /*
 ** Uses the Edmonds-Karp algorithm with all the vertices capacities at 1 to
 ** find paths of incrementing lengths as long as the new paths allow for a
@@ -130,11 +146,14 @@ void			find_paths(t_lem *lem)
 			if (!lem->paths || current_paths[0].nb_ants + current_paths[0].w
 					< lem->paths[0].nb_ants + lem->paths[0].w)
 			{
-				free(lem->paths);
+				free_path(&lem->paths);
 				lem->paths = current_paths;
 			}
 			else
+			{
+				free_path(&current_paths);
 				stop = 1;
+			}
 		}
 	}
 }
