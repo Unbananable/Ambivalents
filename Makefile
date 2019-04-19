@@ -6,13 +6,13 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/19 14:57:28 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/19 15:13:12 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	  get_options.c \
 	  count_rooms_and_fill_input.c \
