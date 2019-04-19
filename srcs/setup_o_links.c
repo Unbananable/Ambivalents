@@ -6,35 +6,44 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:13:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:59:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:39:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	find_link(t_lem *lem, t_link *search, int i, char *str)
-{
-	int		k;
-	int		j;
+/*
+** Returns a t_link variable containing the index of the rooms before and after
+** the separator (-). If no matching room is found, the index is -1.
+*/
 
-	j = i;
-	while (str[j] && str[j] != '\n')
-		j++;
-	str[i] = 0;
-	str[j] = 0;
-	k = -1;
-	while (++k < lem->nb_rooms)
+static t_link	get_linked_rooms(t_lem *lem, int i_separator, char *str)
+{
+	int		i;
+	int		i_endl;
+	t_link	res;
+
+	i_endl = i_separator;
+	while (str[i_endl] && str[i_endl] != '\n')
+		i_endl++;
+	str[i_separator] = 0;
+	str[i_endl] = 0;
+	res.st = -1;
+	res.nd = -1;
+	i = -1;
+	while (++i < lem->nb_rooms)
 	{
-		if (ft_strequ(str, lem->rooms[k].id))
-			search->st = k;
-		if (ft_strequ(str + i + 1, lem->rooms[k].id))
-			search->nd = k;
+		if (ft_strequ(str, lem->rooms[i].id))
+			res.st = i;
+		if (ft_strequ(str + i_separator + 1, lem->rooms[i].id))
+			res.nd = i;
 	}
-	str[i] = '-';
-	str[j] = '\n';
+	str[i_separator] = '-';
+	str[i_endl] = '\n';
+	return (res);
 }
 
-static void	init_links(t_link *link1, t_link *link2)
+static void		init_links(t_link *link1, t_link *link2)
 {
 	link1->st = -1;
 	link1->nd = -1;
@@ -42,7 +51,13 @@ static void	init_links(t_link *link1, t_link *link2)
 	link2->nd = -1;
 }
 
-static int	check_and_replace(t_link *link, t_link *tmp)
+/*
+** Returns an error if the first link has already been set. Returns 0 if the
+** second link is not valid (the first or second index is missing). Otherwise
+** it copies the values of the second link in the first link.
+*/
+
+static int		check_and_replace(t_link *link, t_link *tmp)
 {
 	if (tmp->st != -1 && tmp->nd != -1)
 	{
@@ -61,7 +76,7 @@ static int	check_and_replace(t_link *link, t_link *tmp)
 ** the current parser step.
 */
 
-int			setup_o_links(t_lem *lem, char *str)
+int				setup_o_links(t_lem *lem, char *str)
 {
 	int		i;
 	t_link	link;
@@ -71,11 +86,9 @@ int			setup_o_links(t_lem *lem, char *str)
 	i = -1;
 	while (str[++i] && str[i] != '\n')
 	{
-		tmp.st = -1;
-		tmp.nd = -1;
 		if (str[i] == '-')
 		{
-			find_link(lem, &tmp, i, str);
+			tmp = get_linked_rooms(lem, i, str);
 			if ((check_and_replace(&link, &tmp)) == ERROR)
 				return (ERROR);
 		}

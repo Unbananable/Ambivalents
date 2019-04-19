@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:59:45 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:39:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	detect_command(t_lem *lem, char **str, int *parse_step)
 
 /*
 ** Stores the information about the room, and increments the parsing step
-** if the information about the last room has been stored
+** if the information about the last room has been stored.
 */
 
 static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
@@ -83,6 +83,10 @@ static void	parse_line(t_lem *lem, char **str, int *parse_step)
 		*(++(*str)) = 0;
 	}
 }
+
+/*
+** Looks at the content of the input line by line.
+*/
 
 void		parser(t_lem *lem)
 {

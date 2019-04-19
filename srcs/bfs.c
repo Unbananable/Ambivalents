@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:39:56 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/18 17:51:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:47:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static int	process(t_lem *lem, int *next_w_list, int *current_w_list, int i)
 }
 
 /*
-** Recursively returns the index of the index of the room with the cuurent
+** Recursively returns the the index of the room with the cuurent
 ** weight which is included in the shortest path from start to end. In the
-** return process it also swaps the orientation of the links.
+** return process it also sets the orientation of the links.
 */
 
 static int	bfs_recursive(t_lem *lem, int *current_w_list)
@@ -108,10 +108,10 @@ static int	bfs_recursive(t_lem *lem, int *current_w_list)
 }
 
 /*
-** Returns the index of the shortest path from the end room to the start room.
-** Initializes the recursive bfs algorithm with the list of rooms linked to
-** the end room. It then swaps the orientation of the links which are used in
-** the path.
+** Returns -2 in case of error, -1 if no path was found or 0 if a path was
+** found. Initializes the recursive bfs algorithm with the list of rooms
+** linked to the end room. It then sets the orientation of the link between
+** the end and the last room of the path.
 */
 
 int			bfs(t_lem *lem)

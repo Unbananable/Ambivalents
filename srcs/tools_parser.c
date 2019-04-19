@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:16:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 14:59:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:39:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	is_room(char *str, int i)
 
 /*
 ** Stores the name of the room if the line's characteristics are compatible
-** with the definition of a room, and checks if the name already exists.
+** with the definition of a room, and checks if the name already exists (in
+** which case is returns an error).
 */
 
 int			set_rooms(t_lem *lem, char *str, int current_room)
