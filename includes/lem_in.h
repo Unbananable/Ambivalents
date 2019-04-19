@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/19 15:34:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:48:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define LEM_IN_H
 
 # include "libft.h"
-# include <unistd.h>
-
-# include <stdio.h>
 
 # define BUFF_SIZE 4096
 

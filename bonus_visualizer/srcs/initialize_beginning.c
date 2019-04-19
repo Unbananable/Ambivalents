@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:57:21 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/10 18:22:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:45:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	set_ant_surf(t_lem *lem, SDL_Surface **ant_surf)
 		*ant_surf = IMG_Load("bonus_visualizer/imgs/one_ant.png");
 	if (!(*ant_surf))
 	{
-		ft_putstr_fd("Tip: The option parameter might be not well written.", 2);
+		ft_putstr_fd("Tip: The option parameter might not be well written.", 2);
 		ft_putstr_fd(" Use the year of your picture and your pseudonym.\n", 2);
 		ft_putstr_fd("(Nota Bene : Make sure your picture is in /sgoinfre/", 2);
 		ft_putstr_fd("photos_students/<Year>/<Pseudonym>)\n", 2);

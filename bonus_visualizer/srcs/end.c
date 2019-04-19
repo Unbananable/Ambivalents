@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 17:25:54 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/10 17:50:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:44:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		error(t_lem *lem)
 {
-	ft_putstr_fd("The program has ended.\n", 2);
+	ft_putstr_fd("The process has been stopped.\n", 2);
 	end(lem);
 	exit(0);
 }
