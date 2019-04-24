@@ -6,3 +6,4 @@ objs/
 *.DS_Store
 libft/libft.a
 test
+*.dSYM/
