@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:16:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 15:39:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:33:30 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int			set_rooms(t_lem *lem, char *str, int current_room)
 	int		i;
 	int		i_end_id;
 
+	if (!str || !*str)
+		error(lem);
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;

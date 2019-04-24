@@ -6,20 +6,20 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:48:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 19:36:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:41:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	skip_com(char ***str)
+static void	skip_com(char **str)
 {
-	while (***str == '#' && !ft_strnequ(**str, "##end\n", 6)
-			&& !ft_strnequ(**str, "##start\n", 8))
+	while (**str == '#')
 	{
-		while (***str && ***str != '\n')
-			(**str)++;
-		(**str)++;
+		while (**str && **str != '\n')
+			(*str)++;
+		if (**str)
+			(*str)++;
 	}
 }
 
@@ -35,7 +35,7 @@ static void	detect_command(t_lem *lem, char **str, int *parse_step)
 	{
 		*str += 8;
 		if (**str == '#')
-			skip_com(&str);
+			skip_com(str);
 		if (*parse_step != SET_ROOMS || lem->rooms[START].id
 				|| (set_rooms(lem, *str, START)) == ERROR)
 			error(lem);
@@ -44,9 +44,9 @@ static void	detect_command(t_lem *lem, char **str, int *parse_step)
 	{
 		*str += 6;
 		if (**str == '#')
-			skip_com(&str);
+			skip_com(str);
 		if (*parse_step != SET_ROOMS || lem->rooms[END].id
-				|| (set_rooms(lem, *str, END)) == -1)
+				|| (set_rooms(lem, *str, END)) == ERROR)
 			error(lem);
 	}
 	if (lem->nb_rooms == 2 && lem->rooms[START].id && lem->rooms[END].id)
@@ -62,6 +62,8 @@ static void	manage_rooms(t_lem *lem, char *str, int *parse_step)
 {
 	static int	current_room;
 
+	if (END + 1 + current_room >= lem->nb_rooms)
+		error(lem);
 	if (set_rooms(lem, str, END + 1 + current_room) == ERROR)
 		error(lem);
 	if (++current_room + END + 1 == lem->nb_rooms)
