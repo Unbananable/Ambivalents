@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:16:52 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/24 15:33:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:14:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,21 @@ int			set_rooms(t_lem *lem, char *str, int current_room)
 
 int			set_nb_ants(t_lem *lem, char *str)
 {
-	int		i;
+	int				i;
+	unsigned int	nb_ants;
 
+	nb_ants = 0;
 	i = -1;
 	while (str[++i] && str[i] != '\n')
 		if (!ft_isdigit(str[i]))
 			return (ERROR);
-	if (i == 0 || (lem->nb_ants = ft_atoi(str)) == 0)
+		else
+		{
+			nb_ants = nb_ants * 10 + str[i] - '0';
+			if (nb_ants > INT_MAX)
+				return (ERROR);
+		}
+	if (i == 0 || (lem->nb_ants = (int)nb_ants) == 0)
 		return (ERROR);
 	return (1);
 }

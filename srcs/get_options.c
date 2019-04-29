@@ -6,11 +6,33 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 20:04:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 15:08:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:36:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void	print_map_rules(void)
+{
+	ft_putstr("======================== MAP RULES ========================\n");
+	ft_putstr("Maps should contain the following information in order:\n");
+	ft_putstr("\t1/ The number of ants, between 0 and 2147483647.\n");
+	ft_putstr("\t2/ The rooms and their coordinates (separated with a\n");
+	ft_putstr("\t   single space). Rooms may not have the same name and\n");
+	ft_putstr("\t   may not start with 'L'. Two of the rooms should be\n");
+	ft_putstr("\t   denoted as the starting and ending rooms by being\n");
+	ft_putstr("\t   preceded (on the previous line) with the commands\n");
+	ft_putstr("\t   '##start' and '##end' respectively.\n");
+	ft_putstr("\t3/ The links between the rooms, written as the name of\n");
+	ft_putstr("\t   the two rooms separated with a '-', without spaces.\n");
+	ft_putstr("There should not be any empty lines.\n");
+	ft_putstr("Lines starting with '#' are ignored.\n");
+	ft_putstr("If 1 and 2 are not valid, or if there is no path between\n");
+	ft_putstr("end  and start, the program will return an error. If one\n");
+	ft_putstr("link is invalid, the program will stop reading the map and\n");
+	ft_putstr("only take the information it has already read into account.\n");
+	exit(0);
+}
 
 static void	print_help(void)
 {
@@ -51,6 +73,8 @@ static int	apply_option(char *av, int *options)
 		add_option(options, 'r');
 	else if (ft_strequ(av, "help"))
 		print_help();
+	else if (ft_strequ(av, "map-rules"))
+		print_map_rules();
 	else if (ft_strequ(av, "full-info"))
 	{
 		add_option(options, 'l');

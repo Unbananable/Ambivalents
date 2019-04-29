@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:00:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/19 15:48:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:08:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define SET_NB_ANTS 0
 # define SET_ROOMS 1
 # define SET_LINKS 2
+
+# define INT_MAX 2147483647
 
 # define ERROR -1
 

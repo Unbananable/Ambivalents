@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:44:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/19 16:10:51 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/29 11:16:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	usage(void)
 	ft_putstr_fd("(Nota Bene: lem_in reads the standard input, use ", 2);
 	ft_putstr_fd("./lem_in < file to read from a file)\n", 2);
 	ft_putstr_fd("options: --silent --show-paths --line-count ", 2);
-	ft_putstr_fd("--ant-number --full-info --help\n", 2);
+	ft_putstr_fd("--ant-number --full-info --help --map-rules\n", 2);
 	exit(0);
 }
 
